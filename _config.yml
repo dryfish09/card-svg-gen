@@ -1,0 +1,61 @@
+# _config.yml - GitHub Pages with Jekyll
+
+# Site settings
+title: "GitHub Profile Card Generator"
+description: "Generate rich GitHub profile cards as SVG"
+baseurl: "/svg-gen" # the subpath of your site, e.g. /blog
+url: "https://dryfish09.github.io" # the base hostname & protocol
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .gitignore
+  - README.md
+  - LICENSE
+
+# Include these files/directories
+include:
+  - index.html
+  - assets/
+
+# GitHub Pages specific
+github: [metadata]
+
+# Custom variables
+author:
+  name: DryFish
+  github: dryfish09
+
+# Social links
+social:
+  name: Dryfish
+  links:
+    - https://github.com/yourusername
+# Collections (if needed)
+collections:
+  cards:
+    output: true
+    permalink: /cards/:path/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "cards"
+    values:
+      layout: "card"
