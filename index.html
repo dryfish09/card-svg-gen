@@ -125,14 +125,6 @@
         .btn-purple:hover {
             background: #8957e5;
         }
-        .btn-gold {
-            background: linear-gradient(135deg, #f0883e, #d29922);
-            color: #fff;
-        }
-        .btn-gold:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(210, 153, 34, 0.4);
-        }
 
         .card-preview {
             background: #0d1117;
@@ -172,6 +164,8 @@
         }
         .info-item {
             text-align: center;
+            overflow: hidden;
+            word-break: break-word;
         }
         .info-item .label {
             color: #8b949e;
@@ -183,6 +177,10 @@
             color: #f0f6fc;
             font-size: 20px;
             font-weight: 700;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .action-bar {
@@ -311,6 +309,14 @@
                 min-width: 80px;
                 font-size: 13px;
                 padding: 10px 16px;
+            }
+            .info-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+            .info-item .value {
+                font-size: 16px;
+                white-space: normal;
+                word-break: break-all;
             }
         }
     </style>
@@ -493,13 +499,11 @@
             orange: '#d29922',
             red: '#f85149',
             purple: '#6f42c1',
-            gold: '#f0883e',
-            gradient1: '#1c2333',
-            gradient2: '#161b22'
+            gold: '#f0883e'
         };
 
         const SPECIAL_USER = 'dryfish09';
-        const SPECIAL_NOTE = '👑 Creator of dryfish09.github.io/card-svg-gen/';
+        const SPECIAL_NOTE = 'Creator of dryfish09.github.io/card-svg-gen/';
 
         const usernameInput = document.getElementById('usernameInput');
         const generateBtn = document.getElementById('generateBtn');
@@ -593,21 +597,71 @@
 
             const isSpecial = login.toLowerCase() === SPECIAL_USER;
             
-            let cardWidth = 680;
-            let cardHeight = isSpecial ? 360 : 320;
+            // Bio wrapping
+            const maxBioLength = 50;
+            const rawBio = bio || 'No bio available';
+            const bioLines = [];
+            let remaining = rawBio;
             
+            if (remaining.length > maxBioLength) {
+                const words = remaining.split(' ');
+                let currentLine = '';
+                for (const word of words) {
+                    if ((currentLine + word).length <= maxBioLength) {
+                        currentLine += (currentLine ? ' ' : '') + word;
+                    } else {
+                        if (currentLine) bioLines.push(currentLine);
+                        currentLine = word;
+                    }
+                }
+                if (currentLine) bioLines.push(currentLine);
+            } else {
+                bioLines.push(remaining);
+            }
+            
+            while (bioLines.length > 2) {
+                const last = bioLines.pop();
+                bioLines[bioLines.length - 1] += '...';
+            }
+            
+            const bioLineCount = bioLines.length;
+            const extraHeight = Math.max(0, (bioLineCount - 1) * 18);
+            
+            // Dynamic card height
+            let cardHeight = 320 + extraHeight;
+            if (isSpecial) cardHeight += 40;
+            
+            const cardWidth = 680;
             const avatarSize = 96;
             const padding = 28;
             
+            // Name color
             let nameColor = COLORS.accent;
             if (isSpecial) nameColor = COLORS.gold;
             else if (followers > 1000) nameColor = COLORS.green;
             else if (followers > 500) nameColor = '#f0883e';
             else if (followers > 100) nameColor = COLORS.orange;
 
-            let bioText = bio || 'No bio available';
-            if (bioText.length > 65) bioText = bioText.substring(0, 62) + '...';
+            // Truncate location
+            const locationText = location || 'Location not set';
+            const wrappedLocation = locationText.length > 28 ? 
+                locationText.substring(0, 25) + '...' : 
+                locationText;
 
+            // Dynamic Y positions
+            const nameY = 28;
+            const usernameY = 52;
+            const bioStartY = 78;
+            const locationY = bioStartY + (bioLineCount * 18) + 4;
+            const joinedY = locationY + 18;
+            const minStatsY = 208;
+            const finalStatsY = Math.max(minStatsY, joinedY + 30);
+            
+            if (finalStatsY > cardHeight - 80) {
+                cardHeight = finalStatsY + 80;
+            }
+
+            // Stats
             const statItems = [
                 { icon: '⭐', label: 'Followers', value: followers },
                 { icon: '📦', label: 'Repositories', value: public_repos },
@@ -622,20 +676,40 @@
                 const formattedValue = formatNumber(item.value);
                 statsHTML += `
                     <g>
-                        <text x="${x}" y="208" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="26" font-weight="700" fill="${COLORS.text}" text-anchor="middle">${formattedValue}</text>
-                        <text x="${x}" y="232" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${COLORS.textMuted}" text-anchor="middle" letter-spacing="0.5">${item.icon} ${item.label}</text>
+                        <text x="${x}" y="${finalStatsY}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="26" font-weight="700" fill="${COLORS.text}" text-anchor="middle">${formattedValue}</text>
+                        <text x="${x}" y="${finalStatsY + 24}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${COLORS.textMuted}" text-anchor="middle" letter-spacing="0.5">${item.icon} ${item.label}</text>
                     </g>
                 `;
             });
 
+            // Special badge
             let specialBadgeHTML = '';
             if (isSpecial) {
+                const specialBadgeY = cardHeight - 52;
                 specialBadgeHTML = `
-                    <rect x="${padding}" y="${cardHeight - 52}" width="${cardWidth - padding * 2}" height="32" rx="8" ry="8" fill="url(#goldGrad)" opacity="0.15"/>
-                    <rect x="${padding}" y="${cardHeight - 52}" width="${cardWidth - padding * 2}" height="32" rx="8" ry="8" stroke="url(#goldGrad)" stroke-width="1" opacity="0.3"/>
-                    <text x="${cardWidth / 2}" y="${cardHeight - 32}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="13" fill="${COLORS.gold}" text-anchor="middle" font-weight="600"> ${SPECIAL_NOTE}</text>
+                    <rect x="${padding}" y="${specialBadgeY}" width="${cardWidth - padding * 2}" height="32" rx="8" ry="8" fill="url(#goldGrad)" opacity="0.15"/>
+                    <rect x="${padding}" y="${specialBadgeY}" width="${cardWidth - padding * 2}" height="32" rx="8" ry="8" stroke="url(#goldGrad)" stroke-width="1" opacity="0.3"/>
+                    <text x="${cardWidth / 2}" y="${specialBadgeY + 20}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="13" fill="${COLORS.gold}" text-anchor="middle" font-weight="600">${SPECIAL_NOTE}</text>
                 `;
             }
+
+            // Dynamic name sizing and truncation
+            const maxNameLength = 24;
+            const displayName = name || login;
+            const truncatedName = displayName.length > maxNameLength ? 
+                displayName.substring(0, maxNameLength - 3) + '...' : 
+                displayName;
+            
+            const nameFontSize = truncatedName.length > 20 ? 20 : 
+                                 truncatedName.length > 15 ? 22 : 24;
+            
+            // Bio HTML
+            let bioHTML = '';
+            bioLines.forEach((line, index) => {
+                bioHTML += `
+                    <text x="0" y="${bioStartY + (index * 18)}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="13" fill="${COLORS.text}" opacity="0.85">${line}</text>
+                `;
+            });
 
             return `<?xml version="1.0" encoding="UTF-8"?>
         <svg xmlns="http://www.w3.org/2000/svg" width="${cardWidth}" height="${cardHeight}" viewBox="0 0 ${cardWidth} ${cardHeight}">
@@ -660,13 +734,6 @@
                 </linearGradient>
                 <filter id="shadow">
                     <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000" flood-opacity="0.6"/>
-                </filter>
-                <filter id="glow">
-                    <feGaussianBlur stdDeviation="3" result="blur"/>
-                    <feMerge>
-                        <feMergeNode in="blur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
                 </filter>
                 <clipPath id="avatarClip">
                     <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2}"/>
@@ -700,22 +767,22 @@
             <image x="${padding + 4}" y="${padding + 4}" width="${avatarSize}" height="${avatarSize}" clip-path="url(#avatarClip)" href="${avatar_url}" preserveAspectRatio="xMidYMid slice"/>
 
             <g transform="translate(${padding + avatarSize + 20}, ${padding + 8})">
-                <text x="0" y="28" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="24" font-weight="700" fill="${nameColor}" letter-spacing="0.3">${name || login}</text>
+                <text x="0" y="${nameY}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="${nameFontSize}" font-weight="700" fill="${nameColor}" letter-spacing="0.3">${truncatedName}</text>
                 
-                <text x="0" y="52" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="14" fill="${COLORS.textMuted}">@${login}</text>
+                <text x="0" y="${usernameY}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="14" fill="${COLORS.textMuted}">@${login}</text>
                 
-                <text x="0" y="78" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="13" fill="${COLORS.text}" opacity="0.85">${bioText}</text>
+                ${bioHTML}
                 
-                <g transform="translate(0, 98)">
-                    <text x="0" y="0" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${COLORS.textMuted}">📍 ${location || 'Location not set'}</text>
+                <g transform="translate(0, ${locationY})">
+                    <text x="0" y="0" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${COLORS.textMuted}">📍 ${wrappedLocation}</text>
                 </g>
                 
-                <g transform="translate(0, 116)">
+                <g transform="translate(0, ${joinedY})">
                     <text x="0" y="0" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${COLORS.textMuted}">📅 Joined ${joinDate}</text>
                 </g>
             </g>
 
-            <line x1="${padding}" y1="${padding + avatarSize + 24}" x2="${cardWidth - padding}" y2="${padding + avatarSize + 24}" stroke="${COLORS.border}" stroke-width="1" stroke-dasharray="6,6" opacity="0.5"/>
+            <line x1="${padding}" y1="${Math.min(padding + avatarSize + 24, finalStatsY - 20)}" x2="${cardWidth - padding}" y2="${Math.min(padding + avatarSize + 24, finalStatsY - 20)}" stroke="${COLORS.border}" stroke-width="1" stroke-dasharray="6,6" opacity="0.5"/>
 
             ${statsHTML}
 
@@ -793,10 +860,15 @@
             if (userData) {
                 userInfo.style.display = 'grid';
                 const isSpecial = userData.login.toLowerCase() === SPECIAL_USER;
+                const displayName = (userData.name || userData.login);
+                const truncatedDisplayName = displayName.length > 30 ? 
+                    displayName.substring(0, 27) + '...' : 
+                    displayName;
+                
                 userInfo.innerHTML = `
                     <div class="info-item">
                         <div class="label">👤 Username</div>
-                        <div class="value" style="${isSpecial ? 'color:#f0883e;' : ''}">${userData.login}${isSpecial ? ' 👑' : ''}</div>
+                        <div class="value" style="${isSpecial ? 'color:#f0883e;' : ''}">${userData.login}</div>
                     </div>
                     <div class="info-item">
                         <div class="label">⭐ Followers</div>
