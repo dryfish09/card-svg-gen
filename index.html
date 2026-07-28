@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Profile Card Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: #1c2333;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 1000px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            border: 1px solid #30363d;
+        }
+        h1 {
+            color: #f0f6fc;
+            font-size: 28px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        h1 small {
+            font-size: 14px;
+            color: #8b949e;
+            font-weight: normal;
+        }
+        .subtitle {
+            color: #8b949e;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        .input-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .input-group input {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 12px;
+            border: 2px solid #30363d;
+            background: #0d1117;
+            color: #f0f6fc;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            min-width: 200px;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #58a6ff;
+        }
+        .input-group input::placeholder {
+            color: #484f58;
+        }
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #238636, #2ea043);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(46, 160, 67, 0.4);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-secondary {
+            background: #30363d;
+            color: #f0f6fc;
+        }
+        .btn-secondary:hover {
+            background: #484f58;
+        }
+        .btn-danger {
+            background: #da3633;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #f85149;
+        }
+        .btn-success {
+            background: #1f6feb;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #388bfd;
+        }
+        .btn-purple {
+            background: #6f42c1;
+            color: #fff;
+        }
+        .btn-purple:hover {
+            background: #8957e5;
+        }
+
+        .card-preview {
+            background: #0d1117;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px dashed #30363d;
+            min-height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 15px;
+            overflow-x: auto;
+        }
+        .card-preview svg {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+        .card-placeholder {
+            color: #484f58;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+            padding: 20px;
+            background: #0d1117;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+        .info-item {
+            text-align: center;
+        }
+        .info-item .label {
+            color: #8b949e;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .info-item .value {
+            color: #f0f6fc;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .action-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .action-bar .btn {
+            flex: 1;
+            min-width: 100px;
+            justify-content: center;
+        }
+
+        .status {
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin: 10px 0;
+            display: none;
+        }
+        .status.show {
+            display: block;
+        }
+        .status.loading {
+            background: #1f6feb33;
+            color: #58a6ff;
+            border: 1px solid #1f6feb55;
+        }
+        .status.success {
+            background: #23863633;
+            color: #3fb950;
+            border: 1px solid #23863655;
+        }
+        .status.error {
+            background: #da363333;
+            color: #f85149;
+            border: 1px solid #da363355;
+        }
+
+        .cache-info {
+            color: #8b949e;
+            font-size: 12px;
+            margin-top: 15px;
+            padding: 12px 16px;
+            background: #0d1117;
+            border-radius: 8px;
+            border: 1px solid #21262d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .cache-info code {
+            color: #58a6ff;
+            background: #161b22;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .cache-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .cache-badge.ram {
+            background: #1f6feb33;
+            color: #58a6ff;
+        }
+        .cache-badge.storage {
+            background: #23863633;
+            color: #3fb950;
+        }
+        .cache-badge.none {
+            background: #da363333;
+            color: #f85149;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #484f58;
+            font-size: 12px;
+            border-top: 1px solid #21262d;
+            padding-top: 20px;
+        }
+        .footer a {
+            color: #58a6ff;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .input-group input {
+                min-width: 100%;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .action-bar .btn {
+                min-width: 80px;
+                font-size: 13px;
+                padding: 10px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>
+            🃏 GitHub Profile Card
+            <small>wide card style</small>
+        </h1>
+        <p class="subtitle">
+            Enter GitHub username to generate a rich profile card SVG.
+            <span id="cacheTypeLabel" style="color:#58a6ff;">💾 Cache: RAM</span>
+        </p>
+
+        <div class="input-group">
+            <input type="text" id="usernameInput" placeholder="Enter username, e.g. torvalds" value="torvalds" />
+            <button class="btn btn-primary" id="generateBtn">✨ Generate Card</button>
+        </div>
+
+        <div id="status" class="status"></div>
+
+        <div class="card-preview" id="cardPreview">
+            <div class="card-placeholder" id="placeholder">
+                ⬆️ Enter username and click "Generate Card"
+            </div>
+        </div>
+
+        <div id="userInfo" class="info-grid" style="display:none;"></div>
+
+        <div class="action-bar">
+            <button class="btn btn-secondary" id="copyBtn">📋 Copy SVG</button>
+            <button class="btn btn-secondary" id="downloadBtn">💾 Download SVG</button>
+            <button class="btn btn-danger" id="clearCacheBtn">🗑️ Clear Cache</button>
+            <button class="btn btn-purple" id="viewCacheBtn">📦 View Cache</button>
+        </div>
+
+        <div class="cache-info">
+            <span>💾 Cache: <span id="cacheStatus">No data</span></span>
+            <span>
+                <span id="cacheCount">0</span> user(s) cached
+                <span id="cacheModeBadge" class="cache-badge ram">RAM</span>
+            </span>
+        </div>
+
+        <div class="footer">
+            Made with ❤️ · Data from <a href="https://api.github.com" target="_blank">GitHub API</a>
+            · <span id="storageInfo">Cache stored in RAM (lost on reload)</span>
+        </div>
+    </div>
+
+    <script>
+        const CacheEngine = {
+            _memory: {},
+            _storage: null,
+            _mode: 'memory',
+
+            init() {
+                try {
+                    if (typeof localStorage !== 'undefined') {
+                        const testKey = '_test_cache_';
+                        localStorage.setItem(testKey, 'test');
+                        localStorage.removeItem(testKey);
+                        this._storage = localStorage;
+                        this._mode = 'storage';
+                        console.log('✅ Using localStorage (persistent)');
+                        return;
+                    }
+                } catch (e) {
+                    console.warn('⚠️ localStorage not available, using RAM:', e.message);
+                }
+                this._mode = 'memory';
+                console.log('💾 Using RAM cache (lost on reload)');
+            },
+
+            get(key) {
+                if (this._mode === 'storage' && this._storage) {
+                    try {
+                        const raw = this._storage.getItem(key);
+                        if (!raw) return null;
+                        const data = JSON.parse(raw);
+                        if (data.timestamp && (Date.now() - data.timestamp) > data.ttl * 1000) {
+                            this._storage.removeItem(key);
+                            return null;
+                        }
+                        return data.value;
+                    } catch {
+                        return null;
+                    }
+                }
+                const entry = this._memory[key];
+                if (!entry) return null;
+                if (entry.timestamp && (Date.now() - entry.timestamp) > entry.ttl * 1000) {
+                    delete this._memory[key];
+                    return null;
+                }
+                return entry.value;
+            },
+
+            set(key, value, ttl = 600) {
+                const data = {
+                    value: value,
+                    timestamp: Date.now(),
+                    ttl: ttl
+                };
+                if (this._mode === 'storage' && this._storage) {
+                    try {
+                        this._storage.setItem(key, JSON.stringify(data));
+                        return;
+                    } catch {}
+                }
+                this._memory[key] = data;
+            },
+
+            remove(key) {
+                if (this._mode === 'storage' && this._storage) {
+                    try {
+                        this._storage.removeItem(key);
+                    } catch {}
+                }
+                delete this._memory[key];
+            },
+
+            clear() {
+                if (this._mode === 'storage' && this._storage) {
+                    try {
+                        const keys = Object.keys(this._storage);
+                        keys.forEach(k => {
+                            if (k.startsWith('github_card_')) {
+                                this._storage.removeItem(k);
+                            }
+                        });
+                    } catch {}
+                }
+                this._memory = {};
+            },
+
+            getAllKeys() {
+                let keys = [];
+                if (this._mode === 'storage' && this._storage) {
+                    try {
+                        const allKeys = Object.keys(this._storage);
+                        keys = allKeys.filter(k => k.startsWith('github_card_'));
+                    } catch {}
+                }
+                const memoryKeys = Object.keys(this._memory).filter(k => k.startsWith('github_card_'));
+                return [...new Set([...keys, ...memoryKeys])];
+            },
+
+            getStats() {
+                const keys = this.getAllKeys();
+                return {
+                    count: keys.length,
+                    keys: keys,
+                    mode: this._mode
+                };
+            },
+
+            getMode() {
+                return this._mode;
+            }
+        };
+
+        CacheEngine.init();
+
+        const CACHE_PREFIX = 'github_card_';
+        const CACHE_TTL = 600;
+
+        const COLORS = {
+            bg: '#0d1117',
+            cardBg: '#161b22',
+            border: '#30363d',
+            text: '#f0f6fc',
+            textMuted: '#8b949e',
+            accent: '#58a6ff',
+            green: '#2ea043',
+            orange: '#d29922',
+            red: '#f85149',
+            purple: '#6f42c1'
+        };
+
+        const usernameInput = document.getElementById('usernameInput');
+        const generateBtn = document.getElementById('generateBtn');
+        const cardPreview = document.getElementById('cardPreview');
+        const placeholder = document.getElementById('placeholder');
+        const userInfo = document.getElementById('userInfo');
+        const status = document.getElementById('status');
+        const copyBtn = document.getElementById('copyBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const clearCacheBtn = document.getElementById('clearCacheBtn');
+        const viewCacheBtn = document.getElementById('viewCacheBtn');
+        const cacheStatus = document.getElementById('cacheStatus');
+        const cacheCount = document.getElementById('cacheCount');
+        const cacheModeBadge = document.getElementById('cacheModeBadge');
+        const cacheTypeLabel = document.getElementById('cacheTypeLabel');
+        const storageInfo = document.getElementById('storageInfo');
+
+        let currentUserData = null;
+        let currentSVG = '';
+
+        function getCacheKey(username) {
+            return `${CACHE_PREFIX}${username.toLowerCase()}`;
+        }
+
+        function getCachedUser(username) {
+            const key = getCacheKey(username);
+            return CacheEngine.get(key);
+        }
+
+        function setCachedUser(username, data) {
+            const key = getCacheKey(username);
+            CacheEngine.set(key, data, CACHE_TTL);
+        }
+
+        function clearAllCache() {
+            CacheEngine.clear();
+            updateCacheUI();
+            showStatus('🗑️ Cache cleared', 'success');
+        }
+
+        function getCacheStats() {
+            return CacheEngine.getStats();
+        }
+
+        function updateCacheUI() {
+            const stats = getCacheStats();
+            const mode = CacheEngine.getMode();
+            const modeLabels = {
+                'storage': { text: '💾 Persistent', cls: 'storage' },
+                'memory': { text: '🧠 RAM', cls: 'ram' },
+                'none': { text: '❌ Off', cls: 'none' }
+            };
+            const info = modeLabels[mode] || modeLabels.none;
+            cacheModeBadge.textContent = info.text;
+            cacheModeBadge.className = `cache-badge ${info.cls}`;
+            const modeText = {
+                'storage': '💾 Cache: Persistent (localStorage)',
+                'memory': '🧠 Cache: RAM (lost on reload)',
+                'none': '❌ Cache: Off'
+            };
+            cacheTypeLabel.textContent = modeText[mode] || modeText.none;
+            storageInfo.textContent = mode === 'storage' ?
+                '✅ Data stored in localStorage (survives reload)' :
+                '⚠️ Data stored in RAM (will be lost on reload)';
+            cacheCount.textContent = stats.count;
+            if (stats.count === 0) {
+                cacheStatus.textContent = 'No cached data';
+            } else {
+                cacheStatus.textContent = `${stats.count} user(s) cached`;
+            }
+        }
+
+        function generateProfileCardSVG(username, data) {
+            const { name, login, public_repos, followers, following, created_at, bio, location, avatar_url } = data;
+            
+            const joinDate = new Date(created_at).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+
+            const cardWidth = 600;
+            const cardHeight = 280;
+            const avatarSize = 80;
+            const padding = 24;
+            const nameColor = followers > 100 ? COLORS.green : followers > 50 ? COLORS.orange : COLORS.accent;
+
+            let bioText = bio || 'No bio available';
+            if (bioText.length > 60) bioText = bioText.substring(0, 57) + '...';
+
+            const statItems = [
+                { icon: '⭐', label: 'Followers', value: followers },
+                { icon: '📦', label: 'Repos', value: public_repos },
+                { icon: '👥', label: 'Following', value: following }
+            ];
+
+            let statsHTML = '';
+            statItems.forEach((item, index) => {
+                const x = 160 + index * 140;
+                statsHTML += `
+                    <text x="${x}" y="190" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="700" fill="${COLORS.text}">${item.value}</text>
+                    <text x="${x}" y="210" font-family="'Segoe UI', Arial, sans-serif" font-size="11" fill="${COLORS.textMuted}" text-anchor="middle">${item.icon} ${item.label}</text>
+                `;
+            });
+
+            return `<?xml version="1.0" encoding="UTF-8"?>
+        <svg xmlns="http://www.w3.org/2000/svg" width="${cardWidth}" height="${cardHeight}" viewBox="0 0 ${cardWidth} ${cardHeight}">
+            <defs>
+                <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#1c2333;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#161b22;stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:${COLORS.accent};stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:${COLORS.purple};stop-opacity:1" />
+                </linearGradient>
+                <filter id="shadow">
+                    <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.5"/>
+                </filter>
+                <clipPath id="avatarClip">
+                    <circle cx="72" cy="72" r="${avatarSize/2}"/>
+                </clipPath>
+            </defs>
+
+            <rect x="0" y="0" width="${cardWidth}" height="${cardHeight}" rx="16" ry="16" fill="url(#cardGrad)" filter="url(#shadow)"/>
+            <rect x="0" y="0" width="${cardWidth}" height="4" rx="2" ry="2" fill="url(#accentGrad)"/>
+
+            <circle cx="72" cy="72" r="${avatarSize/2 + 2}" fill="url(#accentGrad)" opacity="0.3"/>
+            <circle cx="72" cy="72" r="${avatarSize/2}" fill="${COLORS.bg}"/>
+            <image x="32" y="32" width="${avatarSize}" height="${avatarSize}" clip-path="url(#avatarClip)" href="${avatar_url}" preserveAspectRatio="xMidYMid slice"/>
+
+            <text x="${padding + avatarSize + 16}" y="52" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="700" fill="${nameColor}">${name || login}</text>
+            <text x="${padding + avatarSize + 16}" y="74" font-family="'Segoe UI', Arial, sans-serif" font-size="14" fill="${COLORS.textMuted}">@${login}</text>
+
+            <text x="${padding + avatarSize + 16}" y="100" font-family="'Segoe UI', Arial, sans-serif" font-size="12" fill="${COLORS.textMuted}">${bioText}</text>
+
+            <text x="${padding + avatarSize + 16}" y="122" font-family="'Segoe UI', Arial, sans-serif" font-size="11" fill="${COLORS.textMuted}">📍 ${location || 'Location not set'}</text>
+            <text x="${padding + avatarSize + 16}" y="140" font-family="'Segoe UI', Arial, sans-serif" font-size="11" fill="${COLORS.textMuted}">📅 Joined ${joinDate}</text>
+
+            <line x1="${padding}" y1="165" x2="${cardWidth - padding}" y2="165" stroke="${COLORS.border}" stroke-width="1" stroke-dasharray="4,4"/>
+
+            ${statsHTML}
+
+            <text x="${cardWidth - 16}" y="${cardHeight - 10}" font-family="'Segoe UI', Arial, sans-serif" font-size="9" fill="${COLORS.textMuted}" text-anchor="end">✨ GitHub Profile Card</text>
+        </svg>`;
+        }
+
+        function adjustColor(hex, percent) {
+            let r = parseInt(hex.slice(1, 3), 16);
+            let g = parseInt(hex.slice(3, 5), 16);
+            let b = parseInt(hex.slice(5, 7), 16);
+            r = Math.max(0, Math.min(255, r + percent));
+            g = Math.max(0, Math.min(255, g + percent));
+            b = Math.max(0, Math.min(255, b + percent));
+            return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+        }
+
+        async function fetchGitHubUser(username) {
+            const url = `https://api.github.com/users/${username}`;
+            const response = await fetch(url, {
+                headers: {
+                    'Accept': 'application/json',
+                    'User-Agent': 'GitHub-Profile-Card-Generator'
+                }
+            });
+
+            if (!response.ok) {
+                if (response.status === 404) {
+                    throw new Error(`User "${username}" not found`);
+                }
+                if (response.status === 403) {
+                    throw new Error('API rate limit exceeded (60 req/hour). Please try again later.');
+                }
+                throw new Error(`Error ${response.status}: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            return {
+                name: data.name || username,
+                login: data.login,
+                public_repos: data.public_repos || 0,
+                followers: data.followers || 0,
+                following: data.following || 0,
+                created_at: data.created_at,
+                avatar_url: data.avatar_url || 'https://github.com/identicons/default.png',
+                bio: data.bio || '',
+                location: data.location || '',
+                company: data.company || '',
+                blog: data.blog || '',
+                twitter: data.twitter_username || '',
+                email: data.email || ''
+            };
+        }
+
+        function showStatus(message, type = 'loading') {
+            status.textContent = message;
+            status.className = `status show ${type}`;
+            if (type === 'success' || type === 'error') {
+                setTimeout(() => {
+                    if (status.textContent === message) {
+                        status.className = 'status';
+                    }
+                }, 5000);
+            }
+        }
+
+        function renderCard(svg, userData) {
+            currentSVG = svg;
+            currentUserData = userData;
+
+            placeholder.style.display = 'none';
+
+            const wrapper = document.createElement('div');
+            wrapper.innerHTML = svg;
+            const svgElement = wrapper.firstElementChild;
+
+            const oldSvg = cardPreview.querySelector('svg');
+            if (oldSvg) oldSvg.remove();
+            cardPreview.appendChild(svgElement);
+
+            if (userData) {
+                userInfo.style.display = 'grid';
+                userInfo.innerHTML = `
+                    <div class="info-item">
+                        <div class="label">👤 Username</div>
+                        <div class="value">${userData.login}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">⭐ Followers</div>
+                        <div class="value">${userData.followers}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">📦 Repos</div>
+                        <div class="value">${userData.public_repos}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">👥 Following</div>
+                        <div class="value">${userData.following}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">📍 Location</div>
+                        <div class="value" style="font-size:14px;">${userData.location || 'N/A'}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">📅 Joined</div>
+                        <div class="value" style="font-size:14px;">${new Date(userData.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
+                    </div>
+                `;
+            }
+
+            updateCacheUI();
+        }
+
+        function showPlaceholder(text) {
+            placeholder.style.display = 'block';
+            placeholder.textContent = text;
+            const oldSvg = cardPreview.querySelector('svg');
+            if (oldSvg) oldSvg.remove();
+            userInfo.style.display = 'none';
+            currentSVG = '';
+            currentUserData = null;
+        }
+
+        async function generateCard(username) {
+            if (!username || username.trim() === '') {
+                showStatus('⚠️ Please enter a username', 'error');
+                return;
+            }
+
+            username = username.trim();
+            showStatus(`🔄 Fetching data for @${username}...`, 'loading');
+            generateBtn.disabled = true;
+
+            try {
+                const cached = getCachedUser(username);
+                if (cached) {
+                    console.log('✅ Using cache for', username);
+                    const svg = generateProfileCardSVG(username, cached);
+                    renderCard(svg, cached);
+                    const mode = CacheEngine.getMode();
+                    const modeText = mode === 'storage' ? '💾 persistent' : '🧠 RAM';
+                    showStatus(`📦 Using cached data (${modeText})`, 'success');
+                    generateBtn.disabled = false;
+                    return;
+                }
+
+                console.log('🔄 Cache miss, calling API for', username);
+                const userData = await fetchGitHubUser(username);
+
+                setCachedUser(username, userData);
+                console.log('💾 Cached data for', username);
+
+                const svg = generateProfileCardSVG(username, userData);
+                renderCard(svg, userData);
+                const mode = CacheEngine.getMode();
+                const modeText = mode === 'storage' ? '💾 persistent' : '🧠 RAM';
+                showStatus(`🎉 Generated new card for @${username}! (cache: ${modeText})`, 'success');
+
+            } catch (error) {
+                console.error('❌ Error:', error);
+                showStatus(`❌ ${error.message}`, 'error');
+                showPlaceholder(`❌ ${error.message}`);
+            } finally {
+                generateBtn.disabled = false;
+                updateCacheUI();
+            }
+        }
+
+        copyBtn.addEventListener('click', () => {
+            if (!currentSVG) {
+                showStatus('⚠️ No card to copy', 'error');
+                return;
+            }
+            navigator.clipboard.writeText(currentSVG).then(() => {
+                showStatus('📋 SVG copied to clipboard!', 'success');
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = currentSVG;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showStatus('📋 SVG copied!', 'success');
+            });
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            if (!currentSVG || !currentUserData) {
+                showStatus('⚠️ No card to download', 'error');
+                return;
+            }
+            const blob = new Blob([currentSVG], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `github-card-${currentUserData.login}.svg`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showStatus('💾 SVG downloaded!', 'success');
+        });
+
+        clearCacheBtn.addEventListener('click', () => {
+            if (confirm('Clear all cached data?')) {
+                clearAllCache();
+                if (currentUserData) {
+                    generateCard(currentUserData.login);
+                } else {
+                    showPlaceholder('⬆️ Cache cleared. Enter username to generate.');
+                }
+            }
+        });
+
+        viewCacheBtn.addEventListener('click', () => {
+            const stats = getCacheStats();
+            if (stats.count === 0) {
+                showStatus('📦 Cache is empty!', 'error');
+                return;
+            }
+            const mode = CacheEngine.getMode();
+            const modeText = mode === 'storage' ? 'persistent' : 'RAM (lost on reload)';
+            const msg = `📦 Cache (${modeText}) has ${stats.count} user(s):\n${stats.keys.join('\n')}`;
+            alert(msg);
+            showStatus(`📦 Showing ${stats.count} user(s) in cache`, 'success');
+        });
+
+        generateBtn.addEventListener('click', () => {
+            generateCard(usernameInput.value);
+        });
+
+        usernameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                generateCard(usernameInput.value);
+            }
+        });
+
+        updateCacheUI();
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const defaultUser = usernameInput.value;
+            generateCard(defaultUser);
+        });
+
+        window.debug = {
+            getCachedUser,
+            setCachedUser,
+            clearAllCache,
+            generateCard,
+            fetchGitHubUser,
+            getCacheStats,
+            CacheEngine
+        };
+
+        console.log('🚀 GitHub Profile Card Generator ready!');
+        console.log(`📌 Cache mode: ${CacheEngine.getMode()}`);
+        console.log('📌 Type debug.generateCard("username") to test');
+        console.log('📦 View cache: debug.getCacheStats()');
+    </script>
+
+</body>
+</html>
