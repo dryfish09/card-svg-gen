@@ -586,7 +586,7 @@
     </div>
 
     <script>
-        // Cache Engine - Fixed: Proper initialization with race condition fix
+        // Cache Engine
         const CacheEngine = (function() {
             const _memory = {};
             let _storage = null;
@@ -608,7 +608,6 @@
                     console.warn('⚠️ localStorage not available, using RAM:', e.message);
                 }
                 _initialized = true;
-                console.log('💾 Using RAM cache (lost on reload)');
             }
 
             function get(key) {
@@ -636,7 +635,6 @@
             }
 
             function set(key, value, ttl = 600) {
-                // Fixed: Check localStorage quota before storing
                 const data = {
                     value: value,
                     timestamp: Date.now(),
@@ -647,10 +645,8 @@
                         _storage.setItem(key, JSON.stringify(data));
                         return;
                     } catch (e) {
-                        // Fixed: Handle quota exceeded error gracefully
                         if (e.name === 'QuotaExceededError' || e.code === 22) {
                             console.warn('⚠️ localStorage quota exceeded, falling back to RAM');
-                            // Fallback to memory mode for this item
                             _memory[key] = data;
                             return;
                         }
@@ -792,7 +788,6 @@
 
         let currentUserData = null;
         let currentSVG = '';
-        let currentThemeCache = 'default';
 
         function setTheme(theme) {
             currentTheme = theme;
@@ -809,11 +804,9 @@
                 document.body.classList.remove('light-mode');
             }
 
-            // Fixed: Regenerate card with new theme if data exists
             if (currentUserData) {
                 const svg = generateProfileCardSVG(currentUserData.login, currentUserData);
                 renderCard(svg, currentUserData);
-                currentThemeCache = theme;
             }
         }
 
@@ -936,7 +929,6 @@
             const extraHeight = Math.max(0, (bioLineCount - 1) * 18);
             
             let cardHeight = 320 + extraHeight;
-            // Fixed: Check both conditions for special badge
             if (isSpecialTheme) cardHeight += 40;
             
             const cardWidth = 680;
@@ -991,7 +983,6 @@
             if (isSpecialTheme) {
                 const specialBadgeY = cardHeight - 52;
                 const noteText = isSpecial ? SPECIAL_NOTE : '✨ Special Theme Edition';
-                // Fixed: Use consistent gold colors for light/dark mode
                 const goldColor = isLight ? colors.goldLight : colors.gold;
                 const goldBg = isLight ? colors.goldBgLight : colors.goldBg;
                 
@@ -1019,8 +1010,6 @@
             });
 
             const goldColor = isLight ? colors.goldLight : colors.gold;
-
-            // Fixed: Default avatar fallback that actually works
             const avatarUrl = avatar_url || 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
 
             return `<?xml version="1.0" encoding="UTF-8"?>
@@ -1076,7 +1065,6 @@
             
             <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2}" fill="${colors.bg}"/>
             
-            <!-- Fixed: Both href and xlink:href for compatibility -->
             <image x="${padding + 4}" y="${padding + 4}" width="${avatarSize}" height="${avatarSize}" clip-path="url(#avatarClip)" href="${avatarUrl}" xlink:href="${avatarUrl}" preserveAspectRatio="xMidYMid slice"/>
 
             <g transform="translate(${padding + avatarSize + 20}, ${padding + 8})">
@@ -1326,191 +1314,192 @@
             }
         }
 
-        // Fixed: PNG Download with proper CORS and error handling
         function downloadPNG() {
             if (!currentSVG || !currentUserData) {
                 showStatus('⚠️ No card to download as PNG', 'error');
                 return;
             }
 
-            showStatus('🔄 Converting to PNG...', 'loading');
-
-            const svgElement = cardPreview.querySelector('svg');
-            if (!svgElement) {
-                showStatus('❌ No SVG element found', 'error');
-                return;
+            // Method 1: Try html2canvas (if available)
+            if (typeof html2canvas !== 'undefined') {
+                try {
+                    showStatus('🔄 Converting to PNG using html2canvas...', 'loading');
+                    html2canvas(cardPreview.querySelector('svg'), {
+                        scale: 2,
+                        backgroundColor: currentTheme === 'light' ? '#ffffff' : '#0d1117',
+                        allowTaint: true,
+                        useCORS: true,
+                        logging: false
+                    }).then(canvas => {
+                        const link = document.createElement('a');
+                        link.download = `github-card-${currentUserData.login}.png`;
+                        link.href = canvas.toDataURL('image/png');
+                        link.click();
+                        showStatus('🖼️ PNG downloaded! (html2canvas)', 'success');
+                    }).catch(() => {
+                        // Fallback to method 2
+                        downloadPNGMethod2();
+                    });
+                    return;
+                } catch (e) {
+                    console.warn('html2canvas failed, trying fallback:', e);
+                }
             }
 
-            const width = parseInt(svgElement.getAttribute('width')) || 680;
-            const height = parseInt(svgElement.getAttribute('height')) || 320;
-            
-            const clonedSvg = svgElement.cloneNode(true);
-            clonedSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-            clonedSvg.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
-            clonedSvg.setAttribute('width', width);
-            clonedSvg.setAttribute('height', height);
+            // Method 2: Canvas with embedded SVG (most compatible)
+            downloadPNGMethod2();
+        }
 
-            // Fixed: Process images with proper error handling
-            const images = clonedSvg.querySelectorAll('image');
-            let loadedCount = 0;
-            const totalImages = images.length;
-
-            if (totalImages > 0) {
-                let loadPromises = [];
-                images.forEach(img => {
-                    const href = img.getAttribute('href') || img.getAttribute('xlink:href');
-                    if (href && href.startsWith('http')) {
-                        const promise = new Promise((resolve) => {
-                            const tempImg = new Image();
-                            tempImg.crossOrigin = 'anonymous';
-                            tempImg.referrerPolicy = 'no-referrer';
-                            tempImg.onload = () => {
-                                try {
-                                    const canvas = document.createElement('canvas');
-                                    const ctx = canvas.getContext('2d');
-                                    const imgWidth = parseInt(img.getAttribute('width')) || 96;
-                                    const imgHeight = parseInt(img.getAttribute('height')) || 96;
-                                    canvas.width = imgWidth;
-                                    canvas.height = imgHeight;
-                                    ctx.drawImage(tempImg, 0, 0, imgWidth, imgHeight);
-                                    const dataUrl = canvas.toDataURL('image/png');
-                                    img.setAttribute('href', dataUrl);
-                                    img.setAttribute('xlink:href', dataUrl);
-                                } catch (e) {
-                                    console.warn('Failed to process image:', e);
-                                }
-                                resolve();
-                            };
-                            tempImg.onerror = () => {
-                                // Fixed: Use fallback image on error
-                                console.warn('Failed to load image:', href);
-                                // Use GitHub's default avatar as fallback
-                                const fallbackUrl = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
-                                const fallbackImg = new Image();
-                                fallbackImg.crossOrigin = 'anonymous';
-                                fallbackImg.onload = () => {
-                                    try {
-                                        const canvas = document.createElement('canvas');
-                                        const ctx = canvas.getContext('2d');
-                                        const imgWidth = parseInt(img.getAttribute('width')) || 96;
-                                        const imgHeight = parseInt(img.getAttribute('height')) || 96;
-                                        canvas.width = imgWidth;
-                                        canvas.height = imgHeight;
-                                        ctx.drawImage(fallbackImg, 0, 0, imgWidth, imgHeight);
-                                        const dataUrl = canvas.toDataURL('image/png');
-                                        img.setAttribute('href', dataUrl);
-                                        img.setAttribute('xlink:href', dataUrl);
-                                    } catch (e) {
-                                        console.warn('Failed to load fallback image');
-                                    }
-                                    resolve();
-                                };
-                                fallbackImg.onerror = () => {
-                                    resolve();
-                                };
-                                fallbackImg.src = fallbackUrl;
-                            };
-                            tempImg.src = href;
-                        });
-                        loadPromises.push(promise);
-                    }
-                });
+        function downloadPNGMethod2() {
+            try {
+                showStatus('🔄 Converting to PNG (method 2)...', 'loading');
                 
-                Promise.all(loadPromises).then(() => {
-                    renderPNG(clonedSvg, width, height);
-                }).catch(() => {
-                    renderPNG(clonedSvg, width, height);
-                });
-            } else {
-                renderPNG(clonedSvg, width, height);
+                const svgElement = cardPreview.querySelector('svg');
+                if (!svgElement) {
+                    showStatus('❌ No SVG element found', 'error');
+                    return;
+                }
+
+                const width = parseInt(svgElement.getAttribute('width')) || 680;
+                const height = parseInt(svgElement.getAttribute('height')) || 320;
+                
+                // Clone and prepare SVG
+                const clonedSvg = svgElement.cloneNode(true);
+                clonedSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+                clonedSvg.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
+                clonedSvg.setAttribute('width', width);
+                clonedSvg.setAttribute('height', height);
+                
+                // Convert to string
+                const serializer = new XMLSerializer();
+                let svgString = serializer.serializeToString(clonedSvg);
+                
+                // Add XML declaration
+                svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
+                
+                // Create canvas with 2x scale
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const scale = 2;
+                canvas.width = width * scale;
+                canvas.height = height * scale;
+                ctx.scale(scale, scale);
+                
+                // For light mode, fill white background
+                if (currentTheme === 'light') {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, width, height);
+                }
+                
+                // Create image from SVG data URI (most compatible)
+                const encodedSvg = encodeURIComponent(svgString);
+                const dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodedSvg;
+                
+                const img = new Image();
+                img.onload = function() {
+                    ctx.drawImage(img, 0, 0, width, height);
+                    const pngData = canvas.toDataURL('image/png');
+                    const link = document.createElement('a');
+                    link.download = `github-card-${currentUserData.login}.png`;
+                    link.href = pngData;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    showStatus('🖼️ PNG downloaded! (method 2)', 'success');
+                };
+                img.onerror = function() {
+                    // Fallback to method 3
+                    downloadPNGMethod3();
+                };
+                img.src = dataUrl;
+                
+            } catch (e) {
+                console.warn('Method 2 failed:', e);
+                downloadPNGMethod3();
             }
         }
 
-        function renderPNG(svgElement, width, height) {
-            const isLight = currentTheme === 'light';
-            
-            const serializer = new XMLSerializer();
-            let svgString = serializer.serializeToString(svgElement);
-            svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
-            
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            
-            const scale = 2;
-            canvas.width = width * scale;
-            canvas.height = height * scale;
-            ctx.scale(scale, scale);
-            
-            if (isLight) {
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(0, 0, width, height);
-            }
-            
-            const img = new Image();
-            const svgBlob = new Blob([svgString], { 
-                type: 'image/svg+xml;charset=utf-8' 
-            });
-            const url = URL.createObjectURL(svgBlob);
-
-            img.onload = function() {
-                ctx.drawImage(img, 0, 0, width, height);
-                // Fixed: Revoke URL after use
-                URL.revokeObjectURL(url);
-
-                const pngDataUrl = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.download = `github-card-${currentUserData.login}.png`;
-                link.href = pngDataUrl;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+        function downloadPNGMethod3() {
+            try {
+                showStatus('🔄 Converting to PNG (method 3 - fallback)...', 'loading');
                 
-                showStatus(`🖼️ PNG downloaded! (${width}x${height}px, 2x retina)`, 'success');
-            };
+                // Method 3: Use canvas with SVG blob URL (more reliable for some browsers)
+                const svgElement = cardPreview.querySelector('svg');
+                if (!svgElement) {
+                    showStatus('❌ No SVG element found', 'error');
+                    return;
+                }
 
-            img.onerror = function() {
-                // Fixed: Revoke URL on error too
-                URL.revokeObjectURL(url);
-                // Fallback method
-                try {
-                    const fallbackCanvas = document.createElement('canvas');
-                    const fallbackCtx = fallbackCanvas.getContext('2d');
-                    fallbackCanvas.width = width * scale;
-                    fallbackCanvas.height = height * scale;
-                    fallbackCtx.scale(scale, scale);
-                    
-                    if (isLight) {
-                        fallbackCtx.fillStyle = '#ffffff';
-                        fallbackCtx.fillRect(0, 0, width, height);
-                    }
-                    
-                    const encodedSvg = encodeURIComponent(svgString);
-                    const dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodedSvg;
-                    
-                    const fallbackImg = new Image();
-                    fallbackImg.onload = function() {
-                        fallbackCtx.drawImage(fallbackImg, 0, 0, width, height);
-                        const pngData = fallbackCanvas.toDataURL('image/png');
+                const width = parseInt(svgElement.getAttribute('width')) || 680;
+                const height = parseInt(svgElement.getAttribute('height')) || 320;
+                
+                // Clone SVG
+                const clonedSvg = svgElement.cloneNode(true);
+                clonedSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+                clonedSvg.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
+                
+                // Remove shadows for better compatibility
+                const shadows = clonedSvg.querySelectorAll('filter');
+                shadows.forEach(f => f.remove());
+                
+                const serializer = new XMLSerializer();
+                let svgString = serializer.serializeToString(clonedSvg);
+                svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
+                
+                // Create blob URL
+                const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+                const url = URL.createObjectURL(svgBlob);
+                
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const scale = 2;
+                canvas.width = width * scale;
+                canvas.height = height * scale;
+                ctx.scale(scale, scale);
+                
+                if (currentTheme === 'light') {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, width, height);
+                }
+                
+                const img = new Image();
+                img.onload = function() {
+                    ctx.drawImage(img, 0, 0, width, height);
+                    URL.revokeObjectURL(url);
+                    const pngData = canvas.toDataURL('image/png');
+                    const link = document.createElement('a');
+                    link.download = `github-card-${currentUserData.login}.png`;
+                    link.href = pngData;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    showStatus('🖼️ PNG downloaded! (method 3)', 'success');
+                };
+                img.onerror = function() {
+                    URL.revokeObjectURL(url);
+                    // Final fallback: Use simple screenshot method
+                    try {
+                        const pngData = canvas.toDataURL('image/png');
                         const link = document.createElement('a');
                         link.download = `github-card-${currentUserData.login}.png`;
                         link.href = pngData;
                         document.body.appendChild(link);
                         link.click();
                         document.body.removeChild(link);
-                        showStatus(`🖼️ PNG downloaded! (fallback method)`, 'success');
-                    };
-                    fallbackImg.onerror = function() {
-                        showStatus('❌ Failed to convert to PNG. Please use SVG format.', 'error');
-                    };
-                    fallbackImg.src = dataUrl;
-                } catch (e) {
-                    showStatus('❌ Failed to convert to PNG. Please use SVG format.', 'error');
-                }
-            };
-
-            img.src = url;
+                        showStatus('🖼️ PNG downloaded! (basic fallback)', 'success');
+                    } catch (e) {
+                        showStatus('❌ PNG download failed. Please use SVG format.', 'error');
+                    }
+                };
+                img.src = url;
+                
+            } catch (e) {
+                console.error('All PNG methods failed:', e);
+                showStatus('❌ PNG download failed. Please use SVG format.', 'error');
+            }
         }
 
+        // Copy, Download SVG and other event listeners
         copyBtn.addEventListener('click', () => {
             if (!currentSVG) {
                 showStatus('⚠️ No card to copy', 'error');
@@ -1602,7 +1591,9 @@
             SPECIAL_NOTE,
             setTheme,
             currentTheme,
-            downloadPNG
+            downloadPNG,
+            downloadPNGMethod2,
+            downloadPNGMethod3
         };
 
         console.log('🚀 GitHub Profile Card Generator ready!');
@@ -1611,8 +1602,7 @@
         console.log(`🎨 Theme: ${currentTheme}`);
         console.log('📌 Type debug.generateCard("username") to test');
         console.log('📦 View cache: debug.getCacheStats()');
-        console.log('🎨 Change theme: debug.setTheme("default" | "special" | "light")');
-        console.log('🖼️ Download PNG: debug.downloadPNG()');
+        console.log('🖼️ Download PNG: debug.downloadPNG() - 3 fallback methods');
     </script>
 
 </body>
