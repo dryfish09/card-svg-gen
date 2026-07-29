@@ -9,15 +9,15 @@ Simple SVG card generator
 - add it to everything you like
 ## Examples:
 
-### Torvalds:
+### Torvalds (default style)
 
 ![torvalds](.github/img/github-card-torvalds.png)
 
-### Mojang:
+### Mojang (light style)
 
 ![Mojang?](.github/img/github-card-Mojang.png)
 
-### special: dryfish09
+### special: dryfish09 (special + unique style)
 
 <img src="https://raw.githubusercontent.com/dryfish09/card-svg-gen/main/.github/img/github-card-dryfish09.png" 
      alt="GitHub Profile Card" 
