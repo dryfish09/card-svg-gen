@@ -586,37 +586,39 @@
     </div>
 
     <script>
-        const CacheEngine = {
-            _memory: {},
-            _storage: null,
-            _mode: 'memory',
+        // Cache Engine - Fixed: Proper initialization with race condition fix
+        const CacheEngine = (function() {
+            const _memory = {};
+            let _storage = null;
+            let _mode = 'memory';
+            let _initialized = false;
 
-            init() {
+            function init() {
+                if (_initialized) return;
                 try {
                     if (typeof localStorage !== 'undefined') {
                         const testKey = '_test_cache_';
                         localStorage.setItem(testKey, 'test');
                         localStorage.removeItem(testKey);
-                        this._storage = localStorage;
-                        this._mode = 'storage';
+                        _storage = localStorage;
+                        _mode = 'storage';
                         console.log('✅ Using localStorage (persistent)');
-                        return;
                     }
                 } catch (e) {
                     console.warn('⚠️ localStorage not available, using RAM:', e.message);
                 }
-                this._mode = 'memory';
+                _initialized = true;
                 console.log('💾 Using RAM cache (lost on reload)');
-            },
+            }
 
-            get(key) {
-                if (this._mode === 'storage' && this._storage) {
+            function get(key) {
+                if (_mode === 'storage' && _storage) {
                     try {
-                        const raw = this._storage.getItem(key);
+                        const raw = _storage.getItem(key);
                         if (!raw) return null;
                         const data = JSON.parse(raw);
                         if (data.timestamp && (Date.now() - data.timestamp) > data.ttl * 1000) {
-                            this._storage.removeItem(key);
+                            _storage.removeItem(key);
                             return null;
                         }
                         return data.value;
@@ -624,80 +626,104 @@
                         return null;
                     }
                 }
-                const entry = this._memory[key];
+                const entry = _memory[key];
                 if (!entry) return null;
                 if (entry.timestamp && (Date.now() - entry.timestamp) > entry.ttl * 1000) {
-                    delete this._memory[key];
+                    delete _memory[key];
                     return null;
                 }
                 return entry.value;
-            },
+            }
 
-            set(key, value, ttl = 600) {
+            function set(key, value, ttl = 600) {
+                // Fixed: Check localStorage quota before storing
                 const data = {
                     value: value,
                     timestamp: Date.now(),
                     ttl: ttl
                 };
-                if (this._mode === 'storage' && this._storage) {
+                if (_mode === 'storage' && _storage) {
                     try {
-                        this._storage.setItem(key, JSON.stringify(data));
+                        _storage.setItem(key, JSON.stringify(data));
                         return;
+                    } catch (e) {
+                        // Fixed: Handle quota exceeded error gracefully
+                        if (e.name === 'QuotaExceededError' || e.code === 22) {
+                            console.warn('⚠️ localStorage quota exceeded, falling back to RAM');
+                            // Fallback to memory mode for this item
+                            _memory[key] = data;
+                            return;
+                        }
+                    }
+                }
+                _memory[key] = data;
+            }
+
+            function remove(key) {
+                if (_mode === 'storage' && _storage) {
+                    try {
+                        _storage.removeItem(key);
                     } catch {}
                 }
-                this._memory[key] = data;
-            },
+                delete _memory[key];
+            }
 
-            remove(key) {
-                if (this._mode === 'storage' && this._storage) {
+            function clear() {
+                if (_mode === 'storage' && _storage) {
                     try {
-                        this._storage.removeItem(key);
-                    } catch {}
-                }
-                delete this._memory[key];
-            },
-
-            clear() {
-                if (this._mode === 'storage' && this._storage) {
-                    try {
-                        const keys = Object.keys(this._storage);
+                        const keys = Object.keys(_storage);
                         keys.forEach(k => {
                             if (k.startsWith('github_card_')) {
-                                this._storage.removeItem(k);
+                                _storage.removeItem(k);
                             }
                         });
                     } catch {}
                 }
-                this._memory = {};
-            },
+                Object.keys(_memory).forEach(k => {
+                    if (k.startsWith('github_card_')) {
+                        delete _memory[k];
+                    }
+                });
+            }
 
-            getAllKeys() {
+            function getAllKeys() {
                 let keys = [];
-                if (this._mode === 'storage' && this._storage) {
+                if (_mode === 'storage' && _storage) {
                     try {
-                        const allKeys = Object.keys(this._storage);
+                        const allKeys = Object.keys(_storage);
                         keys = allKeys.filter(k => k.startsWith('github_card_'));
                     } catch {}
                 }
-                const memoryKeys = Object.keys(this._memory).filter(k => k.startsWith('github_card_'));
+                const memoryKeys = Object.keys(_memory).filter(k => k.startsWith('github_card_'));
                 return [...new Set([...keys, ...memoryKeys])];
-            },
+            }
 
-            getStats() {
-                const keys = this.getAllKeys();
+            function getStats() {
+                const keys = getAllKeys();
                 return {
                     count: keys.length,
                     keys: keys,
-                    mode: this._mode
+                    mode: _mode
                 };
-            },
-
-            getMode() {
-                return this._mode;
             }
-        };
 
-        CacheEngine.init();
+            function getMode() {
+                return _mode;
+            }
+
+            init();
+
+            return {
+                get,
+                set,
+                remove,
+                clear,
+                getAllKeys,
+                getStats,
+                getMode,
+                init
+            };
+        })();
 
         const CACHE_PREFIX = 'github_card_';
         const CACHE_TTL = 600;
@@ -766,6 +792,7 @@
 
         let currentUserData = null;
         let currentSVG = '';
+        let currentThemeCache = 'default';
 
         function setTheme(theme) {
             currentTheme = theme;
@@ -782,9 +809,11 @@
                 document.body.classList.remove('light-mode');
             }
 
+            // Fixed: Regenerate card with new theme if data exists
             if (currentUserData) {
                 const svg = generateProfileCardSVG(currentUserData.login, currentUserData);
                 renderCard(svg, currentUserData);
+                currentThemeCache = theme;
             }
         }
 
@@ -875,6 +904,7 @@
             const isSpecial = login.toLowerCase() === SPECIAL_USER;
             const colors = getColors();
             const isLight = currentTheme === 'light';
+            const isSpecialTheme = currentTheme === 'special' || isSpecial;
             
             const maxBioLength = 50;
             const rawBio = bio || 'No bio available';
@@ -906,16 +936,15 @@
             const extraHeight = Math.max(0, (bioLineCount - 1) * 18);
             
             let cardHeight = 320 + extraHeight;
-            if (isSpecial || currentTheme === 'special') cardHeight += 40;
+            // Fixed: Check both conditions for special badge
+            if (isSpecialTheme) cardHeight += 40;
             
             const cardWidth = 680;
             const avatarSize = 96;
             const padding = 28;
             
             let nameColor = colors.accent;
-            if (currentTheme === 'special') {
-                nameColor = colors.gold;
-            } else if (isSpecial) {
+            if (isSpecialTheme) {
                 nameColor = colors.gold;
             } else if (followers > 1000) nameColor = colors.green;
             else if (followers > 500) nameColor = '#f0883e';
@@ -959,9 +988,10 @@
             });
 
             let specialBadgeHTML = '';
-            if (isSpecial || currentTheme === 'special') {
+            if (isSpecialTheme) {
                 const specialBadgeY = cardHeight - 52;
                 const noteText = isSpecial ? SPECIAL_NOTE : '✨ Special Theme Edition';
+                // Fixed: Use consistent gold colors for light/dark mode
                 const goldColor = isLight ? colors.goldLight : colors.gold;
                 const goldBg = isLight ? colors.goldBgLight : colors.goldBg;
                 
@@ -988,11 +1018,13 @@
                 `;
             });
 
-            const isSpecialTheme = currentTheme === 'special' || isSpecial;
             const goldColor = isLight ? colors.goldLight : colors.gold;
 
+            // Fixed: Default avatar fallback that actually works
+            const avatarUrl = avatar_url || 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
+
             return `<?xml version="1.0" encoding="UTF-8"?>
-        <svg xmlns="http://www.w3.org/2000/svg" width="${cardWidth}" height="${cardHeight}" viewBox="0 0 ${cardWidth} ${cardHeight}">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${cardWidth}" height="${cardHeight}" viewBox="0 0 ${cardWidth} ${cardHeight}">
             <defs>
                 <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" style="stop-color:${isLight ? '#f6f8fa' : '#1c2333'};stop-opacity:1" />
@@ -1044,7 +1076,8 @@
             
             <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2}" fill="${colors.bg}"/>
             
-            <image x="${padding + 4}" y="${padding + 4}" width="${avatarSize}" height="${avatarSize}" clip-path="url(#avatarClip)" href="${avatar_url}" preserveAspectRatio="xMidYMid slice"/>
+            <!-- Fixed: Both href and xlink:href for compatibility -->
+            <image x="${padding + 4}" y="${padding + 4}" width="${avatarSize}" height="${avatarSize}" clip-path="url(#avatarClip)" href="${avatarUrl}" xlink:href="${avatarUrl}" preserveAspectRatio="xMidYMid slice"/>
 
             <g transform="translate(${padding + avatarSize + 20}, ${padding + 8})">
                 <text x="0" y="${nameY}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="${nameFontSize}" font-weight="700" fill="${nameColor}" letter-spacing="0.3">${truncatedName}</text>
@@ -1101,7 +1134,7 @@
                 followers: data.followers || 0,
                 following: data.following || 0,
                 created_at: data.created_at,
-                avatar_url: data.avatar_url || 'https://github.com/identicons/default.png',
+                avatar_url: data.avatar_url || 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
                 bio: data.bio || '',
                 location: data.location || '',
                 company: data.company || '',
@@ -1141,10 +1174,11 @@
                 userInfo.style.display = 'grid';
                 const isSpecial = userData.login.toLowerCase() === SPECIAL_USER;
                 const isLight = currentTheme === 'light';
+                const isSpecialTheme = currentTheme === 'special' || isSpecial;
                 const goldColor = isLight ? '#bd5612' : '#f0883e';
                 const goldBg = isLight ? '#ffd8b5' : '#d2992233';
                 
-                const nameColor = (isSpecial || currentTheme === 'special') ? goldColor : '';
+                const nameColor = isSpecialTheme ? goldColor : '';
                 
                 userInfo.innerHTML = `
                     <div class="info-item">
@@ -1171,7 +1205,7 @@
                         <div class="label">📅 Joined</div>
                         <div class="value" style="font-size:14px;">${new Date(userData.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
                     </div>
-                    ${(isSpecial || currentTheme === 'special') ? `
+                    ${isSpecialTheme ? `
                     <div class="info-item" style="grid-column: 1 / -1; background: ${goldBg}; border-radius: 8px; padding: 8px; border: 1px solid ${goldColor}33;">
                         <div class="label" style="color:${goldColor};">${isSpecial ? '👑 Creator Badge' : '✨ Special Theme'}</div>
                         <div class="value" style="font-size:14px; color:${goldColor};">${isSpecial ? SPECIAL_NOTE : '✨ Special Theme Edition'}</div>
@@ -1200,10 +1234,15 @@
             let remaining = COOLDOWN_SECONDS;
             cooldownCount.textContent = remaining;
             
+            if (cooldownTimer) {
+                clearInterval(cooldownTimer);
+            }
+            
             cooldownTimer = setInterval(() => {
                 remaining--;
                 if (remaining <= 0) {
                     clearInterval(cooldownTimer);
+                    cooldownTimer = null;
                     cooldownTimerEl.classList.remove('show');
                     generateBtn.disabled = false;
                     isCooldown = false;
@@ -1287,6 +1326,7 @@
             }
         }
 
+        // Fixed: PNG Download with proper CORS and error handling
         function downloadPNG() {
             if (!currentSVG || !currentUserData) {
                 showStatus('⚠️ No card to download as PNG', 'error');
@@ -1295,52 +1335,80 @@
 
             showStatus('🔄 Converting to PNG...', 'loading');
 
-            // Get the SVG element from preview
             const svgElement = cardPreview.querySelector('svg');
             if (!svgElement) {
                 showStatus('❌ No SVG element found', 'error');
                 return;
             }
 
-            // Get actual SVG dimensions
             const width = parseInt(svgElement.getAttribute('width')) || 680;
             const height = parseInt(svgElement.getAttribute('height')) || 320;
             
-            // Clone SVG and prepare for rendering
             const clonedSvg = svgElement.cloneNode(true);
             clonedSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+            clonedSvg.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
             clonedSvg.setAttribute('width', width);
             clonedSvg.setAttribute('height', height);
-            
-            // Ensure all images are loaded
+
+            // Fixed: Process images with proper error handling
             const images = clonedSvg.querySelectorAll('image');
-            let imagesLoaded = 0;
+            let loadedCount = 0;
             const totalImages = images.length;
 
-            // If there are images, wait for them to load
             if (totalImages > 0) {
                 let loadPromises = [];
                 images.forEach(img => {
                     const href = img.getAttribute('href') || img.getAttribute('xlink:href');
-                    if (href) {
+                    if (href && href.startsWith('http')) {
                         const promise = new Promise((resolve) => {
                             const tempImg = new Image();
                             tempImg.crossOrigin = 'anonymous';
+                            tempImg.referrerPolicy = 'no-referrer';
                             tempImg.onload = () => {
-                                // Replace with loaded image
-                                const canvas = document.createElement('canvas');
-                                const ctx = canvas.getContext('2d');
-                                canvas.width = parseInt(img.getAttribute('width')) || 80;
-                                canvas.height = parseInt(img.getAttribute('height')) || 80;
-                                ctx.drawImage(tempImg, 0, 0, canvas.width, canvas.height);
-                                const dataUrl = canvas.toDataURL('image/png');
-                                img.setAttribute('href', dataUrl);
-                                img.setAttribute('xlink:href', dataUrl);
+                                try {
+                                    const canvas = document.createElement('canvas');
+                                    const ctx = canvas.getContext('2d');
+                                    const imgWidth = parseInt(img.getAttribute('width')) || 96;
+                                    const imgHeight = parseInt(img.getAttribute('height')) || 96;
+                                    canvas.width = imgWidth;
+                                    canvas.height = imgHeight;
+                                    ctx.drawImage(tempImg, 0, 0, imgWidth, imgHeight);
+                                    const dataUrl = canvas.toDataURL('image/png');
+                                    img.setAttribute('href', dataUrl);
+                                    img.setAttribute('xlink:href', dataUrl);
+                                } catch (e) {
+                                    console.warn('Failed to process image:', e);
+                                }
                                 resolve();
                             };
                             tempImg.onerror = () => {
-                                // Keep original if fails
-                                resolve();
+                                // Fixed: Use fallback image on error
+                                console.warn('Failed to load image:', href);
+                                // Use GitHub's default avatar as fallback
+                                const fallbackUrl = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
+                                const fallbackImg = new Image();
+                                fallbackImg.crossOrigin = 'anonymous';
+                                fallbackImg.onload = () => {
+                                    try {
+                                        const canvas = document.createElement('canvas');
+                                        const ctx = canvas.getContext('2d');
+                                        const imgWidth = parseInt(img.getAttribute('width')) || 96;
+                                        const imgHeight = parseInt(img.getAttribute('height')) || 96;
+                                        canvas.width = imgWidth;
+                                        canvas.height = imgHeight;
+                                        ctx.drawImage(fallbackImg, 0, 0, imgWidth, imgHeight);
+                                        const dataUrl = canvas.toDataURL('image/png');
+                                        img.setAttribute('href', dataUrl);
+                                        img.setAttribute('xlink:href', dataUrl);
+                                    } catch (e) {
+                                        console.warn('Failed to load fallback image');
+                                    }
+                                    resolve();
+                                };
+                                fallbackImg.onerror = () => {
+                                    resolve();
+                                };
+                                fallbackImg.src = fallbackUrl;
                             };
                             tempImg.src = href;
                         });
@@ -1348,12 +1416,12 @@
                     }
                 });
                 
-                // Wait for all images to load
                 Promise.all(loadPromises).then(() => {
+                    renderPNG(clonedSvg, width, height);
+                }).catch(() => {
                     renderPNG(clonedSvg, width, height);
                 });
             } else {
-                // No images, render directly
                 renderPNG(clonedSvg, width, height);
             }
         }
@@ -1361,32 +1429,23 @@
         function renderPNG(svgElement, width, height) {
             const isLight = currentTheme === 'light';
             
-            // Convert SVG to string
             const serializer = new XMLSerializer();
             let svgString = serializer.serializeToString(svgElement);
-            
-            // Add XML declaration
             svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
             
-            // Create canvas
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
             
-            // Set canvas size with 2x scale for retina
             const scale = 2;
             canvas.width = width * scale;
             canvas.height = height * scale;
-            
-            // Scale context
             ctx.scale(scale, scale);
             
-            // For light mode, fill white background first
             if (isLight) {
                 ctx.fillStyle = '#ffffff';
                 ctx.fillRect(0, 0, width, height);
             }
             
-            // Create image from SVG
             const img = new Image();
             const svgBlob = new Blob([svgString], { 
                 type: 'image/svg+xml;charset=utf-8' 
@@ -1394,11 +1453,10 @@
             const url = URL.createObjectURL(svgBlob);
 
             img.onload = function() {
-                // Draw the SVG
                 ctx.drawImage(img, 0, 0, width, height);
+                // Fixed: Revoke URL after use
                 URL.revokeObjectURL(url);
 
-                // Convert to PNG and download
                 const pngDataUrl = canvas.toDataURL('image/png');
                 const link = document.createElement('a');
                 link.download = `github-card-${currentUserData.login}.png`;
@@ -1411,8 +1469,9 @@
             };
 
             img.onerror = function() {
+                // Fixed: Revoke URL on error too
                 URL.revokeObjectURL(url);
-                // Fallback: try with data URI
+                // Fallback method
                 try {
                     const fallbackCanvas = document.createElement('canvas');
                     const fallbackCtx = fallbackCanvas.getContext('2d');
@@ -1441,11 +1500,11 @@
                         showStatus(`🖼️ PNG downloaded! (fallback method)`, 'success');
                     };
                     fallbackImg.onerror = function() {
-                        showStatus('❌ Failed to convert to PNG. Please use SVG format instead.', 'error');
+                        showStatus('❌ Failed to convert to PNG. Please use SVG format.', 'error');
                     };
                     fallbackImg.src = dataUrl;
                 } catch (e) {
-                    showStatus('❌ Failed to convert to PNG. Please use SVG format instead.', 'error');
+                    showStatus('❌ Failed to convert to PNG. Please use SVG format.', 'error');
                 }
             };
 
