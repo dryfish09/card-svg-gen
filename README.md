@@ -28,10 +28,7 @@ A simple, modern GitHub profile card generator that creates beautiful SVG cards 
 ![Mojang](.github/img/github-card-Mojang.png)
 
 ### dryfish09 (Special Style)
-<img src="https://raw.githubusercontent.com/dryfish09/card-svg-gen/main/.github/img/github-card-dryfish09.png" 
-     alt="GitHub Profile Card" 
-     width="680" 
-     height="360">
+![Author badge](.github/img/github-card-dryfish09.png)
 
 ## 📝 Important Notes
 
