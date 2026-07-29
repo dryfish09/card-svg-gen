@@ -23,6 +23,9 @@
         body.light-mode {
             background: linear-gradient(135deg, #f0f6fc 0%, #d0d7de 100%);
         }
+        body.forest-mode {
+            background: linear-gradient(135deg, #0d1f0d 0%, #162816 100%);
+        }
         .container {
             background: #1c2333;
             border-radius: 20px;
@@ -38,6 +41,11 @@
             border: 1px solid #d0d7de;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
         }
+        body.forest-mode .container {
+            background: #1a2e1a;
+            border: 1px solid #2d4a2d;
+            box-shadow: 0 20px 60px rgba(0, 30, 0, 0.6);
+        }
         h1 {
             color: #f0f6fc;
             font-size: 28px;
@@ -51,6 +59,9 @@
         body.light-mode h1 {
             color: #1f2328;
         }
+        body.forest-mode h1 {
+            color: #c6e6c6;
+        }
         h1 small {
             font-size: 14px;
             color: #8b949e;
@@ -58,6 +69,9 @@
         }
         body.light-mode h1 small {
             color: #57606a;
+        }
+        body.forest-mode h1 small {
+            color: #7aaa7a;
         }
         .subtitle {
             color: #8b949e;
@@ -67,6 +81,9 @@
         }
         body.light-mode .subtitle {
             color: #57606a;
+        }
+        body.forest-mode .subtitle {
+            color: #7aaa7a;
         }
 
         .theme-selector {
@@ -84,6 +101,9 @@
         body.light-mode .theme-selector label {
             color: #57606a;
         }
+        body.forest-mode .theme-selector label {
+            color: #7aaa7a;
+        }
         .theme-btn {
             padding: 8px 18px;
             border: 2px solid #30363d;
@@ -99,6 +119,10 @@
             border-color: #d0d7de;
             color: #57606a;
         }
+        body.forest-mode .theme-btn {
+            border-color: #2d4a2d;
+            color: #7aaa7a;
+        }
         .theme-btn:hover {
             border-color: #58a6ff;
             color: #58a6ff;
@@ -113,6 +137,11 @@
             border-color: #0969da;
             color: #0969da;
         }
+        body.forest-mode .theme-btn.active {
+            background: #2ea04333;
+            border-color: #2ea043;
+            color: #2ea043;
+        }
         .theme-btn.special {
             border-color: #f0883e;
             color: #f0883e;
@@ -121,6 +150,11 @@
         .theme-btn.special.active {
             border-color: #f0883e;
             background: #f0883e22;
+            color: #f0883e;
+        }
+        body.forest-mode .theme-btn.special.active {
+            background: #f0883e22;
+            border-color: #f0883e;
             color: #f0883e;
         }
         .theme-btn.light {
@@ -132,6 +166,16 @@
             border-color: #f6c23e;
             background: #f6c23e22;
             color: #f6c23e;
+        }
+        .theme-btn.forest {
+            border-color: #2ea043;
+            color: #2ea043;
+        }
+        .theme-btn.forest:hover,
+        .theme-btn.forest.active {
+            border-color: #2ea043;
+            background: #2ea04333;
+            color: #2ea043;
         }
 
         .input-group {
@@ -156,15 +200,26 @@
             color: #1f2328;
             border-color: #d0d7de;
         }
+        body.forest-mode .input-group input {
+            background: #0d1f0d;
+            color: #c6e6c6;
+            border-color: #2d4a2d;
+        }
         .input-group input:focus {
             outline: none;
             border-color: #58a6ff;
+        }
+        body.forest-mode .input-group input:focus {
+            border-color: #2ea043;
         }
         .input-group input::placeholder {
             color: #484f58;
         }
         body.light-mode .input-group input::placeholder {
             color: #8b949e;
+        }
+        body.forest-mode .input-group input::placeholder {
+            color: #4a6a4a;
         }
 
         .btn {
@@ -201,11 +256,18 @@
             background: #e1e4e8;
             color: #1f2328;
         }
+        body.forest-mode .btn-secondary {
+            background: #1a3a1a;
+            color: #c6e6c6;
+        }
         .btn-secondary:hover {
             background: #484f58;
         }
         body.light-mode .btn-secondary:hover {
             background: #d0d7de;
+        }
+        body.forest-mode .btn-secondary:hover {
+            background: #2a4a2a;
         }
         .btn-danger {
             background: #da3633;
@@ -256,6 +318,10 @@
             background: #f6f8fa;
             border-color: #d0d7de;
         }
+        body.forest-mode .card-preview {
+            background: #0d1f0d;
+            border-color: #2d4a2d;
+        }
         .card-preview svg {
             max-width: 100%;
             height: auto;
@@ -265,6 +331,9 @@
         body.light-mode .card-preview svg {
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
+        body.forest-mode .card-preview svg {
+            box-shadow: 0 8px 32px rgba(0,20,0,0.8);
+        }
         .card-placeholder {
             color: #484f58;
             font-size: 14px;
@@ -272,6 +341,9 @@
         }
         body.light-mode .card-placeholder {
             color: #8b949e;
+        }
+        body.forest-mode .card-placeholder {
+            color: #4a6a4a;
         }
 
         .info-grid {
@@ -289,6 +361,10 @@
             background: #f6f8fa;
             border-color: #d0d7de;
         }
+        body.forest-mode .info-grid {
+            background: #0d1f0d;
+            border-color: #2d4a2d;
+        }
         .info-item {
             text-align: center;
             overflow: hidden;
@@ -303,6 +379,9 @@
         body.light-mode .info-item .label {
             color: #57606a;
         }
+        body.forest-mode .info-item .label {
+            color: #5a8a5a;
+        }
         .info-item .value {
             color: #f0f6fc;
             font-size: 20px;
@@ -314,6 +393,9 @@
         }
         body.light-mode .info-item .value {
             color: #1f2328;
+        }
+        body.forest-mode .info-item .value {
+            color: #c6e6c6;
         }
 
         .action-bar {
@@ -348,6 +430,11 @@
             color: #0969da;
             border-color: #80ccff;
         }
+        body.forest-mode .status.loading {
+            background: #1a3a1a;
+            color: #2ea043;
+            border-color: #2ea04355;
+        }
         .status.success {
             background: #23863633;
             color: #3fb950;
@@ -357,6 +444,11 @@
             background: #dafbe1;
             color: #1a7f37;
             border-color: #7ee39f;
+        }
+        body.forest-mode .status.success {
+            background: #1a3a1a;
+            color: #2ea043;
+            border-color: #2ea04355;
         }
         .status.error {
             background: #da363333;
@@ -368,6 +460,11 @@
             color: #cf222e;
             border-color: #ff8189;
         }
+        body.forest-mode .status.error {
+            background: #3a1a1a;
+            color: #f85149;
+            border-color: #f8514955;
+        }
         .status.special {
             background: #d2992233;
             color: #f0883e;
@@ -377,6 +474,11 @@
             background: #ffd8b5;
             color: #bd5612;
             border-color: #f6b37b;
+        }
+        body.forest-mode .status.special {
+            background: #3a2a1a;
+            color: #f0883e;
+            border-color: #d2992255;
         }
 
         .cache-info {
@@ -399,6 +501,11 @@
             border-color: #d0d7de;
             color: #57606a;
         }
+        body.forest-mode .cache-info {
+            background: #0d1f0d;
+            border-color: #2d4a2d;
+            color: #5a8a5a;
+        }
         .cache-info code {
             color: #58a6ff;
             background: #161b22;
@@ -409,6 +516,10 @@
         body.light-mode .cache-info code {
             background: #e1e4e8;
             color: #0969da;
+        }
+        body.forest-mode .cache-info code {
+            background: #1a2e1a;
+            color: #2ea043;
         }
         .cache-badge {
             display: inline-block;
@@ -425,6 +536,10 @@
             background: #ddf4ff;
             color: #0969da;
         }
+        body.forest-mode .cache-badge.ram {
+            background: #1a3a1a;
+            color: #2ea043;
+        }
         .cache-badge.storage {
             background: #23863633;
             color: #3fb950;
@@ -433,6 +548,10 @@
             background: #dafbe1;
             color: #1a7f37;
         }
+        body.forest-mode .cache-badge.storage {
+            background: #1a3a1a;
+            color: #2ea043;
+        }
         .cache-badge.none {
             background: #da363333;
             color: #f85149;
@@ -440,6 +559,10 @@
         body.light-mode .cache-badge.none {
             background: #ffebe9;
             color: #cf222e;
+        }
+        body.forest-mode .cache-badge.none {
+            background: #3a1a1a;
+            color: #f85149;
         }
 
         .footer {
@@ -455,12 +578,19 @@
             color: #57606a;
             border-color: #d0d7de;
         }
+        body.forest-mode .footer {
+            color: #4a6a4a;
+            border-color: #2d4a2d;
+        }
         .footer a {
             color: #58a6ff;
             text-decoration: none;
         }
         body.light-mode .footer a {
             color: #0969da;
+        }
+        body.forest-mode .footer a {
+            color: #2ea043;
         }
         .footer .creator-badge {
             display: inline-block;
@@ -478,6 +608,11 @@
             border-color: #f0883e;
             color: #bd5612;
         }
+        body.forest-mode .footer .creator-badge {
+            background: linear-gradient(135deg, #f0883e22, #d2992222);
+            border-color: #d2992255;
+            color: #f0883e;
+        }
 
         .cooldown-timer {
             color: #8b949e;
@@ -491,6 +626,9 @@
         }
         body.light-mode .cooldown-timer {
             color: #57606a;
+        }
+        body.forest-mode .cooldown-timer {
+            color: #4a6a4a;
         }
 
         @media (max-width: 600px) {
@@ -543,6 +681,7 @@
             <button class="theme-btn active" data-theme="default">Default</button>
             <button class="theme-btn special" data-theme="special">Special</button>
             <button class="theme-btn light" data-theme="light">Light Mode</button>
+            <button class="theme-btn forest" data-theme="forest">🌲 Forest</button>
         </div>
 
         <div class="input-group">
@@ -585,8 +724,12 @@
         </div>
     </div>
 
+    <!-- ============================================================ -->
+    <!-- SCRIPT WITH CDATA TO FIX VALIDATOR WARNING                    -->
+    <!-- ============================================================ -->
     <script>
-        // Cache Engine - Fixed: Proper initialization with race condition fix
+        // <![CDATA[
+        // Cache Engine
         const CacheEngine = (function() {
             const _memory = {};
             let _storage = null;
@@ -636,7 +779,6 @@
             }
 
             function set(key, value, ttl = 600) {
-                // Fixed: Check localStorage quota before storing
                 const data = {
                     value: value,
                     timestamp: Date.now(),
@@ -647,10 +789,8 @@
                         _storage.setItem(key, JSON.stringify(data));
                         return;
                     } catch (e) {
-                        // Fixed: Handle quota exceeded error gracefully
                         if (e.name === 'QuotaExceededError' || e.code === 22) {
                             console.warn('⚠️ localStorage quota exceeded, falling back to RAM');
-                            // Fallback to memory mode for this item
                             _memory[key] = data;
                             return;
                         }
@@ -763,6 +903,23 @@
             goldBgLight: '#ffd8b5'
         };
 
+        const FOREST_COLORS = {
+            bg: '#0d1f0d',
+            cardBg: '#1a2e1a',
+            border: '#2d4a2d',
+            text: '#c6e6c6',
+            textMuted: '#5a8a5a',
+            accent: '#2ea043',
+            green: '#3db85a',
+            orange: '#d29922',
+            red: '#f85149',
+            purple: '#6f42c1',
+            gold: '#f0883e',
+            goldLight: '#d29922',
+            goldBg: '#3a2a1a',
+            goldBgLight: '#4a3a2a'
+        };
+
         const SPECIAL_USER = 'dryfish09';
         const SPECIAL_NOTE = 'Creator of dryfish09.github.io/card-svg-gen/';
 
@@ -803,13 +960,14 @@
                 }
             });
 
+            document.body.classList.remove('light-mode', 'forest-mode');
+
             if (theme === 'light') {
                 document.body.classList.add('light-mode');
-            } else {
-                document.body.classList.remove('light-mode');
+            } else if (theme === 'forest') {
+                document.body.classList.add('forest-mode');
             }
 
-            // Fixed: Regenerate card with new theme if data exists
             if (currentUserData) {
                 const svg = generateProfileCardSVG(currentUserData.login, currentUserData);
                 renderCard(svg, currentUserData);
@@ -827,11 +985,14 @@
             if (currentTheme === 'light') {
                 return LIGHT_COLORS;
             }
+            if (currentTheme === 'forest') {
+                return FOREST_COLORS;
+            }
             return COLORS;
         }
 
         function getCacheKey(username) {
-            return `${CACHE_PREFIX}${username.toLowerCase()}`;
+            return CACHE_PREFIX + username.toLowerCase();
         }
 
         function getCachedUser(username) {
@@ -864,7 +1025,7 @@
             };
             const info = modeLabels[mode] || modeLabels.none;
             cacheModeBadge.textContent = info.text;
-            cacheModeBadge.className = `cache-badge ${info.cls}`;
+            cacheModeBadge.className = 'cache-badge ' + info.cls;
             const modeText = {
                 'storage': '💾 Cache: Persistent (localStorage)',
                 'memory': '🧠 Cache: RAM (lost on reload)',
@@ -878,7 +1039,7 @@
             if (stats.count === 0) {
                 cacheStatus.textContent = 'No cached data';
             } else {
-                cacheStatus.textContent = `${stats.count} user(s) cached`;
+                cacheStatus.textContent = stats.count + ' user(s) cached';
             }
         }
 
@@ -893,28 +1054,38 @@
         }
 
         function generateProfileCardSVG(username, data) {
-            const { name, login, public_repos, followers, following, created_at, bio, location, avatar_url } = data;
-            
-            const joinDate = new Date(created_at).toLocaleDateString('en-US', {
+            var name = data.name;
+            var login = data.login;
+            var public_repos = data.public_repos;
+            var followers = data.followers;
+            var following = data.following;
+            var created_at = data.created_at;
+            var bio = data.bio;
+            var location = data.location;
+            var avatar_url = data.avatar_url;
+
+            var joinDate = new Date(created_at).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',
                 day: 'numeric'
             });
 
-            const isSpecial = login.toLowerCase() === SPECIAL_USER;
-            const colors = getColors();
-            const isLight = currentTheme === 'light';
-            const isSpecialTheme = currentTheme === 'special' || isSpecial;
-            
-            const maxBioLength = 50;
-            const rawBio = bio || 'No bio available';
-            const bioLines = [];
-            let remaining = rawBio;
-            
+            var isSpecial = login.toLowerCase() === SPECIAL_USER;
+            var colors = getColors();
+            var isLight = currentTheme === 'light';
+            var isForest = currentTheme === 'forest';
+            var isSpecialTheme = currentTheme === 'special' || isSpecial;
+
+            var maxBioLength = 50;
+            var rawBio = bio || 'No bio available';
+            var bioLines = [];
+            var remaining = rawBio;
+
             if (remaining.length > maxBioLength) {
-                const words = remaining.split(' ');
-                let currentLine = '';
-                for (const word of words) {
+                var words = remaining.split(' ');
+                var currentLine = '';
+                for (var i = 0; i < words.length; i++) {
+                    var word = words[i];
                     if ((currentLine + word).length <= maxBioLength) {
                         currentLine += (currentLine ? ' ' : '') + word;
                     } else {
@@ -926,190 +1097,167 @@
             } else {
                 bioLines.push(remaining);
             }
-            
+
             while (bioLines.length > 2) {
-                const last = bioLines.pop();
+                var last = bioLines.pop();
                 bioLines[bioLines.length - 1] += '...';
             }
-            
-            const bioLineCount = bioLines.length;
-            const extraHeight = Math.max(0, (bioLineCount - 1) * 18);
-            
-            let cardHeight = 320 + extraHeight;
-            // Fixed: Check both conditions for special badge
+
+            var bioLineCount = bioLines.length;
+            var extraHeight = Math.max(0, (bioLineCount - 1) * 18);
+
+            var cardHeight = 320 + extraHeight;
             if (isSpecialTheme) cardHeight += 40;
-            
-            const cardWidth = 680;
-            const avatarSize = 96;
-            const padding = 28;
-            
-            let nameColor = colors.accent;
+
+            var cardWidth = 680;
+            var avatarSize = 96;
+            var padding = 28;
+
+            var nameColor = colors.accent;
             if (isSpecialTheme) {
                 nameColor = colors.gold;
             } else if (followers > 1000) nameColor = colors.green;
             else if (followers > 500) nameColor = '#f0883e';
             else if (followers > 100) nameColor = colors.orange;
 
-            const locationText = location || 'Location not set';
-            const wrappedLocation = locationText.length > 28 ? 
-                locationText.substring(0, 25) + '...' : 
+            var locationText = location || 'Location not set';
+            var wrappedLocation = locationText.length > 28 ?
+                locationText.substring(0, 25) + '...' :
                 locationText;
 
-            const nameY = 28;
-            const usernameY = 52;
-            const bioStartY = 78;
-            const locationY = bioStartY + (bioLineCount * 18) + 4;
-            const joinedY = locationY + 18;
-            const minStatsY = 208;
-            const finalStatsY = Math.max(minStatsY, joinedY + 30);
-            
+            var nameY = 28;
+            var usernameY = 52;
+            var bioStartY = 78;
+            var locationY = bioStartY + (bioLineCount * 18) + 4;
+            var joinedY = locationY + 18;
+            var minStatsY = 208;
+            var finalStatsY = Math.max(minStatsY, joinedY + 30);
+
             if (finalStatsY > cardHeight - 80) {
                 cardHeight = finalStatsY + 80;
             }
 
-            const statItems = [
+            var statItems = [
                 { icon: '⭐', label: 'Followers', value: followers },
                 { icon: '📦', label: 'Repositories', value: public_repos },
                 { icon: '👥', label: 'Following', value: following }
             ];
 
-            let statsHTML = '';
-            const startX = 160;
-            const spacing = 155;
-            statItems.forEach((item, index) => {
-                const x = startX + index * spacing;
-                const formattedValue = formatNumber(item.value);
-                statsHTML += `
-                    <g>
-                        <text x="${x}" y="${finalStatsY}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="26" font-weight="700" fill="${colors.text}" text-anchor="middle">${formattedValue}</text>
-                        <text x="${x}" y="${finalStatsY + 24}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${colors.textMuted}" text-anchor="middle" letter-spacing="0.5">${item.icon} ${item.label}</text>
-                    </g>
-                `;
-            });
-
-            let specialBadgeHTML = '';
-            if (isSpecialTheme) {
-                const specialBadgeY = cardHeight - 52;
-                const noteText = isSpecial ? SPECIAL_NOTE : '✨ Special Theme Edition';
-                // Fixed: Use consistent gold colors for light/dark mode
-                const goldColor = isLight ? colors.goldLight : colors.gold;
-                const goldBg = isLight ? colors.goldBgLight : colors.goldBg;
-                
-                specialBadgeHTML = `
-                    <rect x="${padding}" y="${specialBadgeY}" width="${cardWidth - padding * 2}" height="32" rx="8" ry="8" fill="${goldBg}" opacity="${isLight ? '1' : '0.15'}"/>
-                    <rect x="${padding}" y="${specialBadgeY}" width="${cardWidth - padding * 2}" height="32" rx="8" ry="8" stroke="${goldColor}" stroke-width="${isLight ? '2' : '1'}" opacity="${isLight ? '0.6' : '0.3'}"/>
-                    <text x="${cardWidth / 2}" y="${specialBadgeY + 20}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="13" fill="${goldColor}" text-anchor="middle" font-weight="600">${noteText}</text>
-                `;
+            var statsHTML = '';
+            var startX = 160;
+            var spacing = 155;
+            for (var si = 0; si < statItems.length; si++) {
+                var item = statItems[si];
+                var x = startX + si * spacing;
+                var formattedValue = formatNumber(item.value);
+                statsHTML += '\n                    <g>\n                        <text x="' + x + '" y="' + finalStatsY + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="26" font-weight="700" fill="' + colors.text + '" text-anchor="middle">' + formattedValue + '</text>\n                        <text x="' + x + '" y="' + (finalStatsY + 24) + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="12" fill="' + colors.textMuted + '" text-anchor="middle" letter-spacing="0.5">' + item.icon + ' ' + item.label + '</text>\n                    </g>\n                ';
             }
 
-            const maxNameLength = 24;
-            const displayName = name || login;
-            const truncatedName = displayName.length > maxNameLength ? 
-                displayName.substring(0, maxNameLength - 3) + '...' : 
+            var specialBadgeHTML = '';
+            if (isSpecialTheme) {
+                var specialBadgeY = cardHeight - 52;
+                var noteText = isSpecial ? SPECIAL_NOTE : '✨ Special Theme Edition';
+                var goldColor = isLight ? colors.goldLight : colors.gold;
+                var goldBg = isLight ? colors.goldBgLight : colors.goldBg;
+
+                specialBadgeHTML = '\n                    <rect x="' + padding + '" y="' + specialBadgeY + '" width="' + (cardWidth - padding * 2) + '" height="32" rx="8" ry="8" fill="' + goldBg + '" opacity="' + (isLight ? '1' : '0.15') + '"/>\n                    <rect x="' + padding + '" y="' + specialBadgeY + '" width="' + (cardWidth - padding * 2) + '" height="32" rx="8" ry="8" stroke="' + goldColor + '" stroke-width="' + (isLight ? '2' : '1') + '" opacity="' + (isLight ? '0.6' : '0.3') + '"/>\n                    <text x="' + (cardWidth / 2) + '" y="' + (specialBadgeY + 20) + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="13" fill="' + goldColor + '" text-anchor="middle" font-weight="600">' + noteText + '</text>\n                ';
+            }
+
+            var maxNameLength = 24;
+            var displayName = name || login;
+            var truncatedName = displayName.length > maxNameLength ?
+                displayName.substring(0, maxNameLength - 3) + '...' :
                 displayName;
-            
-            const nameFontSize = truncatedName.length > 20 ? 20 : 
-                                 truncatedName.length > 15 ? 22 : 24;
-            
-            let bioHTML = '';
-            bioLines.forEach((line, index) => {
-                bioHTML += `
-                    <text x="0" y="${bioStartY + (index * 18)}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="13" fill="${colors.text}" opacity="0.85">${line}</text>
-                `;
-            });
 
-            const goldColor = isLight ? colors.goldLight : colors.gold;
+            var nameFontSize = truncatedName.length > 20 ? 20 :
+                truncatedName.length > 15 ? 22 : 24;
 
-            // Fixed: Default avatar fallback that actually works
-            const avatarUrl = avatar_url || 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
+            var bioHTML = '';
+            for (var bi = 0; bi < bioLines.length; bi++) {
+                var line = bioLines[bi];
+                bioHTML += '\n                    <text x="0" y="' + (bioStartY + (bi * 18)) + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="13" fill="' + colors.text + '" opacity="0.85">' + line + '</text>\n                ';
+            }
 
-            return `<?xml version="1.0" encoding="UTF-8"?>
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${cardWidth}" height="${cardHeight}" viewBox="0 0 ${cardWidth} ${cardHeight}">
-            <defs>
-                <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:${isLight ? '#f6f8fa' : '#1c2333'};stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:${isLight ? '#ffffff' : '#0d1117'};stop-opacity:1" />
-                </linearGradient>
-                <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style="stop-color:${isSpecialTheme ? goldColor : nameColor};stop-opacity:1" />
-                    <stop offset="50%" style="stop-color:${isSpecialTheme ? '#d29922' : nameColor};stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:${isSpecialTheme ? '#f0883e' : nameColor};stop-opacity:1" />
-                </linearGradient>
-                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style="stop-color:#f0883e;stop-opacity:1" />
-                    <stop offset="50%" style="stop-color:#d29922;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#f0883e;stop-opacity:1" />
-                </linearGradient>
-                <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:${isSpecialTheme ? goldColor : nameColor};stop-opacity:${isLight ? '0.05' : '0.1'}" />
-                    <stop offset="100%" style="stop-color:#6f42c1;stop-opacity:${isLight ? '0.02' : '0.05'}" />
-                </linearGradient>
-                <filter id="shadow">
-                    <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000" flood-opacity="${isLight ? '0.1' : '0.6'}"/>
-                </filter>
-                <clipPath id="avatarClip">
-                    <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2}"/>
-                </clipPath>
-                <radialGradient id="avatarGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" style="stop-color:${isSpecialTheme ? goldColor : nameColor};stop-opacity:${isLight ? '0.2' : '0.3'}"/>
-                    <stop offset="100%" style="stop-color:${isSpecialTheme ? goldColor : nameColor};stop-opacity:0"/>
-                </radialGradient>
-                ${isSpecialTheme ? `
-                <radialGradient id="specialGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" style="stop-color:#f0883e;stop-opacity:${isLight ? '0.05' : '0.08'}"/>
-                    <stop offset="100%" style="stop-color:#f0883e;stop-opacity:0"/>
-                </radialGradient>
-                ` : ''}
-            </defs>
+            var goldColor = isLight ? colors.goldLight : colors.gold;
+            var avatarUrl = avatar_url || 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
 
-            <rect x="0" y="0" width="${cardWidth}" height="${cardHeight}" rx="20" ry="20" fill="url(#bgGrad)" filter="url(#shadow)"/>
-            
-            <rect x="0" y="0" width="${cardWidth}" height="${cardHeight}" rx="20" ry="20" fill="url(#glowGrad)"/>
-            
-            ${isSpecialTheme ? `<rect x="0" y="0" width="${cardWidth}" height="${cardHeight}" rx="20" ry="20" fill="url(#specialGlow)"/>` : ''}
-            
-            <rect x="0" y="0" width="${cardWidth}" height="4" rx="2" ry="2" fill="url(#accentGrad)"/>
+            var bgColor1 = isForest ? '#0d1f0d' : (isLight ? '#f6f8fa' : '#1c2333');
+            var bgColor2 = isForest ? '#1a2e1a' : (isLight ? '#ffffff' : '#0d1117');
+            var shadowOpacity = isForest ? '0.4' : (isLight ? '0.1' : '0.6');
 
-            <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2 + 8}" fill="url(#avatarGlow)"/>
-            
-            <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2 + 2}" fill="url(#accentGrad)" opacity="${isLight ? '0.15' : '0.2'}"/>
-            
-            <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2}" fill="${colors.bg}"/>
-            
-            <!-- Fixed: Both href and xlink:href for compatibility -->
-            <image x="${padding + 4}" y="${padding + 4}" width="${avatarSize}" height="${avatarSize}" clip-path="url(#avatarClip)" href="${avatarUrl}" xlink:href="${avatarUrl}" preserveAspectRatio="xMidYMid slice"/>
+            var svg = '<?xml version="1.0" encoding="UTF-8"?>\n';
+            svg += '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="' + cardWidth + '" height="' + cardHeight + '" viewBox="0 0 ' + cardWidth + ' ' + cardHeight + '">\n';
+            svg += '    <defs>\n';
+            svg += '        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
+            svg += '            <stop offset="0%" style="stop-color:' + bgColor1 + ';stop-opacity:1" />\n';
+            svg += '            <stop offset="100%" style="stop-color:' + bgColor2 + ';stop-opacity:1" />\n';
+            svg += '        </linearGradient>\n';
+            svg += '        <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
+            svg += '            <stop offset="0%" style="stop-color:' + (isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:1" />\n';
+            svg += '            <stop offset="50%" style="stop-color:' + (isSpecialTheme ? '#d29922' : nameColor) + ';stop-opacity:1" />\n';
+            svg += '            <stop offset="100%" style="stop-color:' + (isSpecialTheme ? '#f0883e' : nameColor) + ';stop-opacity:1" />\n';
+            svg += '        </linearGradient>\n';
+            svg += '        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
+            svg += '            <stop offset="0%" style="stop-color:#f0883e;stop-opacity:1" />\n';
+            svg += '            <stop offset="50%" style="stop-color:#d29922;stop-opacity:1" />\n';
+            svg += '            <stop offset="100%" style="stop-color:#f0883e;stop-opacity:1" />\n';
+            svg += '        </linearGradient>\n';
+            svg += '        <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
+            svg += '            <stop offset="0%" style="stop-color:' + (isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:' + (isLight ? '0.05' : '0.1') + '" />\n';
+            svg += '            <stop offset="100%" style="stop-color:#6f42c1;stop-opacity:' + (isLight ? '0.02' : '0.05') + '" />\n';
+            svg += '        </linearGradient>\n';
+            svg += '        <filter id="shadow">\n';
+            svg += '            <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000" flood-opacity="' + shadowOpacity + '"/>\n';
+            svg += '        </filter>\n';
+            svg += '        <clipPath id="avatarClip">\n';
+            svg += '            <circle cx="' + (padding + avatarSize / 2 + 4) + '" cy="' + (padding + avatarSize / 2 + 4) + '" r="' + (avatarSize / 2) + '"/>\n';
+            svg += '        </clipPath>\n';
+            svg += '        <radialGradient id="avatarGlow" cx="50%" cy="50%" r="50%">\n';
+            svg += '            <stop offset="0%" style="stop-color:' + (isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:' + (isLight ? '0.2' : '0.3') + '"/>\n';
+            svg += '            <stop offset="100%" style="stop-color:' + (isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:0"/>\n';
+            svg += '        </radialGradient>\n';
+            if (isSpecialTheme) {
+                svg += '        <radialGradient id="specialGlow" cx="50%" cy="50%" r="50%">\n';
+                svg += '            <stop offset="0%" style="stop-color:#f0883e;stop-opacity:' + (isLight ? '0.05' : '0.08') + '"/>\n';
+                svg += '            <stop offset="100%" style="stop-color:#f0883e;stop-opacity:0"/>\n';
+                svg += '        </radialGradient>\n';
+            }
+            svg += '    </defs>\n\n';
+            svg += '    <rect x="0" y="0" width="' + cardWidth + '" height="' + cardHeight + '" rx="20" ry="20" fill="url(#bgGrad)" filter="url(#shadow)"/>\n';
+            svg += '    <rect x="0" y="0" width="' + cardWidth + '" height="' + cardHeight + '" rx="20" ry="20" fill="url(#glowGrad)"/>\n';
+            if (isSpecialTheme) {
+                svg += '    <rect x="0" y="0" width="' + cardWidth + '" height="' + cardHeight + '" rx="20" ry="20" fill="url(#specialGlow)"/>\n';
+            }
+            svg += '    <rect x="0" y="0" width="' + cardWidth + '" height="4" rx="2" ry="2" fill="url(#accentGrad)"/>\n\n';
+            svg += '    <circle cx="' + (padding + avatarSize / 2 + 4) + '" cy="' + (padding + avatarSize / 2 + 4) + '" r="' + (avatarSize / 2 + 8) + '" fill="url(#avatarGlow)"/>\n';
+            svg += '    <circle cx="' + (padding + avatarSize / 2 + 4) + '" cy="' + (padding + avatarSize / 2 + 4) + '" r="' + (avatarSize / 2 + 2) + '" fill="url(#accentGrad)" opacity="' + (isLight ? '0.15' : '0.2') + '"/>\n';
+            svg += '    <circle cx="' + (padding + avatarSize / 2 + 4) + '" cy="' + (padding + avatarSize / 2 + 4) + '" r="' + (avatarSize / 2) + '" fill="' + colors.bg + '"/>\n';
+            svg += '    <image x="' + (padding + 4) + '" y="' + (padding + 4) + '" width="' + avatarSize + '" height="' + avatarSize + '" clip-path="url(#avatarClip)" href="' + avatarUrl + '" xlink:href="' + avatarUrl + '" preserveAspectRatio="xMidYMid slice"/>\n\n';
+            svg += '    <g transform="translate(' + (padding + avatarSize + 20) + ', ' + (padding + 8) + ')">\n';
+            svg += '        <text x="0" y="' + nameY + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="' + nameFontSize + '" font-weight="700" fill="' + nameColor + '" letter-spacing="0.3">' + truncatedName + '</text>\n';
+            svg += '        <text x="0" y="' + usernameY + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="14" fill="' + colors.textMuted + '">@' + login + '</text>\n';
+            svg += bioHTML;
+            svg += '        <g transform="translate(0, ' + locationY + ')">\n';
+            svg += '            <text x="0" y="0" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="12" fill="' + colors.textMuted + '">📍 ' + wrappedLocation + '</text>\n';
+            svg += '        </g>\n';
+            svg += '        <g transform="translate(0, ' + joinedY + ')">\n';
+            svg += '            <text x="0" y="0" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="12" fill="' + colors.textMuted + '">📅 Joined ' + joinDate + '</text>\n';
+            svg += '        </g>\n';
+            svg += '    </g>\n\n';
+            svg += '    <line x1="' + padding + '" y1="' + Math.min(padding + avatarSize + 24, finalStatsY - 20) + '" x2="' + (cardWidth - padding) + '" y2="' + Math.min(padding + avatarSize + 24, finalStatsY - 20) + '" stroke="' + colors.border + '" stroke-width="1" stroke-dasharray="6,6" opacity="0.5"/>\n\n';
+            svg += statsHTML;
+            svg += specialBadgeHTML;
+            svg += '\n    <g transform="translate(' + (cardWidth - 20) + ', ' + (cardHeight - 14) + ')">\n';
+            svg += '        <text x="0" y="0" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="10" fill="' + colors.textMuted + '" text-anchor="end" opacity="0.6">✨ GitHub Profile Card</text>\n';
+            svg += '    </g>\n';
+            svg += '</svg>';
 
-            <g transform="translate(${padding + avatarSize + 20}, ${padding + 8})">
-                <text x="0" y="${nameY}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="${nameFontSize}" font-weight="700" fill="${nameColor}" letter-spacing="0.3">${truncatedName}</text>
-                
-                <text x="0" y="${usernameY}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="14" fill="${colors.textMuted}">@${login}</text>
-                
-                ${bioHTML}
-                
-                <g transform="translate(0, ${locationY})">
-                    <text x="0" y="0" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${colors.textMuted}">📍 ${wrappedLocation}</text>
-                </g>
-                
-                <g transform="translate(0, ${joinedY})">
-                    <text x="0" y="0" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${colors.textMuted}">📅 Joined ${joinDate}</text>
-                </g>
-            </g>
-
-            <line x1="${padding}" y1="${Math.min(padding + avatarSize + 24, finalStatsY - 20)}" x2="${cardWidth - padding}" y2="${Math.min(padding + avatarSize + 24, finalStatsY - 20)}" stroke="${colors.border}" stroke-width="1" stroke-dasharray="6,6" opacity="0.5"/>
-
-            ${statsHTML}
-
-            ${specialBadgeHTML}
-
-            <g transform="translate(${cardWidth - 20}, ${cardHeight - 14})">
-                <text x="0" y="0" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="10" fill="${colors.textMuted}" text-anchor="end" opacity="0.6">✨ GitHub Profile Card</text>
-            </g>
-        </svg>`;
+            return svg;
         }
 
         async function fetchGitHubUser(username) {
-            const url = `https://api.github.com/users/${username}`;
-            const response = await fetch(url, {
+            var url = 'https://api.github.com/users/' + username;
+            var response = await fetch(url, {
                 headers: {
                     'Accept': 'application/json',
                     'User-Agent': 'GitHub-Profile-Card-Generator'
@@ -1118,15 +1266,15 @@
 
             if (!response.ok) {
                 if (response.status === 404) {
-                    throw new Error(`User "${username}" not found`);
+                    throw new Error('User "' + username + '" not found');
                 }
                 if (response.status === 403) {
                     throw new Error('API rate limit exceeded (60 req/hour). Please try again later.');
                 }
-                throw new Error(`Error ${response.status}: ${response.statusText}`);
+                throw new Error('Error ' + response.status + ': ' + response.statusText);
             }
 
-            const data = await response.json();
+            var data = await response.json();
             return {
                 name: data.name || username,
                 login: data.login,
@@ -1144,11 +1292,12 @@
             };
         }
 
-        function showStatus(message, type = 'loading') {
+        function showStatus(message, type) {
+            type = type || 'loading';
             status.textContent = message;
-            status.className = `status show ${type}`;
+            status.className = 'status show ' + type;
             if (type === 'success' || type === 'error' || type === 'special') {
-                setTimeout(() => {
+                setTimeout(function() {
                     if (status.textContent === message) {
                         status.className = 'status';
                     }
@@ -1162,56 +1311,36 @@
 
             placeholder.style.display = 'none';
 
-            const wrapper = document.createElement('div');
+            var wrapper = document.createElement('div');
             wrapper.innerHTML = svg;
-            const svgElement = wrapper.firstElementChild;
+            var svgElement = wrapper.firstElementChild;
 
-            const oldSvg = cardPreview.querySelector('svg');
+            var oldSvg = cardPreview.querySelector('svg');
             if (oldSvg) oldSvg.remove();
             cardPreview.appendChild(svgElement);
 
             if (userData) {
                 userInfo.style.display = 'grid';
-                const isSpecial = userData.login.toLowerCase() === SPECIAL_USER;
-                const isLight = currentTheme === 'light';
-                const isSpecialTheme = currentTheme === 'special' || isSpecial;
-                const goldColor = isLight ? '#bd5612' : '#f0883e';
-                const goldBg = isLight ? '#ffd8b5' : '#d2992233';
-                
-                const nameColor = isSpecialTheme ? goldColor : '';
-                
-                userInfo.innerHTML = `
-                    <div class="info-item">
-                        <div class="label">👤 Username</div>
-                        <div class="value" style="${nameColor ? 'color:' + nameColor + ';' : ''}">${userData.login}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="label">⭐ Followers</div>
-                        <div class="value">${formatNumber(userData.followers)}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="label">📦 Repos</div>
-                        <div class="value">${formatNumber(userData.public_repos)}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="label">👥 Following</div>
-                        <div class="value">${formatNumber(userData.following)}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="label">📍 Location</div>
-                        <div class="value" style="font-size:14px;">${userData.location || 'N/A'}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="label">📅 Joined</div>
-                        <div class="value" style="font-size:14px;">${new Date(userData.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
-                    </div>
-                    ${isSpecialTheme ? `
-                    <div class="info-item" style="grid-column: 1 / -1; background: ${goldBg}; border-radius: 8px; padding: 8px; border: 1px solid ${goldColor}33;">
-                        <div class="label" style="color:${goldColor};">${isSpecial ? '👑 Creator Badge' : '✨ Special Theme'}</div>
-                        <div class="value" style="font-size:14px; color:${goldColor};">${isSpecial ? SPECIAL_NOTE : '✨ Special Theme Edition'}</div>
-                    </div>
-                    ` : ''}
-                `;
+                var isSpecial = userData.login.toLowerCase() === SPECIAL_USER;
+                var isLight = currentTheme === 'light';
+                var isForest = currentTheme === 'forest';
+                var isSpecialTheme = currentTheme === 'special' || isSpecial;
+
+                var goldColor, goldBg;
+                if (isLight) {
+                    goldColor = '#bd5612';
+                    goldBg = '#ffd8b5';
+                } else if (isForest) {
+                    goldColor = '#f0883e';
+                    goldBg = '#3a2a1a';
+                } else {
+                    goldColor = '#f0883e';
+                    goldBg = '#d2992233';
+                }
+
+                var nameColor = isSpecialTheme ? goldColor : '';
+
+                userInfo.innerHTML = '\n                    <div class="info-item">\n                        <div class="label">👤 Username</div>\n                        <div class="value" style="' + (nameColor ? 'color:' + nameColor + ';' : '') + '">' + userData.login + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">⭐ Followers</div>\n                        <div class="value">' + formatNumber(userData.followers) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📦 Repos</div>\n                        <div class="value">' + formatNumber(userData.public_repos) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">👥 Following</div>\n                        <div class="value">' + formatNumber(userData.following) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📍 Location</div>\n                        <div class="value" style="font-size:14px;">' + (userData.location || 'N/A') + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📅 Joined</div>\n                        <div class="value" style="font-size:14px;">' + new Date(userData.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) + '</div>\n                    </div>\n                    ' + (isSpecialTheme ? '\n                    <div class="info-item" style="grid-column: 1 / -1; background: ' + goldBg + '; border-radius: 8px; padding: 8px; border: 1px solid ' + goldColor + '33;">\n                        <div class="label" style="color:' + goldColor + ';">' + (isSpecial ? '👑 Creator Badge' : '✨ Special Theme') + '</div>\n                        <div class="value" style="font-size:14px; color:' + goldColor + ';">' + (isSpecial ? SPECIAL_NOTE : '✨ Special Theme Edition') + '</div>\n                    </div>\n                    ' : '') + '\n                ';
             }
 
             updateCacheUI();
@@ -1220,7 +1349,7 @@
         function showPlaceholder(text) {
             placeholder.style.display = 'block';
             placeholder.textContent = text;
-            const oldSvg = cardPreview.querySelector('svg');
+            var oldSvg = cardPreview.querySelector('svg');
             if (oldSvg) oldSvg.remove();
             userInfo.style.display = 'none';
             currentSVG = '';
@@ -1231,14 +1360,14 @@
             isCooldown = true;
             generateBtn.disabled = true;
             cooldownTimerEl.classList.add('show');
-            let remaining = COOLDOWN_SECONDS;
+            var remaining = COOLDOWN_SECONDS;
             cooldownCount.textContent = remaining;
-            
+
             if (cooldownTimer) {
                 clearInterval(cooldownTimer);
             }
-            
-            cooldownTimer = setInterval(() => {
+
+            cooldownTimer = setInterval(function() {
                 remaining--;
                 if (remaining <= 0) {
                     clearInterval(cooldownTimer);
@@ -1264,32 +1393,32 @@
             }
 
             username = username.trim();
-            
-            const isSpecial = username.toLowerCase() === SPECIAL_USER;
+
+            var isSpecial = username.toLowerCase() === SPECIAL_USER;
             if (isSpecial) {
-                showStatus(`👑 Welcome, Creator! Generating special card for @${username}...`, 'special');
+                showStatus('👑 Welcome, Creator! Generating special card for @' + username + '...', 'special');
             } else if (currentTheme === 'special') {
-                showStatus(`✨ Generating special theme card for @${username}...`, 'special');
+                showStatus('✨ Generating special theme card for @' + username + '...', 'special');
             } else {
-                showStatus(`🔄 Fetching data for @${username}...`, 'loading');
+                showStatus('🔄 Fetching data for @' + username + '...', 'loading');
             }
-            
+
             generateBtn.disabled = true;
 
             try {
-                const cached = getCachedUser(username);
+                var cached = getCachedUser(username);
                 if (cached) {
                     console.log('✅ Using cache for', username);
-                    const svg = generateProfileCardSVG(username, cached);
+                    var svg = generateProfileCardSVG(username, cached);
                     renderCard(svg, cached);
-                    const mode = CacheEngine.getMode();
-                    const modeText = mode === 'storage' ? '💾 persistent' : '🧠 RAM';
+                    var mode = CacheEngine.getMode();
+                    var modeText = mode === 'storage' ? '💾 persistent' : '🧠 RAM';
                     if (isSpecial) {
-                        showStatus(`👑 Special creator card for @${username}! (cache: ${modeText})`, 'special');
+                        showStatus('👑 Special creator card for @' + username + '! (cache: ' + modeText + ')', 'special');
                     } else if (currentTheme === 'special') {
-                        showStatus(`✨ Special theme card for @${username}! (cache: ${modeText})`, 'special');
+                        showStatus('✨ Special theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
                     } else {
-                        showStatus(`📦 Using cached data (${modeText})`, 'success');
+                        showStatus('📦 Using cached data (' + modeText + ')', 'success');
                     }
                     generateBtn.disabled = false;
                     startCooldown();
@@ -1297,28 +1426,28 @@
                 }
 
                 console.log('🔄 Cache miss, calling API for', username);
-                const userData = await fetchGitHubUser(username);
+                var userData = await fetchGitHubUser(username);
 
                 setCachedUser(username, userData);
                 console.log('💾 Cached data for', username);
 
-                const svg = generateProfileCardSVG(username, userData);
+                var svg = generateProfileCardSVG(username, userData);
                 renderCard(svg, userData);
-                const mode = CacheEngine.getMode();
-                const modeText = mode === 'storage' ? '💾 persistent' : '🧠 RAM';
-                
+                var mode = CacheEngine.getMode();
+                var modeText = mode === 'storage' ? '💾 persistent' : '🧠 RAM';
+
                 if (isSpecial) {
-                    showStatus(`👑 Generated special creator card for @${username}! (cache: ${modeText})`, 'special');
+                    showStatus('👑 Generated special creator card for @' + username + '! (cache: ' + modeText + ')', 'special');
                 } else if (currentTheme === 'special') {
-                    showStatus(`✨ Generated special theme card for @${username}! (cache: ${modeText})`, 'special');
+                    showStatus('✨ Generated special theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
                 } else {
-                    showStatus(`🎉 Generated new card for @${username}! (cache: ${modeText})`, 'success');
+                    showStatus('🎉 Generated new card for @' + username + '! (cache: ' + modeText + ')', 'success');
                 }
 
             } catch (error) {
                 console.error('❌ Error:', error);
-                showStatus(`❌ ${error.message}`, 'error');
-                showPlaceholder(`❌ ${error.message}`);
+                showStatus('❌ ' + error.message, 'error');
+                showPlaceholder('❌ ' + error.message);
             } finally {
                 generateBtn.disabled = false;
                 updateCacheUI();
@@ -1326,7 +1455,6 @@
             }
         }
 
-        // Fixed: PNG Download with proper CORS and error handling
         function downloadPNG() {
             if (!currentSVG || !currentUserData) {
                 showStatus('⚠️ No card to download as PNG', 'error');
@@ -1335,169 +1463,95 @@
 
             showStatus('🔄 Converting to PNG...', 'loading');
 
-            const svgElement = cardPreview.querySelector('svg');
+            var svgElement = cardPreview.querySelector('svg');
             if (!svgElement) {
                 showStatus('❌ No SVG element found', 'error');
                 return;
             }
 
-            const width = parseInt(svgElement.getAttribute('width')) || 680;
-            const height = parseInt(svgElement.getAttribute('height')) || 320;
-            
-            const clonedSvg = svgElement.cloneNode(true);
+            var width = parseInt(svgElement.getAttribute('width')) || 680;
+            var height = parseInt(svgElement.getAttribute('height')) || 320;
+
+            var clonedSvg = svgElement.cloneNode(true);
             clonedSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
             clonedSvg.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
             clonedSvg.setAttribute('width', width);
             clonedSvg.setAttribute('height', height);
 
-            // Fixed: Process images with proper error handling
-            const images = clonedSvg.querySelectorAll('image');
-            let loadedCount = 0;
-            const totalImages = images.length;
-
-            if (totalImages > 0) {
-                let loadPromises = [];
-                images.forEach(img => {
-                    const href = img.getAttribute('href') || img.getAttribute('xlink:href');
-                    if (href && href.startsWith('http')) {
-                        const promise = new Promise((resolve) => {
-                            const tempImg = new Image();
-                            tempImg.crossOrigin = 'anonymous';
-                            tempImg.referrerPolicy = 'no-referrer';
-                            tempImg.onload = () => {
-                                try {
-                                    const canvas = document.createElement('canvas');
-                                    const ctx = canvas.getContext('2d');
-                                    const imgWidth = parseInt(img.getAttribute('width')) || 96;
-                                    const imgHeight = parseInt(img.getAttribute('height')) || 96;
-                                    canvas.width = imgWidth;
-                                    canvas.height = imgHeight;
-                                    ctx.drawImage(tempImg, 0, 0, imgWidth, imgHeight);
-                                    const dataUrl = canvas.toDataURL('image/png');
-                                    img.setAttribute('href', dataUrl);
-                                    img.setAttribute('xlink:href', dataUrl);
-                                } catch (e) {
-                                    console.warn('Failed to process image:', e);
-                                }
-                                resolve();
-                            };
-                            tempImg.onerror = () => {
-                                // Fixed: Use fallback image on error
-                                console.warn('Failed to load image:', href);
-                                // Use GitHub's default avatar as fallback
-                                const fallbackUrl = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
-                                const fallbackImg = new Image();
-                                fallbackImg.crossOrigin = 'anonymous';
-                                fallbackImg.onload = () => {
-                                    try {
-                                        const canvas = document.createElement('canvas');
-                                        const ctx = canvas.getContext('2d');
-                                        const imgWidth = parseInt(img.getAttribute('width')) || 96;
-                                        const imgHeight = parseInt(img.getAttribute('height')) || 96;
-                                        canvas.width = imgWidth;
-                                        canvas.height = imgHeight;
-                                        ctx.drawImage(fallbackImg, 0, 0, imgWidth, imgHeight);
-                                        const dataUrl = canvas.toDataURL('image/png');
-                                        img.setAttribute('href', dataUrl);
-                                        img.setAttribute('xlink:href', dataUrl);
-                                    } catch (e) {
-                                        console.warn('Failed to load fallback image');
-                                    }
-                                    resolve();
-                                };
-                                fallbackImg.onerror = () => {
-                                    resolve();
-                                };
-                                fallbackImg.src = fallbackUrl;
-                            };
-                            tempImg.src = href;
-                        });
-                        loadPromises.push(promise);
-                    }
-                });
-                
-                Promise.all(loadPromises).then(() => {
-                    renderPNG(clonedSvg, width, height);
-                }).catch(() => {
-                    renderPNG(clonedSvg, width, height);
-                });
-            } else {
-                renderPNG(clonedSvg, width, height);
-            }
-        }
-
-        function renderPNG(svgElement, width, height) {
-            const isLight = currentTheme === 'light';
-            
-            const serializer = new XMLSerializer();
-            let svgString = serializer.serializeToString(svgElement);
+            var serializer = new XMLSerializer();
+            var svgString = serializer.serializeToString(clonedSvg);
             svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
-            
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            
-            const scale = 2;
+
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            var scale = 2;
             canvas.width = width * scale;
             canvas.height = height * scale;
             ctx.scale(scale, scale);
-            
+
+            var isLight = currentTheme === 'light';
+            var isForest = currentTheme === 'forest';
+
             if (isLight) {
                 ctx.fillStyle = '#ffffff';
                 ctx.fillRect(0, 0, width, height);
+            } else if (isForest) {
+                ctx.fillStyle = '#0d1f0d';
+                ctx.fillRect(0, 0, width, height);
             }
-            
-            const img = new Image();
-            const svgBlob = new Blob([svgString], { 
-                type: 'image/svg+xml;charset=utf-8' 
+
+            var img = new Image();
+            var svgBlob = new Blob([svgString], {
+                type: 'image/svg+xml;charset=utf-8'
             });
-            const url = URL.createObjectURL(svgBlob);
+            var url = URL.createObjectURL(svgBlob);
 
             img.onload = function() {
                 ctx.drawImage(img, 0, 0, width, height);
-                // Fixed: Revoke URL after use
                 URL.revokeObjectURL(url);
 
-                const pngDataUrl = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.download = `github-card-${currentUserData.login}.png`;
+                var pngDataUrl = canvas.toDataURL('image/png');
+                var link = document.createElement('a');
+                link.download = 'github-card-' + currentUserData.login + '.png';
                 link.href = pngDataUrl;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-                
-                showStatus(`🖼️ PNG downloaded! (${width}x${height}px, 2x retina)`, 'success');
+
+                showStatus('🖼️ PNG downloaded! (' + width + 'x' + height + 'px, 2x retina)', 'success');
             };
 
             img.onerror = function() {
-                // Fixed: Revoke URL on error too
                 URL.revokeObjectURL(url);
-                // Fallback method
                 try {
-                    const fallbackCanvas = document.createElement('canvas');
-                    const fallbackCtx = fallbackCanvas.getContext('2d');
+                    var fallbackCanvas = document.createElement('canvas');
+                    var fallbackCtx = fallbackCanvas.getContext('2d');
                     fallbackCanvas.width = width * scale;
                     fallbackCanvas.height = height * scale;
                     fallbackCtx.scale(scale, scale);
-                    
+
                     if (isLight) {
                         fallbackCtx.fillStyle = '#ffffff';
                         fallbackCtx.fillRect(0, 0, width, height);
+                    } else if (isForest) {
+                        fallbackCtx.fillStyle = '#0d1f0d';
+                        fallbackCtx.fillRect(0, 0, width, height);
                     }
-                    
-                    const encodedSvg = encodeURIComponent(svgString);
-                    const dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodedSvg;
-                    
-                    const fallbackImg = new Image();
+
+                    var encodedSvg = encodeURIComponent(svgString);
+                    var dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodedSvg;
+
+                    var fallbackImg = new Image();
                     fallbackImg.onload = function() {
                         fallbackCtx.drawImage(fallbackImg, 0, 0, width, height);
-                        const pngData = fallbackCanvas.toDataURL('image/png');
-                        const link = document.createElement('a');
-                        link.download = `github-card-${currentUserData.login}.png`;
+                        var pngData = fallbackCanvas.toDataURL('image/png');
+                        var link = document.createElement('a');
+                        link.download = 'github-card-' + currentUserData.login + '.png';
                         link.href = pngData;
                         document.body.appendChild(link);
                         link.click();
                         document.body.removeChild(link);
-                        showStatus(`🖼️ PNG downloaded! (fallback method)`, 'success');
+                        showStatus('🖼️ PNG downloaded! (fallback method)', 'success');
                     };
                     fallbackImg.onerror = function() {
                         showStatus('❌ Failed to convert to PNG. Please use SVG format.', 'error');
@@ -1511,15 +1565,15 @@
             img.src = url;
         }
 
-        copyBtn.addEventListener('click', () => {
+        copyBtn.addEventListener('click', function() {
             if (!currentSVG) {
                 showStatus('⚠️ No card to copy', 'error');
                 return;
             }
-            navigator.clipboard.writeText(currentSVG).then(() => {
+            navigator.clipboard.writeText(currentSVG).then(function() {
                 showStatus('📋 SVG copied to clipboard!', 'success');
-            }).catch(() => {
-                const textarea = document.createElement('textarea');
+            }).catch(function() {
+                var textarea = document.createElement('textarea');
                 textarea.value = currentSVG;
                 document.body.appendChild(textarea);
                 textarea.select();
@@ -1529,16 +1583,16 @@
             });
         });
 
-        downloadBtn.addEventListener('click', () => {
+        downloadBtn.addEventListener('click', function() {
             if (!currentSVG || !currentUserData) {
                 showStatus('⚠️ No card to download', 'error');
                 return;
             }
-            const blob = new Blob([currentSVG], { type: 'image/svg+xml' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
+            var blob = new Blob([currentSVG], { type: 'image/svg+xml' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
             a.href = url;
-            a.download = `github-card-${currentUserData.login}.svg`;
+            a.download = 'github-card-' + currentUserData.login + '.svg';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -1548,7 +1602,7 @@
 
         downloadPngBtn.addEventListener('click', downloadPNG);
 
-        clearCacheBtn.addEventListener('click', () => {
+        clearCacheBtn.addEventListener('click', function() {
             if (confirm('Clear all cached data?')) {
                 clearAllCache();
                 if (currentUserData) {
@@ -1559,24 +1613,24 @@
             }
         });
 
-        viewCacheBtn.addEventListener('click', () => {
-            const stats = getCacheStats();
+        viewCacheBtn.addEventListener('click', function() {
+            var stats = getCacheStats();
             if (stats.count === 0) {
                 showStatus('📦 Cache is empty!', 'error');
                 return;
             }
-            const mode = CacheEngine.getMode();
-            const modeText = mode === 'storage' ? 'persistent' : 'RAM (lost on reload)';
-            const msg = `📦 Cache (${modeText}) has ${stats.count} user(s):\n${stats.keys.join('\n')}`;
+            var mode = CacheEngine.getMode();
+            var modeText = mode === 'storage' ? 'persistent' : 'RAM (lost on reload)';
+            var msg = '📦 Cache (' + modeText + ') has ' + stats.count + ' user(s):\n' + stats.keys.join('\n');
             alert(msg);
-            showStatus(`📦 Showing ${stats.count} user(s) in cache`, 'success');
+            showStatus('📦 Showing ' + stats.count + ' user(s) in cache', 'success');
         });
 
-        generateBtn.addEventListener('click', () => {
+        generateBtn.addEventListener('click', function() {
             generateCard(usernameInput.value);
         });
 
-        usernameInput.addEventListener('keypress', (e) => {
+        usernameInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 generateCard(usernameInput.value);
             }
@@ -1584,35 +1638,37 @@
 
         updateCacheUI();
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const defaultUser = usernameInput.value;
+        window.addEventListener('DOMContentLoaded', function() {
+            var defaultUser = usernameInput.value;
             generateCard(defaultUser);
         });
 
         window.debug = {
-            getCachedUser,
-            setCachedUser,
-            clearAllCache,
-            generateCard,
-            fetchGitHubUser,
-            getCacheStats,
-            CacheEngine,
-            formatNumber,
-            SPECIAL_USER,
-            SPECIAL_NOTE,
-            setTheme,
-            currentTheme,
-            downloadPNG
+            getCachedUser: getCachedUser,
+            setCachedUser: setCachedUser,
+            clearAllCache: clearAllCache,
+            generateCard: generateCard,
+            fetchGitHubUser: fetchGitHubUser,
+            getCacheStats: getCacheStats,
+            CacheEngine: CacheEngine,
+            formatNumber: formatNumber,
+            SPECIAL_USER: SPECIAL_USER,
+            SPECIAL_NOTE: SPECIAL_NOTE,
+            setTheme: setTheme,
+            currentTheme: currentTheme,
+            downloadPNG: downloadPNG
         };
 
         console.log('🚀 GitHub Profile Card Generator ready!');
-        console.log(`📌 Cache mode: ${CacheEngine.getMode()}`);
-        console.log(`👑 Special user: ${SPECIAL_USER}`);
-        console.log(`🎨 Theme: ${currentTheme}`);
+        console.log('📌 Cache mode: ' + CacheEngine.getMode());
+        console.log('👑 Special user: ' + SPECIAL_USER);
+        console.log('🎨 Theme: ' + currentTheme);
         console.log('📌 Type debug.generateCard("username") to test');
         console.log('📦 View cache: debug.getCacheStats()');
-        console.log('🎨 Change theme: debug.setTheme("default" | "special" | "light")');
+        console.log('🎨 Change theme: debug.setTheme("default" | "special" | "light" | "forest")');
         console.log('🖼️ Download PNG: debug.downloadPNG()');
+        console.log('🌲 Forest theme added!');
+        // ]]>
     </script>
 
 </body>
