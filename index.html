@@ -18,6 +18,10 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            transition: background 0.4s ease;
+        }
+        body.light-mode {
+            background: linear-gradient(135deg, #f0f6fc 0%, #d0d7de 100%);
         }
         .container {
             background: #1c2333;
@@ -27,6 +31,12 @@
             width: 100%;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
             border: 1px solid #30363d;
+            transition: all 0.4s ease;
+        }
+        body.light-mode .container {
+            background: #ffffff;
+            border: 1px solid #d0d7de;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
         }
         h1 {
             color: #f0f6fc;
@@ -36,17 +46,94 @@
             align-items: center;
             gap: 12px;
             flex-wrap: wrap;
+            transition: color 0.4s ease;
+        }
+        body.light-mode h1 {
+            color: #1f2328;
         }
         h1 small {
             font-size: 14px;
             color: #8b949e;
             font-weight: normal;
         }
+        body.light-mode h1 small {
+            color: #57606a;
+        }
         .subtitle {
             color: #8b949e;
             margin-bottom: 25px;
             font-size: 14px;
+            transition: color 0.4s ease;
         }
+        body.light-mode .subtitle {
+            color: #57606a;
+        }
+
+        .theme-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .theme-selector label {
+            color: #8b949e;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        body.light-mode .theme-selector label {
+            color: #57606a;
+        }
+        .theme-btn {
+            padding: 8px 18px;
+            border: 2px solid #30363d;
+            border-radius: 20px;
+            background: transparent;
+            color: #8b949e;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        body.light-mode .theme-btn {
+            border-color: #d0d7de;
+            color: #57606a;
+        }
+        .theme-btn:hover {
+            border-color: #58a6ff;
+            color: #58a6ff;
+        }
+        .theme-btn.active {
+            border-color: #58a6ff;
+            background: #58a6ff22;
+            color: #58a6ff;
+        }
+        body.light-mode .theme-btn.active {
+            background: #58a6ff11;
+            border-color: #0969da;
+            color: #0969da;
+        }
+        .theme-btn.special {
+            border-color: #f0883e;
+            color: #f0883e;
+        }
+        .theme-btn.special:hover,
+        .theme-btn.special.active {
+            border-color: #f0883e;
+            background: #f0883e22;
+            color: #f0883e;
+        }
+        .theme-btn.light {
+            border-color: #f6c23e;
+            color: #f6c23e;
+        }
+        .theme-btn.light:hover,
+        .theme-btn.light.active {
+            border-color: #f6c23e;
+            background: #f6c23e22;
+            color: #f6c23e;
+        }
+
         .input-group {
             display: flex;
             gap: 12px;
@@ -61,8 +148,13 @@
             background: #0d1117;
             color: #f0f6fc;
             font-size: 16px;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, background 0.4s, color 0.4s;
             min-width: 200px;
+        }
+        body.light-mode .input-group input {
+            background: #ffffff;
+            color: #1f2328;
+            border-color: #d0d7de;
         }
         .input-group input:focus {
             outline: none;
@@ -71,6 +163,10 @@
         .input-group input::placeholder {
             color: #484f58;
         }
+        body.light-mode .input-group input::placeholder {
+            color: #8b949e;
+        }
+
         .btn {
             padding: 14px 28px;
             border: none;
@@ -101,8 +197,15 @@
             background: #30363d;
             color: #f0f6fc;
         }
+        body.light-mode .btn-secondary {
+            background: #e1e4e8;
+            color: #1f2328;
+        }
         .btn-secondary:hover {
             background: #484f58;
+        }
+        body.light-mode .btn-secondary:hover {
+            background: #d0d7de;
         }
         .btn-danger {
             background: #da3633;
@@ -139,6 +242,11 @@
             flex-direction: column;
             gap: 15px;
             overflow-x: auto;
+            transition: background 0.4s, border-color 0.4s;
+        }
+        body.light-mode .card-preview {
+            background: #f6f8fa;
+            border-color: #d0d7de;
         }
         .card-preview svg {
             max-width: 100%;
@@ -146,10 +254,16 @@
             border-radius: 16px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.6);
         }
+        body.light-mode .card-preview svg {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
         .card-placeholder {
             color: #484f58;
             font-size: 14px;
             text-align: center;
+        }
+        body.light-mode .card-placeholder {
+            color: #8b949e;
         }
 
         .info-grid {
@@ -161,6 +275,11 @@
             background: #0d1117;
             border-radius: 12px;
             border: 1px solid #30363d;
+            transition: background 0.4s, border-color 0.4s;
+        }
+        body.light-mode .info-grid {
+            background: #f6f8fa;
+            border-color: #d0d7de;
         }
         .info-item {
             text-align: center;
@@ -173,6 +292,9 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+        body.light-mode .info-item .label {
+            color: #57606a;
+        }
         .info-item .value {
             color: #f0f6fc;
             font-size: 20px;
@@ -181,6 +303,9 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+        body.light-mode .info-item .value {
+            color: #1f2328;
         }
 
         .action-bar {
@@ -210,20 +335,40 @@
             color: #58a6ff;
             border: 1px solid #1f6feb55;
         }
+        body.light-mode .status.loading {
+            background: #ddf4ff;
+            color: #0969da;
+            border-color: #80ccff;
+        }
         .status.success {
             background: #23863633;
             color: #3fb950;
             border: 1px solid #23863655;
+        }
+        body.light-mode .status.success {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #7ee39f;
         }
         .status.error {
             background: #da363333;
             color: #f85149;
             border: 1px solid #da363355;
         }
+        body.light-mode .status.error {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff8189;
+        }
         .status.special {
             background: #d2992233;
             color: #f0883e;
             border: 1px solid #d2992255;
+        }
+        body.light-mode .status.special {
+            background: #ffd8b5;
+            color: #bd5612;
+            border-color: #f6b37b;
         }
 
         .cache-info {
@@ -239,6 +384,12 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
+            transition: background 0.4s, border-color 0.4s, color 0.4s;
+        }
+        body.light-mode .cache-info {
+            background: #f6f8fa;
+            border-color: #d0d7de;
+            color: #57606a;
         }
         .cache-info code {
             color: #58a6ff;
@@ -246,6 +397,10 @@
             padding: 2px 8px;
             border-radius: 4px;
             font-size: 12px;
+        }
+        body.light-mode .cache-info code {
+            background: #e1e4e8;
+            color: #0969da;
         }
         .cache-badge {
             display: inline-block;
@@ -258,13 +413,25 @@
             background: #1f6feb33;
             color: #58a6ff;
         }
+        body.light-mode .cache-badge.ram {
+            background: #ddf4ff;
+            color: #0969da;
+        }
         .cache-badge.storage {
             background: #23863633;
             color: #3fb950;
         }
+        body.light-mode .cache-badge.storage {
+            background: #dafbe1;
+            color: #1a7f37;
+        }
         .cache-badge.none {
             background: #da363333;
             color: #f85149;
+        }
+        body.light-mode .cache-badge.none {
+            background: #ffebe9;
+            color: #cf222e;
         }
 
         .footer {
@@ -274,10 +441,18 @@
             font-size: 12px;
             border-top: 1px solid #21262d;
             padding-top: 20px;
+            transition: color 0.4s, border-color 0.4s;
+        }
+        body.light-mode .footer {
+            color: #57606a;
+            border-color: #d0d7de;
         }
         .footer a {
             color: #58a6ff;
             text-decoration: none;
+        }
+        body.light-mode .footer a {
+            color: #0969da;
         }
         .footer .creator-badge {
             display: inline-block;
@@ -289,6 +464,25 @@
             font-weight: 600;
             border: 1px solid #d2992255;
             margin-top: 8px;
+        }
+        body.light-mode .footer .creator-badge {
+            background: linear-gradient(135deg, #ffd8b5, #f6b37b);
+            border-color: #f0883e;
+            color: #bd5612;
+        }
+
+        .cooldown-timer {
+            color: #8b949e;
+            font-size: 12px;
+            margin-top: 8px;
+            text-align: center;
+            display: none;
+        }
+        .cooldown-timer.show {
+            display: block;
+        }
+        body.light-mode .cooldown-timer {
+            color: #57606a;
         }
 
         @media (max-width: 600px) {
@@ -318,6 +512,9 @@
                 white-space: normal;
                 word-break: break-all;
             }
+            .theme-selector {
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -333,12 +530,20 @@
             <span id="cacheTypeLabel" style="color:#58a6ff;">💾 Cache: RAM</span>
         </p>
 
+        <div class="theme-selector">
+            <label>🎨 Theme:</label>
+            <button class="theme-btn active" data-theme="default">Default</button>
+            <button class="theme-btn special" data-theme="special">Special</button>
+            <button class="theme-btn light" data-theme="light">Light Mode</button>
+        </div>
+
         <div class="input-group">
             <input type="text" id="usernameInput" placeholder="Enter username, e.g. torvalds" value="torvalds" />
             <button class="btn btn-primary" id="generateBtn">✨ Generate Card</button>
         </div>
 
         <div id="status" class="status"></div>
+        <div id="cooldownTimer" class="cooldown-timer">⏳ Please wait <span id="cooldownCount">3</span>s before generating again</div>
 
         <div class="card-preview" id="cardPreview">
             <div class="card-placeholder" id="placeholder">
@@ -487,6 +692,7 @@
 
         const CACHE_PREFIX = 'github_card_';
         const CACHE_TTL = 600;
+        const COOLDOWN_SECONDS = 3;
 
         const COLORS = {
             bg: '#0d1117',
@@ -499,11 +705,35 @@
             orange: '#d29922',
             red: '#f85149',
             purple: '#6f42c1',
-            gold: '#f0883e'
+            gold: '#f0883e',
+            goldLight: '#bd5612',
+            goldBg: '#d2992233',
+            goldBgLight: '#ffd8b5'
+        };
+
+        const LIGHT_COLORS = {
+            bg: '#ffffff',
+            cardBg: '#f6f8fa',
+            border: '#d0d7de',
+            text: '#1f2328',
+            textMuted: '#57606a',
+            accent: '#0969da',
+            green: '#1a7f37',
+            orange: '#bd5612',
+            red: '#cf222e',
+            purple: '#8250df',
+            gold: '#bd5612',
+            goldLight: '#bd5612',
+            goldBg: '#ffd8b5',
+            goldBgLight: '#ffd8b5'
         };
 
         const SPECIAL_USER = 'dryfish09';
         const SPECIAL_NOTE = 'Creator of dryfish09.github.io/card-svg-gen/';
+
+        let currentTheme = 'default';
+        let isCooldown = false;
+        let cooldownTimer = null;
 
         const usernameInput = document.getElementById('usernameInput');
         const generateBtn = document.getElementById('generateBtn');
@@ -520,9 +750,46 @@
         const cacheModeBadge = document.getElementById('cacheModeBadge');
         const cacheTypeLabel = document.getElementById('cacheTypeLabel');
         const storageInfo = document.getElementById('storageInfo');
+        const cooldownTimerEl = document.getElementById('cooldownTimer');
+        const cooldownCount = document.getElementById('cooldownCount');
+        const themeBtns = document.querySelectorAll('.theme-btn');
 
         let currentUserData = null;
         let currentSVG = '';
+
+        function setTheme(theme) {
+            currentTheme = theme;
+            themeBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.theme === theme) {
+                    btn.classList.add('active');
+                }
+            });
+
+            if (theme === 'light') {
+                document.body.classList.add('light-mode');
+            } else {
+                document.body.classList.remove('light-mode');
+            }
+
+            if (currentUserData) {
+                const svg = generateProfileCardSVG(currentUserData.login, currentUserData);
+                renderCard(svg, currentUserData);
+            }
+        }
+
+        themeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                setTheme(btn.dataset.theme);
+            });
+        });
+
+        function getColors() {
+            if (currentTheme === 'light') {
+                return LIGHT_COLORS;
+            }
+            return COLORS;
+        }
 
         function getCacheKey(username) {
             return `${CACHE_PREFIX}${username.toLowerCase()}`;
@@ -596,8 +863,9 @@
             });
 
             const isSpecial = login.toLowerCase() === SPECIAL_USER;
+            const colors = getColors();
+            const isLight = currentTheme === 'light';
             
-            // Bio wrapping
             const maxBioLength = 50;
             const rawBio = bio || 'No bio available';
             const bioLines = [];
@@ -627,28 +895,27 @@
             const bioLineCount = bioLines.length;
             const extraHeight = Math.max(0, (bioLineCount - 1) * 18);
             
-            // Dynamic card height
             let cardHeight = 320 + extraHeight;
-            if (isSpecial) cardHeight += 40;
+            if (isSpecial || currentTheme === 'special') cardHeight += 40;
             
             const cardWidth = 680;
             const avatarSize = 96;
             const padding = 28;
             
-            // Name color
-            let nameColor = COLORS.accent;
-            if (isSpecial) nameColor = COLORS.gold;
-            else if (followers > 1000) nameColor = COLORS.green;
+            let nameColor = colors.accent;
+            if (currentTheme === 'special') {
+                nameColor = colors.gold;
+            } else if (isSpecial) {
+                nameColor = colors.gold;
+            } else if (followers > 1000) nameColor = colors.green;
             else if (followers > 500) nameColor = '#f0883e';
-            else if (followers > 100) nameColor = COLORS.orange;
+            else if (followers > 100) nameColor = colors.orange;
 
-            // Truncate location
             const locationText = location || 'Location not set';
             const wrappedLocation = locationText.length > 28 ? 
                 locationText.substring(0, 25) + '...' : 
                 locationText;
 
-            // Dynamic Y positions
             const nameY = 28;
             const usernameY = 52;
             const bioStartY = 78;
@@ -661,7 +928,6 @@
                 cardHeight = finalStatsY + 80;
             }
 
-            // Stats
             const statItems = [
                 { icon: '⭐', label: 'Followers', value: followers },
                 { icon: '📦', label: 'Repositories', value: public_repos },
@@ -676,24 +942,26 @@
                 const formattedValue = formatNumber(item.value);
                 statsHTML += `
                     <g>
-                        <text x="${x}" y="${finalStatsY}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="26" font-weight="700" fill="${COLORS.text}" text-anchor="middle">${formattedValue}</text>
-                        <text x="${x}" y="${finalStatsY + 24}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${COLORS.textMuted}" text-anchor="middle" letter-spacing="0.5">${item.icon} ${item.label}</text>
+                        <text x="${x}" y="${finalStatsY}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="26" font-weight="700" fill="${colors.text}" text-anchor="middle">${formattedValue}</text>
+                        <text x="${x}" y="${finalStatsY + 24}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${colors.textMuted}" text-anchor="middle" letter-spacing="0.5">${item.icon} ${item.label}</text>
                     </g>
                 `;
             });
 
-            // Special badge
             let specialBadgeHTML = '';
-            if (isSpecial) {
+            if (isSpecial || currentTheme === 'special') {
                 const specialBadgeY = cardHeight - 52;
+                const noteText = isSpecial ? SPECIAL_NOTE : '✨ Special Theme Edition';
+                const goldColor = isLight ? colors.goldLight : colors.gold;
+                const goldBg = isLight ? colors.goldBgLight : colors.goldBg;
+                
                 specialBadgeHTML = `
-                    <rect x="${padding}" y="${specialBadgeY}" width="${cardWidth - padding * 2}" height="32" rx="8" ry="8" fill="url(#goldGrad)" opacity="0.15"/>
-                    <rect x="${padding}" y="${specialBadgeY}" width="${cardWidth - padding * 2}" height="32" rx="8" ry="8" stroke="url(#goldGrad)" stroke-width="1" opacity="0.3"/>
-                    <text x="${cardWidth / 2}" y="${specialBadgeY + 20}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="13" fill="${COLORS.gold}" text-anchor="middle" font-weight="600">${SPECIAL_NOTE}</text>
+                    <rect x="${padding}" y="${specialBadgeY}" width="${cardWidth - padding * 2}" height="32" rx="8" ry="8" fill="${goldBg}" opacity="${isLight ? '1' : '0.15'}"/>
+                    <rect x="${padding}" y="${specialBadgeY}" width="${cardWidth - padding * 2}" height="32" rx="8" ry="8" stroke="${goldColor}" stroke-width="${isLight ? '2' : '1'}" opacity="${isLight ? '0.6' : '0.3'}"/>
+                    <text x="${cardWidth / 2}" y="${specialBadgeY + 20}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="13" fill="${goldColor}" text-anchor="middle" font-weight="600">${noteText}</text>
                 `;
             }
 
-            // Dynamic name sizing and truncation
             const maxNameLength = 24;
             const displayName = name || login;
             const truncatedName = displayName.length > maxNameLength ? 
@@ -703,25 +971,27 @@
             const nameFontSize = truncatedName.length > 20 ? 20 : 
                                  truncatedName.length > 15 ? 22 : 24;
             
-            // Bio HTML
             let bioHTML = '';
             bioLines.forEach((line, index) => {
                 bioHTML += `
-                    <text x="0" y="${bioStartY + (index * 18)}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="13" fill="${COLORS.text}" opacity="0.85">${line}</text>
+                    <text x="0" y="${bioStartY + (index * 18)}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="13" fill="${colors.text}" opacity="0.85">${line}</text>
                 `;
             });
+
+            const isSpecialTheme = currentTheme === 'special' || isSpecial;
+            const goldColor = isLight ? colors.goldLight : colors.gold;
 
             return `<?xml version="1.0" encoding="UTF-8"?>
         <svg xmlns="http://www.w3.org/2000/svg" width="${cardWidth}" height="${cardHeight}" viewBox="0 0 ${cardWidth} ${cardHeight}">
             <defs>
                 <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#1c2333;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#0d1117;stop-opacity:1" />
+                    <stop offset="0%" style="stop-color:${isLight ? '#f6f8fa' : '#1c2333'};stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:${isLight ? '#ffffff' : '#0d1117'};stop-opacity:1" />
                 </linearGradient>
                 <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style="stop-color:${isSpecial ? COLORS.gold : COLORS.accent};stop-opacity:1" />
-                    <stop offset="50%" style="stop-color:${isSpecial ? '#d29922' : '#6f42c1'};stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:${isSpecial ? '#f0883e' : '#f0883e'};stop-opacity:1" />
+                    <stop offset="0%" style="stop-color:${isSpecialTheme ? goldColor : nameColor};stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:${isSpecialTheme ? '#d29922' : nameColor};stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:${isSpecialTheme ? '#f0883e' : nameColor};stop-opacity:1" />
                 </linearGradient>
                 <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" style="stop-color:#f0883e;stop-opacity:1" />
@@ -729,22 +999,22 @@
                     <stop offset="100%" style="stop-color:#f0883e;stop-opacity:1" />
                 </linearGradient>
                 <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:${isSpecial ? COLORS.gold : COLORS.accent};stop-opacity:0.1" />
-                    <stop offset="100%" style="stop-color:#6f42c1;stop-opacity:0.05" />
+                    <stop offset="0%" style="stop-color:${isSpecialTheme ? goldColor : nameColor};stop-opacity:${isLight ? '0.05' : '0.1'}" />
+                    <stop offset="100%" style="stop-color:#6f42c1;stop-opacity:${isLight ? '0.02' : '0.05'}" />
                 </linearGradient>
                 <filter id="shadow">
-                    <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000" flood-opacity="0.6"/>
+                    <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000" flood-opacity="${isLight ? '0.1' : '0.6'}"/>
                 </filter>
                 <clipPath id="avatarClip">
                     <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2}"/>
                 </clipPath>
                 <radialGradient id="avatarGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" style="stop-color:${isSpecial ? COLORS.gold : COLORS.accent};stop-opacity:0.3"/>
-                    <stop offset="100%" style="stop-color:${isSpecial ? COLORS.gold : COLORS.accent};stop-opacity:0"/>
+                    <stop offset="0%" style="stop-color:${isSpecialTheme ? goldColor : nameColor};stop-opacity:${isLight ? '0.2' : '0.3'}"/>
+                    <stop offset="100%" style="stop-color:${isSpecialTheme ? goldColor : nameColor};stop-opacity:0"/>
                 </radialGradient>
-                ${isSpecial ? `
+                ${isSpecialTheme ? `
                 <radialGradient id="specialGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" style="stop-color:#f0883e;stop-opacity:0.08"/>
+                    <stop offset="0%" style="stop-color:#f0883e;stop-opacity:${isLight ? '0.05' : '0.08'}"/>
                     <stop offset="100%" style="stop-color:#f0883e;stop-opacity:0"/>
                 </radialGradient>
                 ` : ''}
@@ -754,42 +1024,42 @@
             
             <rect x="0" y="0" width="${cardWidth}" height="${cardHeight}" rx="20" ry="20" fill="url(#glowGrad)"/>
             
-            ${isSpecial ? `<rect x="0" y="0" width="${cardWidth}" height="${cardHeight}" rx="20" ry="20" fill="url(#specialGlow)"/>` : ''}
+            ${isSpecialTheme ? `<rect x="0" y="0" width="${cardWidth}" height="${cardHeight}" rx="20" ry="20" fill="url(#specialGlow)"/>` : ''}
             
             <rect x="0" y="0" width="${cardWidth}" height="4" rx="2" ry="2" fill="url(#accentGrad)"/>
 
             <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2 + 8}" fill="url(#avatarGlow)"/>
             
-            <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2 + 2}" fill="url(#accentGrad)" opacity="0.2"/>
+            <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2 + 2}" fill="url(#accentGrad)" opacity="${isLight ? '0.15' : '0.2'}"/>
             
-            <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2}" fill="${COLORS.bg}"/>
+            <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2}" fill="${colors.bg}"/>
             
             <image x="${padding + 4}" y="${padding + 4}" width="${avatarSize}" height="${avatarSize}" clip-path="url(#avatarClip)" href="${avatar_url}" preserveAspectRatio="xMidYMid slice"/>
 
             <g transform="translate(${padding + avatarSize + 20}, ${padding + 8})">
                 <text x="0" y="${nameY}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="${nameFontSize}" font-weight="700" fill="${nameColor}" letter-spacing="0.3">${truncatedName}</text>
                 
-                <text x="0" y="${usernameY}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="14" fill="${COLORS.textMuted}">@${login}</text>
+                <text x="0" y="${usernameY}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="14" fill="${colors.textMuted}">@${login}</text>
                 
                 ${bioHTML}
                 
                 <g transform="translate(0, ${locationY})">
-                    <text x="0" y="0" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${COLORS.textMuted}">📍 ${wrappedLocation}</text>
+                    <text x="0" y="0" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${colors.textMuted}">📍 ${wrappedLocation}</text>
                 </g>
                 
                 <g transform="translate(0, ${joinedY})">
-                    <text x="0" y="0" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${COLORS.textMuted}">📅 Joined ${joinDate}</text>
+                    <text x="0" y="0" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${colors.textMuted}">📅 Joined ${joinDate}</text>
                 </g>
             </g>
 
-            <line x1="${padding}" y1="${Math.min(padding + avatarSize + 24, finalStatsY - 20)}" x2="${cardWidth - padding}" y2="${Math.min(padding + avatarSize + 24, finalStatsY - 20)}" stroke="${COLORS.border}" stroke-width="1" stroke-dasharray="6,6" opacity="0.5"/>
+            <line x1="${padding}" y1="${Math.min(padding + avatarSize + 24, finalStatsY - 20)}" x2="${cardWidth - padding}" y2="${Math.min(padding + avatarSize + 24, finalStatsY - 20)}" stroke="${colors.border}" stroke-width="1" stroke-dasharray="6,6" opacity="0.5"/>
 
             ${statsHTML}
 
             ${specialBadgeHTML}
 
             <g transform="translate(${cardWidth - 20}, ${cardHeight - 14})">
-                <text x="0" y="0" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="10" fill="${COLORS.textMuted}" text-anchor="end" opacity="0.6">✨ GitHub Profile Card</text>
+                <text x="0" y="0" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="10" fill="${colors.textMuted}" text-anchor="end" opacity="0.6">✨ GitHub Profile Card</text>
             </g>
         </svg>`;
         }
@@ -860,15 +1130,16 @@
             if (userData) {
                 userInfo.style.display = 'grid';
                 const isSpecial = userData.login.toLowerCase() === SPECIAL_USER;
-                const displayName = (userData.name || userData.login);
-                const truncatedDisplayName = displayName.length > 30 ? 
-                    displayName.substring(0, 27) + '...' : 
-                    displayName;
+                const isLight = currentTheme === 'light';
+                const goldColor = isLight ? '#bd5612' : '#f0883e';
+                const goldBg = isLight ? '#ffd8b5' : '#d2992233';
+                
+                const nameColor = (isSpecial || currentTheme === 'special') ? goldColor : '';
                 
                 userInfo.innerHTML = `
                     <div class="info-item">
                         <div class="label">👤 Username</div>
-                        <div class="value" style="${isSpecial ? 'color:#f0883e;' : ''}">${userData.login}</div>
+                        <div class="value" style="${nameColor ? 'color:' + nameColor + ';' : ''}">${userData.login}</div>
                     </div>
                     <div class="info-item">
                         <div class="label">⭐ Followers</div>
@@ -890,10 +1161,10 @@
                         <div class="label">📅 Joined</div>
                         <div class="value" style="font-size:14px;">${new Date(userData.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
                     </div>
-                    ${isSpecial ? `
-                    <div class="info-item" style="grid-column: 1 / -1; background: #d2992233; border-radius: 8px; padding: 8px;">
-                        <div class="label" style="color:#f0883e;">Creator Badge</div>
-                        <div class="value" style="font-size:14px; color:#f0883e;">${SPECIAL_NOTE}</div>
+                    ${(isSpecial || currentTheme === 'special') ? `
+                    <div class="info-item" style="grid-column: 1 / -1; background: ${goldBg}; border-radius: 8px; padding: 8px; border: 1px solid ${goldColor}33;">
+                        <div class="label" style="color:${goldColor};">${isSpecial ? '👑 Creator Badge' : '✨ Special Theme'}</div>
+                        <div class="value" style="font-size:14px; color:${goldColor};">${isSpecial ? SPECIAL_NOTE : '✨ Special Theme Edition'}</div>
                     </div>
                     ` : ''}
                 `;
@@ -912,7 +1183,32 @@
             currentUserData = null;
         }
 
+        function startCooldown() {
+            isCooldown = true;
+            generateBtn.disabled = true;
+            cooldownTimerEl.classList.add('show');
+            let remaining = COOLDOWN_SECONDS;
+            cooldownCount.textContent = remaining;
+            
+            cooldownTimer = setInterval(() => {
+                remaining--;
+                if (remaining <= 0) {
+                    clearInterval(cooldownTimer);
+                    cooldownTimerEl.classList.remove('show');
+                    generateBtn.disabled = false;
+                    isCooldown = false;
+                } else {
+                    cooldownCount.textContent = remaining;
+                }
+            }, 1000);
+        }
+
         async function generateCard(username) {
+            if (isCooldown) {
+                showStatus('⏳ Please wait for cooldown before generating again', 'error');
+                return;
+            }
+
             if (!username || username.trim() === '') {
                 showStatus('⚠️ Please enter a username', 'error');
                 return;
@@ -923,6 +1219,8 @@
             const isSpecial = username.toLowerCase() === SPECIAL_USER;
             if (isSpecial) {
                 showStatus(`👑 Welcome, Creator! Generating special card for @${username}...`, 'special');
+            } else if (currentTheme === 'special') {
+                showStatus(`✨ Generating special theme card for @${username}...`, 'special');
             } else {
                 showStatus(`🔄 Fetching data for @${username}...`, 'loading');
             }
@@ -939,10 +1237,13 @@
                     const modeText = mode === 'storage' ? '💾 persistent' : '🧠 RAM';
                     if (isSpecial) {
                         showStatus(`👑 Special creator card for @${username}! (cache: ${modeText})`, 'special');
+                    } else if (currentTheme === 'special') {
+                        showStatus(`✨ Special theme card for @${username}! (cache: ${modeText})`, 'special');
                     } else {
                         showStatus(`📦 Using cached data (${modeText})`, 'success');
                     }
                     generateBtn.disabled = false;
+                    startCooldown();
                     return;
                 }
 
@@ -959,6 +1260,8 @@
                 
                 if (isSpecial) {
                     showStatus(`👑 Generated special creator card for @${username}! (cache: ${modeText})`, 'special');
+                } else if (currentTheme === 'special') {
+                    showStatus(`✨ Generated special theme card for @${username}! (cache: ${modeText})`, 'special');
                 } else {
                     showStatus(`🎉 Generated new card for @${username}! (cache: ${modeText})`, 'success');
                 }
@@ -970,6 +1273,7 @@
             } finally {
                 generateBtn.disabled = false;
                 updateCacheUI();
+                startCooldown();
             }
         }
 
@@ -1059,14 +1363,18 @@
             CacheEngine,
             formatNumber,
             SPECIAL_USER,
-            SPECIAL_NOTE
+            SPECIAL_NOTE,
+            setTheme,
+            currentTheme
         };
 
         console.log('🚀 GitHub Profile Card Generator ready!');
         console.log(`📌 Cache mode: ${CacheEngine.getMode()}`);
         console.log(`👑 Special user: ${SPECIAL_USER}`);
+        console.log(`🎨 Theme: ${currentTheme}`);
         console.log('📌 Type debug.generateCard("username") to test');
         console.log('📦 View cache: debug.getCacheStats()');
+        console.log('🎨 Change theme: debug.setTheme("default" | "special" | "light")');
     </script>
 
 </body>
