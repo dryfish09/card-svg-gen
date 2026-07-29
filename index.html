@@ -1302,54 +1302,98 @@
                 return;
             }
 
-            // Get SVG dimensions
-            const svgRect = svgElement.getBoundingClientRect();
-            const width = svgElement.getAttribute('width') || svgRect.width || 680;
-            const height = svgElement.getAttribute('height') || svgRect.height || 320;
-
-            // Clone SVG to work with
-            const clonedSvg = svgElement.cloneNode(true);
+            // Get actual SVG dimensions
+            const width = parseInt(svgElement.getAttribute('width')) || 680;
+            const height = parseInt(svgElement.getAttribute('height')) || 320;
             
-            // Ensure SVG has proper attributes for rendering
+            // Clone SVG and prepare for rendering
+            const clonedSvg = svgElement.cloneNode(true);
             clonedSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
             clonedSvg.setAttribute('width', width);
             clonedSvg.setAttribute('height', height);
             
-            // Convert to string
-            const serializer = new XMLSerializer();
-            let svgString = serializer.serializeToString(clonedSvg);
-            
-            // Fix for external images (avatars)
-            // Add a white background for light mode compatibility
-            if (currentTheme === 'light') {
-                svgString = svgString.replace(
-                    '<svg',
-                    '<svg style="background:#ffffff"'
-                );
-            }
+            // Ensure all images are loaded
+            const images = clonedSvg.querySelectorAll('image');
+            let imagesLoaded = 0;
+            const totalImages = images.length;
 
+            // If there are images, wait for them to load
+            if (totalImages > 0) {
+                let loadPromises = [];
+                images.forEach(img => {
+                    const href = img.getAttribute('href') || img.getAttribute('xlink:href');
+                    if (href) {
+                        const promise = new Promise((resolve) => {
+                            const tempImg = new Image();
+                            tempImg.crossOrigin = 'anonymous';
+                            tempImg.onload = () => {
+                                // Replace with loaded image
+                                const canvas = document.createElement('canvas');
+                                const ctx = canvas.getContext('2d');
+                                canvas.width = parseInt(img.getAttribute('width')) || 80;
+                                canvas.height = parseInt(img.getAttribute('height')) || 80;
+                                ctx.drawImage(tempImg, 0, 0, canvas.width, canvas.height);
+                                const dataUrl = canvas.toDataURL('image/png');
+                                img.setAttribute('href', dataUrl);
+                                img.setAttribute('xlink:href', dataUrl);
+                                resolve();
+                            };
+                            tempImg.onerror = () => {
+                                // Keep original if fails
+                                resolve();
+                            };
+                            tempImg.src = href;
+                        });
+                        loadPromises.push(promise);
+                    }
+                });
+                
+                // Wait for all images to load
+                Promise.all(loadPromises).then(() => {
+                    renderPNG(clonedSvg, width, height);
+                });
+            } else {
+                // No images, render directly
+                renderPNG(clonedSvg, width, height);
+            }
+        }
+
+        function renderPNG(svgElement, width, height) {
+            const isLight = currentTheme === 'light';
+            
+            // Convert SVG to string
+            const serializer = new XMLSerializer();
+            let svgString = serializer.serializeToString(svgElement);
+            
+            // Add XML declaration
+            svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
+            
             // Create canvas
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
             
-            // Set canvas size with 2x resolution for retina display
+            // Set canvas size with 2x scale for retina
             const scale = 2;
             canvas.width = width * scale;
             canvas.height = height * scale;
+            
+            // Scale context
             ctx.scale(scale, scale);
-
+            
+            // For light mode, fill white background first
+            if (isLight) {
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, width, height);
+            }
+            
             // Create image from SVG
             const img = new Image();
-            const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+            const svgBlob = new Blob([svgString], { 
+                type: 'image/svg+xml;charset=utf-8' 
+            });
             const url = URL.createObjectURL(svgBlob);
 
             img.onload = function() {
-                // Draw white background for light mode
-                if (currentTheme === 'light') {
-                    ctx.fillStyle = '#ffffff';
-                    ctx.fillRect(0, 0, width, height);
-                }
-                
                 // Draw the SVG
                 ctx.drawImage(img, 0, 0, width, height);
                 URL.revokeObjectURL(url);
@@ -1363,14 +1407,12 @@
                 link.click();
                 document.body.removeChild(link);
                 
-                showStatus(`🖼️ PNG downloaded! (${Math.round(width)}x${Math.round(height)})`, 'success');
+                showStatus(`🖼️ PNG downloaded! (${width}x${height}px, 2x retina)`, 'success');
             };
 
             img.onerror = function() {
                 URL.revokeObjectURL(url);
-                showStatus('❌ Failed to convert to PNG. Trying alternative method...', 'error');
-                
-                // Fallback: Try with embedded SVG
+                // Fallback: try with data URI
                 try {
                     const fallbackCanvas = document.createElement('canvas');
                     const fallbackCtx = fallbackCanvas.getContext('2d');
@@ -1378,16 +1420,16 @@
                     fallbackCanvas.height = height * scale;
                     fallbackCtx.scale(scale, scale);
                     
-                    // Create a data URL with embedded SVG
+                    if (isLight) {
+                        fallbackCtx.fillStyle = '#ffffff';
+                        fallbackCtx.fillRect(0, 0, width, height);
+                    }
+                    
                     const encodedSvg = encodeURIComponent(svgString);
                     const dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodedSvg;
                     
                     const fallbackImg = new Image();
                     fallbackImg.onload = function() {
-                        if (currentTheme === 'light') {
-                            fallbackCtx.fillStyle = '#ffffff';
-                            fallbackCtx.fillRect(0, 0, width, height);
-                        }
                         fallbackCtx.drawImage(fallbackImg, 0, 0, width, height);
                         const pngData = fallbackCanvas.toDataURL('image/png');
                         const link = document.createElement('a');
@@ -1399,11 +1441,11 @@
                         showStatus(`🖼️ PNG downloaded! (fallback method)`, 'success');
                     };
                     fallbackImg.onerror = function() {
-                        showStatus('❌ Failed to convert to PNG. Please try downloading SVG instead.', 'error');
+                        showStatus('❌ Failed to convert to PNG. Please use SVG format instead.', 'error');
                     };
                     fallbackImg.src = dataUrl;
                 } catch (e) {
-                    showStatus('❌ Failed to convert to PNG. Please try downloading SVG instead.', 'error');
+                    showStatus('❌ Failed to convert to PNG. Please use SVG format instead.', 'error');
                 }
             };
 
