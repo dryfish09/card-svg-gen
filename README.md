@@ -13,15 +13,15 @@ Simple SVG card generator
 
 ![torvalds](.github/img/github-card-torvalds.png)
 
-### Mojang (light style)
+### Mojang (light mode style)
 
 ![Mojang?](.github/img/github-card-Mojang.png)
 
-### special: dryfish09 (special + unique style)
+### special: dryfish09 (special style)
 
 <img src="https://raw.githubusercontent.com/dryfish09/card-svg-gen/main/.github/img/github-card-dryfish09.png" 
      alt="GitHub Profile Card" 
      width="680" 
      height="360">
 > [!NOTE]
-> **Github arvatar in SVG can't be shown in Github SVG renderer due external stuff blocking**
+> **Github arvatar in SVG can't be shown in Github SVG renderer due external stuff blocking and CORS problem, so I recommend PNG dowwnload**
