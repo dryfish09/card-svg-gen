@@ -228,6 +228,14 @@
         .btn-purple:hover {
             background: #8957e5;
         }
+        .btn-png {
+            background: linear-gradient(135deg, #f0883e, #d29922);
+            color: #fff;
+        }
+        .btn-png:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(210, 153, 34, 0.4);
+        }
 
         .card-preview {
             background: #0d1117;
@@ -556,6 +564,7 @@
         <div class="action-bar">
             <button class="btn btn-secondary" id="copyBtn">📋 Copy SVG</button>
             <button class="btn btn-secondary" id="downloadBtn">💾 Download SVG</button>
+            <button class="btn btn-png" id="downloadPngBtn">🖼️ Download PNG</button>
             <button class="btn btn-danger" id="clearCacheBtn">🗑️ Clear Cache</button>
             <button class="btn btn-purple" id="viewCacheBtn">📦 View Cache</button>
         </div>
@@ -743,6 +752,7 @@
         const status = document.getElementById('status');
         const copyBtn = document.getElementById('copyBtn');
         const downloadBtn = document.getElementById('downloadBtn');
+        const downloadPngBtn = document.getElementById('downloadPngBtn');
         const clearCacheBtn = document.getElementById('clearCacheBtn');
         const viewCacheBtn = document.getElementById('viewCacheBtn');
         const cacheStatus = document.getElementById('cacheStatus');
@@ -1277,6 +1287,129 @@
             }
         }
 
+        function downloadPNG() {
+            if (!currentSVG || !currentUserData) {
+                showStatus('⚠️ No card to download as PNG', 'error');
+                return;
+            }
+
+            showStatus('🔄 Converting to PNG...', 'loading');
+
+            // Get the SVG element from preview
+            const svgElement = cardPreview.querySelector('svg');
+            if (!svgElement) {
+                showStatus('❌ No SVG element found', 'error');
+                return;
+            }
+
+            // Get SVG dimensions
+            const svgRect = svgElement.getBoundingClientRect();
+            const width = svgElement.getAttribute('width') || svgRect.width || 680;
+            const height = svgElement.getAttribute('height') || svgRect.height || 320;
+
+            // Clone SVG to work with
+            const clonedSvg = svgElement.cloneNode(true);
+            
+            // Ensure SVG has proper attributes for rendering
+            clonedSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+            clonedSvg.setAttribute('width', width);
+            clonedSvg.setAttribute('height', height);
+            
+            // Convert to string
+            const serializer = new XMLSerializer();
+            let svgString = serializer.serializeToString(clonedSvg);
+            
+            // Fix for external images (avatars)
+            // Add a white background for light mode compatibility
+            if (currentTheme === 'light') {
+                svgString = svgString.replace(
+                    '<svg',
+                    '<svg style="background:#ffffff"'
+                );
+            }
+
+            // Create canvas
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size with 2x resolution for retina display
+            const scale = 2;
+            canvas.width = width * scale;
+            canvas.height = height * scale;
+            ctx.scale(scale, scale);
+
+            // Create image from SVG
+            const img = new Image();
+            const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(svgBlob);
+
+            img.onload = function() {
+                // Draw white background for light mode
+                if (currentTheme === 'light') {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, width, height);
+                }
+                
+                // Draw the SVG
+                ctx.drawImage(img, 0, 0, width, height);
+                URL.revokeObjectURL(url);
+
+                // Convert to PNG and download
+                const pngDataUrl = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = `github-card-${currentUserData.login}.png`;
+                link.href = pngDataUrl;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showStatus(`🖼️ PNG downloaded! (${Math.round(width)}x${Math.round(height)})`, 'success');
+            };
+
+            img.onerror = function() {
+                URL.revokeObjectURL(url);
+                showStatus('❌ Failed to convert to PNG. Trying alternative method...', 'error');
+                
+                // Fallback: Try with embedded SVG
+                try {
+                    const fallbackCanvas = document.createElement('canvas');
+                    const fallbackCtx = fallbackCanvas.getContext('2d');
+                    fallbackCanvas.width = width * scale;
+                    fallbackCanvas.height = height * scale;
+                    fallbackCtx.scale(scale, scale);
+                    
+                    // Create a data URL with embedded SVG
+                    const encodedSvg = encodeURIComponent(svgString);
+                    const dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodedSvg;
+                    
+                    const fallbackImg = new Image();
+                    fallbackImg.onload = function() {
+                        if (currentTheme === 'light') {
+                            fallbackCtx.fillStyle = '#ffffff';
+                            fallbackCtx.fillRect(0, 0, width, height);
+                        }
+                        fallbackCtx.drawImage(fallbackImg, 0, 0, width, height);
+                        const pngData = fallbackCanvas.toDataURL('image/png');
+                        const link = document.createElement('a');
+                        link.download = `github-card-${currentUserData.login}.png`;
+                        link.href = pngData;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        showStatus(`🖼️ PNG downloaded! (fallback method)`, 'success');
+                    };
+                    fallbackImg.onerror = function() {
+                        showStatus('❌ Failed to convert to PNG. Please try downloading SVG instead.', 'error');
+                    };
+                    fallbackImg.src = dataUrl;
+                } catch (e) {
+                    showStatus('❌ Failed to convert to PNG. Please try downloading SVG instead.', 'error');
+                }
+            };
+
+            img.src = url;
+        }
+
         copyBtn.addEventListener('click', () => {
             if (!currentSVG) {
                 showStatus('⚠️ No card to copy', 'error');
@@ -1311,6 +1444,8 @@
             URL.revokeObjectURL(url);
             showStatus('💾 SVG downloaded!', 'success');
         });
+
+        downloadPngBtn.addEventListener('click', downloadPNG);
 
         clearCacheBtn.addEventListener('click', () => {
             if (confirm('Clear all cached data?')) {
@@ -1365,7 +1500,8 @@
             SPECIAL_USER,
             SPECIAL_NOTE,
             setTheme,
-            currentTheme
+            currentTheme,
+            downloadPNG
         };
 
         console.log('🚀 GitHub Profile Card Generator ready!');
@@ -1375,6 +1511,7 @@
         console.log('📌 Type debug.generateCard("username") to test');
         console.log('📦 View cache: debug.getCacheStats()');
         console.log('🎨 Change theme: debug.setTheme("default" | "special" | "light")');
+        console.log('🖼️ Download PNG: debug.downloadPNG()');
     </script>
 
 </body>
