@@ -1,6 +1,12 @@
-# card-svg-gen
+# SVG Profile Card generator
 Simple SVG card generator
-## examples:
+## How to use:
+
+- type your github username
+- click generate card
+- download PNG (recommended) or SVG (arvatar in svg may not works on some website, renderer)
+- add it to everything you like
+## Examples:
 
 ### Torvalds:
 
@@ -16,5 +22,5 @@ Simple SVG card generator
      alt="GitHub Profile Card" 
      width="680" 
      height="360">
-
-note: **Github arvatar may can't be shown**
+> [!NOTE]
+> **Github arvatar in SVG can't be shown in Github SVG renderer due external stuff blocking**
