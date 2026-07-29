@@ -4,6 +4,7 @@ Simple SVG card generator
 
 - type your github username
 - click generate card
+- Choose style (default,light, special)
 - download PNG (recommended) or SVG (arvatar in svg may not works on some website, renderer)
 - add it to everything you like
 ## Examples:
