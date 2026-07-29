@@ -4,7 +4,7 @@ Simple SVG card generator
 
 ### Torvalds:
 
-![torvalds](.github/img/torvalds.svg)
+![torvalds](.github/img/github-card-torvalds.png)
 
 ### Mojang:
 
