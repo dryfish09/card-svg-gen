@@ -12,6 +12,9 @@ Simple SVG card generator
 
 ### special: dryfish09
 
-![huh](.github/img/me.svg)
+<img src="https://raw.githubusercontent.com/dryfish09/card-svg-gen/main/.github/img/me.svg" 
+     alt="GitHub Profile Card" 
+     width="680" 
+     height="360">
 
 note: **Github arvatar may can't be shown**
