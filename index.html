@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>GitHub Profile Card Generator</title>
     <style>
         * {
@@ -11,14 +11,15 @@
             box-sizing: border-box;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 20px;
+            align-items: flex-start;
+            padding: 12px;
             transition: background 0.4s ease;
+            -webkit-tap-highlight-color: transparent;
         }
         body.light-mode {
             background: linear-gradient(135deg, #f0f6fc 0%, #d0d7de 100%);
@@ -28,31 +29,32 @@
         }
         .container {
             background: #1c2333;
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 1000px;
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 100%;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
             border: 1px solid #30363d;
             transition: all 0.4s ease;
+            margin-top: 4px;
         }
         body.light-mode .container {
             background: #ffffff;
             border: 1px solid #d0d7de;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
         }
         body.forest-mode .container {
             background: #1a2e1a;
             border: 1px solid #2d4a2d;
-            box-shadow: 0 20px 60px rgba(0, 30, 0, 0.6);
+            box-shadow: 0 8px 40px rgba(0, 30, 0, 0.4);
         }
         h1 {
             color: #f0f6fc;
-            font-size: 28px;
-            margin-bottom: 8px;
+            font-size: 22px;
+            margin-bottom: 4px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             flex-wrap: wrap;
             transition: color 0.4s ease;
         }
@@ -63,7 +65,7 @@
             color: #c6e6c6;
         }
         h1 small {
-            font-size: 14px;
+            font-size: 12px;
             color: #8b949e;
             font-weight: normal;
         }
@@ -75,8 +77,8 @@
         }
         .subtitle {
             color: #8b949e;
-            margin-bottom: 25px;
-            font-size: 14px;
+            margin-bottom: 16px;
+            font-size: 13px;
             transition: color 0.4s ease;
         }
         body.light-mode .subtitle {
@@ -88,14 +90,14 @@
 
         .theme-selector {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 6px;
+            margin-bottom: 14px;
             flex-wrap: wrap;
             align-items: center;
         }
         .theme-selector label {
             color: #8b949e;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
         }
         body.light-mode .theme-selector label {
@@ -105,15 +107,18 @@
             color: #7aaa7a;
         }
         .theme-btn {
-            padding: 8px 18px;
+            padding: 6px 12px;
             border: 2px solid #30363d;
-            border-radius: 20px;
+            border-radius: 16px;
             background: transparent;
             color: #8b949e;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 600;
             transition: all 0.3s;
+            touch-action: manipulation;
+            -webkit-touch-callout: none;
+            user-select: none;
         }
         body.light-mode .theme-btn {
             border-color: #d0d7de;
@@ -167,6 +172,11 @@
             background: #f6c23e22;
             color: #f6c23e;
         }
+        .theme-btn.light.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
         .theme-btn.forest {
             border-color: #2ea043;
             color: #2ea043;
@@ -180,20 +190,22 @@
 
         .input-group {
             display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 14px;
             flex-wrap: wrap;
         }
         .input-group input {
             flex: 1;
-            padding: 14px 20px;
-            border-radius: 12px;
+            padding: 12px 16px;
+            border-radius: 10px;
             border: 2px solid #30363d;
             background: #0d1117;
             color: #f0f6fc;
-            font-size: 16px;
+            font-size: 15px;
             transition: border-color 0.3s, background 0.4s, color 0.4s;
-            min-width: 200px;
+            min-width: 150px;
+            -webkit-appearance: none;
+            appearance: none;
         }
         body.light-mode .input-group input {
             background: #ffffff;
@@ -223,25 +235,32 @@
         }
 
         .btn {
-            padding: 14px 28px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
+            border-radius: 10px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             white-space: nowrap;
+            touch-action: manipulation;
+            -webkit-touch-callout: none;
+            user-select: none;
+            min-height: 48px;
         }
         .btn-primary {
             background: linear-gradient(135deg, #238636, #2ea043);
             color: #fff;
         }
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(46, 160, 67, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(46, 160, 67, 0.3);
+        }
+        .btn-primary:active {
+            transform: scale(0.97);
         }
         .btn-primary:disabled {
             opacity: 0.5;
@@ -269,6 +288,9 @@
         body.forest-mode .btn-secondary:hover {
             background: #2a4a2a;
         }
+        .btn-secondary:active {
+            transform: scale(0.97);
+        }
         .btn-danger {
             background: #da3633;
             color: #fff;
@@ -295,22 +317,25 @@
             color: #fff;
         }
         .btn-png:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(210, 153, 34, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(210, 153, 34, 0.3);
+        }
+        .btn-png:active {
+            transform: scale(0.97);
         }
 
         .card-preview {
             background: #0d1117;
-            border-radius: 16px;
-            padding: 30px;
-            margin: 20px 0;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 14px 0;
             border: 2px dashed #30363d;
-            min-height: 200px;
+            min-height: 160px;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
             overflow-x: auto;
             transition: background 0.4s, border-color 0.4s;
         }
@@ -325,19 +350,20 @@
         .card-preview svg {
             max-width: 100%;
             height: auto;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
         body.light-mode .card-preview svg {
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
         body.forest-mode .card-preview svg {
-            box-shadow: 0 8px 32px rgba(0,20,0,0.8);
+            box-shadow: 0 4px 20px rgba(0,20,0,0.6);
         }
         .card-placeholder {
             color: #484f58;
-            font-size: 14px;
+            font-size: 13px;
             text-align: center;
+            padding: 20px 10px;
         }
         body.light-mode .card-placeholder {
             color: #8b949e;
@@ -348,12 +374,12 @@
 
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 12px;
-            margin: 20px 0;
-            padding: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 8px;
+            margin: 14px 0;
+            padding: 14px;
             background: #0d1117;
-            border-radius: 12px;
+            border-radius: 10px;
             border: 1px solid #30363d;
             transition: background 0.4s, border-color 0.4s;
         }
@@ -372,9 +398,9 @@
         }
         .info-item .label {
             color: #8b949e;
-            font-size: 11px;
+            font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
         }
         body.light-mode .info-item .label {
             color: #57606a;
@@ -384,7 +410,7 @@
         }
         .info-item .value {
             color: #f0f6fc;
-            font-size: 20px;
+            font-size: 17px;
             font-weight: 700;
             max-width: 100%;
             overflow: hidden;
@@ -399,22 +425,24 @@
         }
 
         .action-bar {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 6px;
+            margin-top: 10px;
         }
         .action-bar .btn {
-            flex: 1;
-            min-width: 100px;
+            width: 100%;
             justify-content: center;
+            font-size: 12px;
+            padding: 10px 8px;
+            min-height: 40px;
         }
 
         .status {
-            padding: 10px 16px;
+            padding: 8px 14px;
             border-radius: 8px;
-            font-size: 14px;
-            margin: 10px 0;
+            font-size: 13px;
+            margin: 8px 0;
             display: none;
         }
         .status.show {
@@ -483,9 +511,9 @@
 
         .cache-info {
             color: #8b949e;
-            font-size: 12px;
-            margin-top: 15px;
-            padding: 12px 16px;
+            font-size: 11px;
+            margin-top: 10px;
+            padding: 10px 14px;
             background: #0d1117;
             border-radius: 8px;
             border: 1px solid #21262d;
@@ -493,7 +521,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 6px;
             transition: background 0.4s, border-color 0.4s, color 0.4s;
         }
         body.light-mode .cache-info {
@@ -509,9 +537,9 @@
         .cache-info code {
             color: #58a6ff;
             background: #161b22;
-            padding: 2px 8px;
+            padding: 2px 6px;
             border-radius: 4px;
-            font-size: 12px;
+            font-size: 11px;
         }
         body.light-mode .cache-info code {
             background: #e1e4e8;
@@ -523,9 +551,9 @@
         }
         .cache-badge {
             display: inline-block;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
             font-weight: 600;
         }
         .cache-badge.ram {
@@ -566,12 +594,12 @@
         }
 
         .footer {
-            margin-top: 30px;
+            margin-top: 20px;
             text-align: center;
             color: #484f58;
-            font-size: 12px;
+            font-size: 11px;
             border-top: 1px solid #21262d;
-            padding-top: 20px;
+            padding-top: 16px;
             transition: color 0.4s, border-color 0.4s;
         }
         body.light-mode .footer {
@@ -596,12 +624,12 @@
             display: inline-block;
             background: linear-gradient(135deg, #f0883e33, #d2992233);
             color: #f0883e;
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 11px;
+            padding: 3px 12px;
+            border-radius: 16px;
+            font-size: 10px;
             font-weight: 600;
             border: 1px solid #d2992255;
-            margin-top: 8px;
+            margin-top: 6px;
         }
         body.light-mode .footer .creator-badge {
             background: linear-gradient(135deg, #ffd8b5, #f6b37b);
@@ -617,7 +645,7 @@
         .cooldown-timer {
             color: #8b949e;
             font-size: 12px;
-            margin-top: 8px;
+            margin-top: 6px;
             text-align: center;
             display: none;
         }
@@ -631,35 +659,102 @@
             color: #4a6a4a;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 480px) {
             .container {
-                padding: 20px;
+                padding: 14px;
             }
             h1 {
-                font-size: 22px;
+                font-size: 18px;
+            }
+            h1 small {
+                font-size: 10px;
+            }
+            .subtitle {
+                font-size: 12px;
             }
             .input-group input {
-                min-width: 100%;
+                font-size: 14px;
+                padding: 10px 14px;
+                min-width: 120px;
+            }
+            .btn {
+                font-size: 13px;
+                padding: 10px 14px;
+                min-height: 42px;
+            }
+            .card-preview {
+                padding: 10px;
+                min-height: 120px;
+            }
+            .info-grid {
+                grid-template-columns: repeat(3, 1fr);
+                padding: 10px;
+                gap: 6px;
+            }
+            .info-item .value {
+                font-size: 15px;
+            }
+            .action-bar {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 5px;
+            }
+            .action-bar .btn {
+                font-size: 11px;
+                padding: 8px 6px;
+                min-height: 36px;
+            }
+            .theme-selector {
+                gap: 4px;
+            }
+            .theme-btn {
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+            .cache-info {
+                font-size: 10px;
+                padding: 8px 10px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .container {
+                padding: 10px;
+            }
+            .input-group {
+                flex-direction: column;
+                gap: 6px;
+            }
+            .input-group input {
+                width: 100%;
+                min-width: unset;
             }
             .btn {
                 width: 100%;
                 justify-content: center;
             }
+            .action-bar {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 30px;
+                align-items: center;
+            }
+            .container {
+                max-width: 820px;
+                padding: 40px;
+            }
+            .action-bar {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
             .action-bar .btn {
-                min-width: 80px;
-                font-size: 13px;
-                padding: 10px 16px;
+                font-size: 14px;
+                padding: 12px 20px;
             }
             .info-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            }
-            .info-item .value {
-                font-size: 16px;
-                white-space: normal;
-                word-break: break-all;
-            }
-            .theme-selector {
-                justify-content: center;
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
             }
         }
     </style>
@@ -680,67 +775,63 @@
             <label>🎨 Theme:</label>
             <button class="theme-btn active" data-theme="default">Default</button>
             <button class="theme-btn special" data-theme="special">Special</button>
-            <button class="theme-btn light" data-theme="light">Light Mode</button>
+            <button class="theme-btn light" data-theme="light" id="lightThemeBtn">Light</button>
             <button class="theme-btn forest" data-theme="forest">🌲 Forest</button>
         </div>
 
         <div class="input-group">
             <input type="text" id="usernameInput" placeholder="Enter username, e.g. torvalds" value="torvalds" />
-            <button class="btn btn-primary" id="generateBtn">✨ Generate Card</button>
+            <button class="btn btn-primary" id="generateBtn">✨ Generate</button>
         </div>
 
         <div id="status" class="status"></div>
-        <div id="cooldownTimer" class="cooldown-timer">⏳ Please wait <span id="cooldownCount">3</span>s before generating again</div>
+        <div id="cooldownTimer" class="cooldown-timer">⏳ Please wait <span id="cooldownCount">3</span>s</div>
 
         <div class="card-preview" id="cardPreview">
             <div class="card-placeholder" id="placeholder">
-                ⬆️ Enter username and click "Generate Card"
+                ⬆️ Enter username and click "Generate"
             </div>
         </div>
 
         <div id="userInfo" class="info-grid" style="display:none;"></div>
 
         <div class="action-bar">
-            <button class="btn btn-secondary" id="copyBtn">📋 Copy SVG</button>
-            <button class="btn btn-secondary" id="downloadBtn">💾 Download SVG</button>
-            <button class="btn btn-png" id="downloadPngBtn">🖼️ Download PNG</button>
-            <button class="btn btn-danger" id="clearCacheBtn">🗑️ Clear Cache</button>
-            <button class="btn btn-purple" id="viewCacheBtn">📦 View Cache</button>
+            <button class="btn btn-secondary" id="copyBtn">📋 Copy</button>
+            <button class="btn btn-secondary" id="downloadBtn">💾 SVG</button>
+            <button class="btn btn-png" id="downloadPngBtn">🖼️ PNG</button>
+            <button class="btn btn-danger" id="clearCacheBtn">🗑️ Cache</button>
+            <button class="btn btn-purple" id="viewCacheBtn">📦 View</button>
         </div>
 
         <div class="cache-info">
             <span>💾 Cache: <span id="cacheStatus">No data</span></span>
             <span>
-                <span id="cacheCount">0</span> user(s) cached
+                <span id="cacheCount">0</span> user(s)
                 <span id="cacheModeBadge" class="cache-badge ram">RAM</span>
             </span>
         </div>
 
         <div class="footer">
             Made with ❤️ · Data from <a href="https://api.github.com" target="_blank">GitHub API</a>
-            · <span id="storageInfo">Cache stored in RAM (lost on reload)</span>
+            · <span id="storageInfo">Cache stored in RAM</span>
             <br>
             <span class="creator-badge">Creator: dryfish09 · dryfish09.github.io/card-svg-gen/</span>
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- SCRIPT WITH CDATA TO FIX VALIDATOR WARNING                    -->
-    <!-- ============================================================ -->
     <script>
         // <![CDATA[
-        // Cache Engine
-        const CacheEngine = (function() {
-            const _memory = {};
-            let _storage = null;
-            let _mode = 'memory';
-            let _initialized = false;
+        var CacheEngine = (function() {
+            var _memory = {};
+            var _storage = null;
+            var _mode = 'memory';
+            var _initialized = false;
 
             function init() {
                 if (_initialized) return;
                 try {
                     if (typeof localStorage !== 'undefined') {
-                        const testKey = '_test_cache_';
+                        var testKey = '_test_cache_';
                         localStorage.setItem(testKey, 'test');
                         localStorage.removeItem(testKey);
                         _storage = localStorage;
@@ -757,9 +848,9 @@
             function get(key) {
                 if (_mode === 'storage' && _storage) {
                     try {
-                        const raw = _storage.getItem(key);
+                        var raw = _storage.getItem(key);
                         if (!raw) return null;
-                        const data = JSON.parse(raw);
+                        var data = JSON.parse(raw);
                         if (data.timestamp && (Date.now() - data.timestamp) > data.ttl * 1000) {
                             _storage.removeItem(key);
                             return null;
@@ -769,7 +860,7 @@
                         return null;
                     }
                 }
-                const entry = _memory[key];
+                var entry = _memory[key];
                 if (!entry) return null;
                 if (entry.timestamp && (Date.now() - entry.timestamp) > entry.ttl * 1000) {
                     delete _memory[key];
@@ -778,8 +869,9 @@
                 return entry.value;
             }
 
-            function set(key, value, ttl = 600) {
-                const data = {
+            function set(key, value, ttl) {
+                ttl = ttl || 600;
+                var data = {
                     value: value,
                     timestamp: Date.now(),
                     ttl: ttl
@@ -811,15 +903,15 @@
             function clear() {
                 if (_mode === 'storage' && _storage) {
                     try {
-                        const keys = Object.keys(_storage);
-                        keys.forEach(k => {
+                        var keys = Object.keys(_storage);
+                        keys.forEach(function(k) {
                             if (k.startsWith('github_card_')) {
                                 _storage.removeItem(k);
                             }
                         });
                     } catch {}
                 }
-                Object.keys(_memory).forEach(k => {
+                Object.keys(_memory).forEach(function(k) {
                     if (k.startsWith('github_card_')) {
                         delete _memory[k];
                     }
@@ -827,19 +919,19 @@
             }
 
             function getAllKeys() {
-                let keys = [];
+                var keys = [];
                 if (_mode === 'storage' && _storage) {
                     try {
-                        const allKeys = Object.keys(_storage);
-                        keys = allKeys.filter(k => k.startsWith('github_card_'));
+                        var allKeys = Object.keys(_storage);
+                        keys = allKeys.filter(function(k) { return k.startsWith('github_card_'); });
                     } catch {}
                 }
-                const memoryKeys = Object.keys(_memory).filter(k => k.startsWith('github_card_'));
-                return [...new Set([...keys, ...memoryKeys])];
+                var memoryKeys = Object.keys(_memory).filter(function(k) { return k.startsWith('github_card_'); });
+                return Array.from(new Set(keys.concat(memoryKeys)));
             }
 
             function getStats() {
-                const keys = getAllKeys();
+                var keys = getAllKeys();
                 return {
                     count: keys.length,
                     keys: keys,
@@ -854,22 +946,22 @@
             init();
 
             return {
-                get,
-                set,
-                remove,
-                clear,
-                getAllKeys,
-                getStats,
-                getMode,
-                init
+                get: get,
+                set: set,
+                remove: remove,
+                clear: clear,
+                getAllKeys: getAllKeys,
+                getStats: getStats,
+                getMode: getMode,
+                init: init
             };
         })();
 
-        const CACHE_PREFIX = 'github_card_';
-        const CACHE_TTL = 600;
-        const COOLDOWN_SECONDS = 3;
+        var CACHE_PREFIX = 'github_card_';
+        var CACHE_TTL = 600;
+        var COOLDOWN_SECONDS = 3;
 
-        const COLORS = {
+        var COLORS = {
             bg: '#0d1117',
             cardBg: '#161b22',
             border: '#30363d',
@@ -886,7 +978,7 @@
             goldBgLight: '#ffd8b5'
         };
 
-        const LIGHT_COLORS = {
+        var LIGHT_COLORS = {
             bg: '#ffffff',
             cardBg: '#f6f8fa',
             border: '#d0d7de',
@@ -903,7 +995,7 @@
             goldBgLight: '#ffd8b5'
         };
 
-        const FOREST_COLORS = {
+        var FOREST_COLORS = {
             bg: '#0d1f0d',
             cardBg: '#1a2e1a',
             border: '#2d4a2d',
@@ -920,45 +1012,53 @@
             goldBgLight: '#4a3a2a'
         };
 
-        const SPECIAL_USER = 'dryfish09';
-        const SPECIAL_NOTE = 'Creator of dryfish09.github.io/card-svg-gen/';
+        var SPECIAL_USER = 'dryfish09';
+        var SPECIAL_NOTE = 'Creator of dryfish09.github.io/card-svg-gen/';
 
-        let currentTheme = 'default';
-        let isCooldown = false;
-        let cooldownTimer = null;
+        var currentTheme = 'default';
+        var isCooldown = false;
+        var cooldownTimer = null;
+        var isSpecialUser = false;
 
-        const usernameInput = document.getElementById('usernameInput');
-        const generateBtn = document.getElementById('generateBtn');
-        const cardPreview = document.getElementById('cardPreview');
-        const placeholder = document.getElementById('placeholder');
-        const userInfo = document.getElementById('userInfo');
-        const status = document.getElementById('status');
-        const copyBtn = document.getElementById('copyBtn');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const downloadPngBtn = document.getElementById('downloadPngBtn');
-        const clearCacheBtn = document.getElementById('clearCacheBtn');
-        const viewCacheBtn = document.getElementById('viewCacheBtn');
-        const cacheStatus = document.getElementById('cacheStatus');
-        const cacheCount = document.getElementById('cacheCount');
-        const cacheModeBadge = document.getElementById('cacheModeBadge');
-        const cacheTypeLabel = document.getElementById('cacheTypeLabel');
-        const storageInfo = document.getElementById('storageInfo');
-        const cooldownTimerEl = document.getElementById('cooldownTimer');
-        const cooldownCount = document.getElementById('cooldownCount');
-        const themeBtns = document.querySelectorAll('.theme-btn');
+        var usernameInput = document.getElementById('usernameInput');
+        var generateBtn = document.getElementById('generateBtn');
+        var cardPreview = document.getElementById('cardPreview');
+        var placeholder = document.getElementById('placeholder');
+        var userInfo = document.getElementById('userInfo');
+        var status = document.getElementById('status');
+        var copyBtn = document.getElementById('copyBtn');
+        var downloadBtn = document.getElementById('downloadBtn');
+        var downloadPngBtn = document.getElementById('downloadPngBtn');
+        var clearCacheBtn = document.getElementById('clearCacheBtn');
+        var viewCacheBtn = document.getElementById('viewCacheBtn');
+        var cacheStatus = document.getElementById('cacheStatus');
+        var cacheCount = document.getElementById('cacheCount');
+        var cacheModeBadge = document.getElementById('cacheModeBadge');
+        var cacheTypeLabel = document.getElementById('cacheTypeLabel');
+        var storageInfo = document.getElementById('storageInfo');
+        var cooldownTimerEl = document.getElementById('cooldownTimer');
+        var cooldownCount = document.getElementById('cooldownCount');
+        var themeBtns = document.querySelectorAll('.theme-btn');
+        var lightThemeBtn = document.getElementById('lightThemeBtn');
 
-        let currentUserData = null;
-        let currentSVG = '';
-        let currentThemeCache = 'default';
+        var currentUserData = null;
+        var currentSVG = '';
+        var currentThemeCache = 'default';
 
         function setTheme(theme) {
             currentTheme = theme;
-            themeBtns.forEach(btn => {
+            themeBtns.forEach(function(btn) {
                 btn.classList.remove('active');
                 if (btn.dataset.theme === theme) {
                     btn.classList.add('active');
                 }
             });
+
+            // Disable light mode for special user
+            if (isSpecialUser && theme === 'light') {
+                showStatus('⚠️ Light mode is not available for the creator badge', 'error');
+                return;
+            }
 
             document.body.classList.remove('light-mode', 'forest-mode');
 
@@ -969,15 +1069,21 @@
             }
 
             if (currentUserData) {
-                const svg = generateProfileCardSVG(currentUserData.login, currentUserData);
+                var svg = generateProfileCardSVG(currentUserData.login, currentUserData);
                 renderCard(svg, currentUserData);
                 currentThemeCache = theme;
             }
         }
 
-        themeBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                setTheme(btn.dataset.theme);
+        themeBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var theme = btn.dataset.theme;
+                // Check if light mode is selected for special user
+                if (isSpecialUser && theme === 'light') {
+                    showStatus('⚠️ Light mode is not available for the creator badge', 'error');
+                    return;
+                }
+                setTheme(theme);
             });
         });
 
@@ -996,12 +1102,12 @@
         }
 
         function getCachedUser(username) {
-            const key = getCacheKey(username);
+            var key = getCacheKey(username);
             return CacheEngine.get(key);
         }
 
         function setCachedUser(username, data) {
-            const key = getCacheKey(username);
+            var key = getCacheKey(username);
             CacheEngine.set(key, data, CACHE_TTL);
         }
 
@@ -1016,17 +1122,17 @@
         }
 
         function updateCacheUI() {
-            const stats = getCacheStats();
-            const mode = CacheEngine.getMode();
-            const modeLabels = {
+            var stats = getCacheStats();
+            var mode = CacheEngine.getMode();
+            var modeLabels = {
                 'storage': { text: '💾 Persistent', cls: 'storage' },
                 'memory': { text: '🧠 RAM', cls: 'ram' },
                 'none': { text: '❌ Off', cls: 'none' }
             };
-            const info = modeLabels[mode] || modeLabels.none;
+            var info = modeLabels[mode] || modeLabels.none;
             cacheModeBadge.textContent = info.text;
             cacheModeBadge.className = 'cache-badge ' + info.cls;
-            const modeText = {
+            var modeText = {
                 'storage': '💾 Cache: Persistent (localStorage)',
                 'memory': '🧠 Cache: RAM (lost on reload)',
                 'none': '❌ Cache: Off'
@@ -1394,8 +1500,21 @@
 
             username = username.trim();
 
-            var isSpecial = username.toLowerCase() === SPECIAL_USER;
-            if (isSpecial) {
+            // Check if special user
+            isSpecialUser = username.toLowerCase() === SPECIAL_USER;
+
+            // If special user and current theme is light, switch to default
+            if (isSpecialUser && currentTheme === 'light') {
+                setTheme('default');
+                // Remove active class from light button
+                lightThemeBtn.classList.remove('active');
+                // Add disabled class
+                lightThemeBtn.classList.add('disabled');
+            } else if (!isSpecialUser) {
+                lightThemeBtn.classList.remove('disabled');
+            }
+
+            if (isSpecialUser) {
                 showStatus('👑 Welcome, Creator! Generating special card for @' + username + '...', 'special');
             } else if (currentTheme === 'special') {
                 showStatus('✨ Generating special theme card for @' + username + '...', 'special');
@@ -1413,7 +1532,7 @@
                     renderCard(svg, cached);
                     var mode = CacheEngine.getMode();
                     var modeText = mode === 'storage' ? '💾 persistent' : '🧠 RAM';
-                    if (isSpecial) {
+                    if (isSpecialUser) {
                         showStatus('👑 Special creator card for @' + username + '! (cache: ' + modeText + ')', 'special');
                     } else if (currentTheme === 'special') {
                         showStatus('✨ Special theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
@@ -1436,7 +1555,7 @@
                 var mode = CacheEngine.getMode();
                 var modeText = mode === 'storage' ? '💾 persistent' : '🧠 RAM';
 
-                if (isSpecial) {
+                if (isSpecialUser) {
                     showStatus('👑 Generated special creator card for @' + username + '! (cache: ' + modeText + ')', 'special');
                 } else if (currentTheme === 'special') {
                     showStatus('✨ Generated special theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
