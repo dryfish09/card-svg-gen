@@ -1054,7 +1054,6 @@
                 }
             });
 
-            // Disable light mode for special user
             if (isSpecialUser && theme === 'light') {
                 showStatus('⚠️ Light mode is not available for the creator badge', 'error');
                 return;
@@ -1078,7 +1077,6 @@
         themeBtns.forEach(function(btn) {
             btn.addEventListener('click', function() {
                 var theme = btn.dataset.theme;
-                // Check if light mode is selected for special user
                 if (isSpecialUser && theme === 'light') {
                     showStatus('⚠️ Light mode is not available for the creator badge', 'error');
                     return;
@@ -1500,15 +1498,11 @@
 
             username = username.trim();
 
-            // Check if special user
             isSpecialUser = username.toLowerCase() === SPECIAL_USER;
 
-            // If special user and current theme is light, switch to default
             if (isSpecialUser && currentTheme === 'light') {
                 setTheme('default');
-                // Remove active class from light button
                 lightThemeBtn.classList.remove('active');
-                // Add disabled class
                 lightThemeBtn.classList.add('disabled');
             } else if (!isSpecialUser) {
                 lightThemeBtn.classList.remove('disabled');
@@ -1755,12 +1749,58 @@
             }
         });
 
-        updateCacheUI();
+        // ============================================================
+        // 📌 URL PARAMETER SUPPORT - ?username=name
+        // ============================================================
 
-        window.addEventListener('DOMContentLoaded', function() {
-            var defaultUser = usernameInput.value;
-            generateCard(defaultUser);
-        });
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        var urlUsername = getUrlParameter('username');
+        var urlTheme = getUrlParameter('theme');
+
+        if (urlUsername) {
+            usernameInput.value = urlUsername;
+            console.log('📌 Username from URL:', urlUsername);
+        }
+
+        if (urlTheme && ['default', 'special', 'light', 'forest'].includes(urlTheme)) {
+            setTimeout(function() {
+                setTheme(urlTheme);
+                console.log('🎨 Theme from URL:', urlTheme);
+            }, 50);
+        }
+
+        // ============================================================
+        // 🚀 INITIALIZATION
+        // ============================================================
+
+        var isGenerated = false;
+
+        function initialize() {
+            if (isGenerated) return;
+            isGenerated = true;
+
+            var username = urlUsername || usernameInput.value || 'torvalds';
+            usernameInput.value = username;
+
+            if (username.toLowerCase() === SPECIAL_USER && currentTheme === 'light') {
+                setTheme('default');
+                lightThemeBtn.classList.add('disabled');
+            }
+
+            generateCard(username);
+        }
+
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            initialize();
+        } else {
+            window.addEventListener('DOMContentLoaded', initialize);
+        }
 
         window.debug = {
             getCachedUser: getCachedUser,
@@ -1786,7 +1826,7 @@
         console.log('📦 View cache: debug.getCacheStats()');
         console.log('🎨 Change theme: debug.setTheme("default" | "special" | "light" | "forest")');
         console.log('🖼️ Download PNG: debug.downloadPNG()');
-        console.log('🌲 Forest theme added!');
+        console.log('🔗 URL support: ?username=name&theme=theme');
         // ]]>
     </script>
 
