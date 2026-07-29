@@ -4,7 +4,7 @@ A simple, modern GitHub profile card generator that creates beautiful SVG cards 
 
 ## ✨ Features
 
-- 🎨 **3 Themes**: Default, Light, and Special (gold accent)
+- 🎨 **4 Themes**: Default, Light, Forest, and Special (gold accent)
 - 📊 **Rich Profile Data**: Followers, Repositories, Following, Bio, Location, Join Date
 - 🖼️ **PNG Export**: Recommended for maximum compatibility
 - 💾 **SVG Export**: For vector graphics needs
@@ -34,6 +34,8 @@ A simple, modern GitHub profile card generator that creates beautiful SVG cards 
 
 > [!NOTE]
 > **GitHub Avatar in SVG**: Due to CORS restrictions and external resource blocking, the avatar image in SVG format may not display correctly in some SVG renderers (including GitHub's built-in renderer). For best results, **download as PNG** instead.
+>
+> Special Author Card is not compatible with Light Mode.
 
 ## 🛠️ Technical Details
 
