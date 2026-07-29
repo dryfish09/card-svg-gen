@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GitHub Profile Card Generator</title>
+
+    <!-- 📦 Local html2canvas library -->
     <script src="./libs/libhtml2canvas.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -261,10 +264,10 @@
             max-width: 100%;
             height: auto;
             border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
         }
         body.light-mode .card-preview svg {
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         .card-placeholder {
             color: #484f58;
@@ -587,7 +590,9 @@
     </div>
 
     <script>
-        // Cache Engine
+        // ============================================================
+        // CACHE ENGINE
+        // ============================================================
         const CacheEngine = (function() {
             const _memory = {};
             let _storage = null;
@@ -722,6 +727,9 @@
             };
         })();
 
+        // ============================================================
+        // CONSTANTS
+        // ============================================================
         const CACHE_PREFIX = 'github_card_';
         const CACHE_TTL = 600;
         const COOLDOWN_SECONDS = 3;
@@ -763,6 +771,9 @@
         const SPECIAL_USER = 'dryfish09';
         const SPECIAL_NOTE = 'Creator of dryfish09.github.io/card-svg-gen/';
 
+        // ============================================================
+        // DOM ELEMENTS
+        // ============================================================
         let currentTheme = 'default';
         let isCooldown = false;
         let cooldownTimer = null;
@@ -790,6 +801,9 @@
         let currentUserData = null;
         let currentSVG = '';
 
+        // ============================================================
+        // THEME MANAGEMENT
+        // ============================================================
         function setTheme(theme) {
             currentTheme = theme;
             themeBtns.forEach(btn => {
@@ -824,6 +838,9 @@
             return COLORS;
         }
 
+        // ============================================================
+        // CACHE HELPERS
+        // ============================================================
         function getCacheKey(username) {
             return `${CACHE_PREFIX}${username.toLowerCase()}`;
         }
@@ -876,6 +893,9 @@
             }
         }
 
+        // ============================================================
+        // UTILITY FUNCTIONS
+        // ============================================================
         function formatNumber(num) {
             if (num >= 1000000) {
                 return (num / 1000000).toFixed(1) + 'M';
@@ -886,9 +906,12 @@
             return num.toString();
         }
 
+        // ============================================================
+        // SVG GENERATION
+        // ============================================================
         function generateProfileCardSVG(username, data) {
             const { name, login, public_repos, followers, following, created_at, bio, location, avatar_url } = data;
-            
+
             const joinDate = new Date(created_at).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',
@@ -899,12 +922,12 @@
             const colors = getColors();
             const isLight = currentTheme === 'light';
             const isSpecialTheme = currentTheme === 'special' || isSpecial;
-            
+
             const maxBioLength = 50;
             const rawBio = bio || 'No bio available';
             const bioLines = [];
             let remaining = rawBio;
-            
+
             if (remaining.length > maxBioLength) {
                 const words = remaining.split(' ');
                 let currentLine = '';
@@ -920,22 +943,22 @@
             } else {
                 bioLines.push(remaining);
             }
-            
+
             while (bioLines.length > 2) {
                 const last = bioLines.pop();
                 bioLines[bioLines.length - 1] += '...';
             }
-            
+
             const bioLineCount = bioLines.length;
             const extraHeight = Math.max(0, (bioLineCount - 1) * 18);
-            
+
             let cardHeight = 320 + extraHeight;
             if (isSpecialTheme) cardHeight += 40;
-            
+
             const cardWidth = 680;
             const avatarSize = 96;
             const padding = 28;
-            
+
             let nameColor = colors.accent;
             if (isSpecialTheme) {
                 nameColor = colors.gold;
@@ -944,8 +967,8 @@
             else if (followers > 100) nameColor = colors.orange;
 
             const locationText = location || 'Location not set';
-            const wrappedLocation = locationText.length > 28 ? 
-                locationText.substring(0, 25) + '...' : 
+            const wrappedLocation = locationText.length > 28 ?
+                locationText.substring(0, 25) + '...' :
                 locationText;
 
             const nameY = 28;
@@ -955,7 +978,7 @@
             const joinedY = locationY + 18;
             const minStatsY = 208;
             const finalStatsY = Math.max(minStatsY, joinedY + 30);
-            
+
             if (finalStatsY > cardHeight - 80) {
                 cardHeight = finalStatsY + 80;
             }
@@ -986,7 +1009,7 @@
                 const noteText = isSpecial ? SPECIAL_NOTE : '✨ Special Theme Edition';
                 const goldColor = isLight ? colors.goldLight : colors.gold;
                 const goldBg = isLight ? colors.goldBgLight : colors.goldBg;
-                
+
                 specialBadgeHTML = `
                     <rect x="${padding}" y="${specialBadgeY}" width="${cardWidth - padding * 2}" height="32" rx="8" ry="8" fill="${goldBg}" opacity="${isLight ? '1' : '0.15'}"/>
                     <rect x="${padding}" y="${specialBadgeY}" width="${cardWidth - padding * 2}" height="32" rx="8" ry="8" stroke="${goldColor}" stroke-width="${isLight ? '2' : '1'}" opacity="${isLight ? '0.6' : '0.3'}"/>
@@ -996,13 +1019,13 @@
 
             const maxNameLength = 24;
             const displayName = name || login;
-            const truncatedName = displayName.length > maxNameLength ? 
-                displayName.substring(0, maxNameLength - 3) + '...' : 
+            const truncatedName = displayName.length > maxNameLength ?
+                displayName.substring(0, maxNameLength - 3) + '...' :
                 displayName;
-            
-            const nameFontSize = truncatedName.length > 20 ? 20 : 
-                                 truncatedName.length > 15 ? 22 : 24;
-            
+
+            const nameFontSize = truncatedName.length > 20 ? 20 :
+                truncatedName.length > 15 ? 22 : 24;
+
             let bioHTML = '';
             bioLines.forEach((line, index) => {
                 bioHTML += `
@@ -1038,7 +1061,7 @@
                     <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000" flood-opacity="${isLight ? '0.1' : '0.6'}"/>
                 </filter>
                 <clipPath id="avatarClip">
-                    <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2}"/>
+                    <circle cx="${padding + avatarSize / 2 + 4}" cy="${padding + avatarSize / 2 + 4}" r="${avatarSize / 2}"/>
                 </clipPath>
                 <radialGradient id="avatarGlow" cx="50%" cy="50%" r="50%">
                     <stop offset="0%" style="stop-color:${isSpecialTheme ? goldColor : nameColor};stop-opacity:${isLight ? '0.2' : '0.3'}"/>
@@ -1053,32 +1076,32 @@
             </defs>
 
             <rect x="0" y="0" width="${cardWidth}" height="${cardHeight}" rx="20" ry="20" fill="url(#bgGrad)" filter="url(#shadow)"/>
-            
+
             <rect x="0" y="0" width="${cardWidth}" height="${cardHeight}" rx="20" ry="20" fill="url(#glowGrad)"/>
-            
+
             ${isSpecialTheme ? `<rect x="0" y="0" width="${cardWidth}" height="${cardHeight}" rx="20" ry="20" fill="url(#specialGlow)"/>` : ''}
-            
+
             <rect x="0" y="0" width="${cardWidth}" height="4" rx="2" ry="2" fill="url(#accentGrad)"/>
 
-            <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2 + 8}" fill="url(#avatarGlow)"/>
-            
-            <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2 + 2}" fill="url(#accentGrad)" opacity="${isLight ? '0.15' : '0.2'}"/>
-            
-            <circle cx="${padding + avatarSize/2 + 4}" cy="${padding + avatarSize/2 + 4}" r="${avatarSize/2}" fill="${colors.bg}"/>
-            
+            <circle cx="${padding + avatarSize / 2 + 4}" cy="${padding + avatarSize / 2 + 4}" r="${avatarSize / 2 + 8}" fill="url(#avatarGlow)"/>
+
+            <circle cx="${padding + avatarSize / 2 + 4}" cy="${padding + avatarSize / 2 + 4}" r="${avatarSize / 2 + 2}" fill="url(#accentGrad)" opacity="${isLight ? '0.15' : '0.2'}"/>
+
+            <circle cx="${padding + avatarSize / 2 + 4}" cy="${padding + avatarSize / 2 + 4}" r="${avatarSize / 2}" fill="${colors.bg}"/>
+
             <image x="${padding + 4}" y="${padding + 4}" width="${avatarSize}" height="${avatarSize}" clip-path="url(#avatarClip)" href="${avatarUrl}" xlink:href="${avatarUrl}" preserveAspectRatio="xMidYMid slice"/>
 
             <g transform="translate(${padding + avatarSize + 20}, ${padding + 8})">
                 <text x="0" y="${nameY}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="${nameFontSize}" font-weight="700" fill="${nameColor}" letter-spacing="0.3">${truncatedName}</text>
-                
+
                 <text x="0" y="${usernameY}" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="14" fill="${colors.textMuted}">@${login}</text>
-                
+
                 ${bioHTML}
-                
+
                 <g transform="translate(0, ${locationY})">
                     <text x="0" y="0" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${colors.textMuted}">📍 ${wrappedLocation}</text>
                 </g>
-                
+
                 <g transform="translate(0, ${joinedY})">
                     <text x="0" y="0" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="12" fill="${colors.textMuted}">📅 Joined ${joinDate}</text>
                 </g>
@@ -1096,6 +1119,9 @@
         </svg>`;
         }
 
+        // ============================================================
+        // GITHUB API
+        // ============================================================
         async function fetchGitHubUser(username) {
             const url = `https://api.github.com/users/${username}`;
             const response = await fetch(url, {
@@ -1133,6 +1159,9 @@
             };
         }
 
+        // ============================================================
+        // UI FUNCTIONS
+        // ============================================================
         function showStatus(message, type = 'loading') {
             status.textContent = message;
             status.className = `status show ${type}`;
@@ -1166,9 +1195,9 @@
                 const isSpecialTheme = currentTheme === 'special' || isSpecial;
                 const goldColor = isLight ? '#bd5612' : '#f0883e';
                 const goldBg = isLight ? '#ffd8b5' : '#d2992233';
-                
+
                 const nameColor = isSpecialTheme ? goldColor : '';
-                
+
                 userInfo.innerHTML = `
                     <div class="info-item">
                         <div class="label">👤 Username</div>
@@ -1216,17 +1245,20 @@
             currentUserData = null;
         }
 
+        // ============================================================
+        // COOLDOWN
+        // ============================================================
         function startCooldown() {
             isCooldown = true;
             generateBtn.disabled = true;
             cooldownTimerEl.classList.add('show');
             let remaining = COOLDOWN_SECONDS;
             cooldownCount.textContent = remaining;
-            
+
             if (cooldownTimer) {
                 clearInterval(cooldownTimer);
             }
-            
+
             cooldownTimer = setInterval(() => {
                 remaining--;
                 if (remaining <= 0) {
@@ -1241,6 +1273,9 @@
             }, 1000);
         }
 
+        // ============================================================
+        // GENERATE CARD
+        // ============================================================
         async function generateCard(username) {
             if (isCooldown) {
                 showStatus('⏳ Please wait for cooldown before generating again', 'error');
@@ -1253,7 +1288,7 @@
             }
 
             username = username.trim();
-            
+
             const isSpecial = username.toLowerCase() === SPECIAL_USER;
             if (isSpecial) {
                 showStatus(`👑 Welcome, Creator! Generating special card for @${username}...`, 'special');
@@ -1262,7 +1297,7 @@
             } else {
                 showStatus(`🔄 Fetching data for @${username}...`, 'loading');
             }
-            
+
             generateBtn.disabled = true;
 
             try {
@@ -1295,7 +1330,7 @@
                 renderCard(svg, userData);
                 const mode = CacheEngine.getMode();
                 const modeText = mode === 'storage' ? '💾 persistent' : '🧠 RAM';
-                
+
                 if (isSpecial) {
                     showStatus(`👑 Generated special creator card for @${username}! (cache: ${modeText})`, 'special');
                 } else if (currentTheme === 'special') {
@@ -1315,46 +1350,68 @@
             }
         }
 
+        // ============================================================
+        // 🖼️ PNG DOWNLOAD - Using local html2canvas
+        // ============================================================
         function downloadPNG() {
             if (!currentSVG || !currentUserData) {
                 showStatus('⚠️ No card to download as PNG', 'error');
                 return;
             }
 
-            // Method 1: Try html2canvas (if available)
-            if (typeof html2canvas !== 'undefined') {
-                try {
-                    showStatus('🔄 Converting to PNG using html2canvas...', 'loading');
-                    html2canvas(cardPreview.querySelector('svg'), {
-                        scale: 2,
-                        backgroundColor: currentTheme === 'light' ? '#ffffff' : '#0d1117',
-                        allowTaint: true,
-                        useCORS: true,
-                        logging: false
-                    }).then(canvas => {
-                        const link = document.createElement('a');
-                        link.download = `github-card-${currentUserData.login}.png`;
-                        link.href = canvas.toDataURL('image/png');
-                        link.click();
-                        showStatus('🖼️ PNG downloaded! (html2canvas)', 'success');
-                    }).catch(() => {
-                        // Fallback to method 2
-                        downloadPNGMethod2();
-                    });
-                    return;
-                } catch (e) {
-                    console.warn('html2canvas failed, trying fallback:', e);
-                }
+            const svgElement = cardPreview.querySelector('svg');
+            if (!svgElement) {
+                showStatus('❌ No SVG element found', 'error');
+                return;
             }
 
-            // Method 2: Canvas with embedded SVG (most compatible)
+            showStatus('🔄 Converting to PNG...', 'loading');
+
+            // Method 1: Use local html2canvas
+            if (typeof html2canvas !== 'undefined') {
+                const width = parseInt(svgElement.getAttribute('width')) || 680;
+                const height = parseInt(svgElement.getAttribute('height')) || 320;
+
+                html2canvas(svgElement, {
+                    scale: 2,
+                    backgroundColor: currentTheme === 'light' ? '#ffffff' : '#0d1117',
+                    useCORS: true,
+                    allowTaint: true,
+                    logging: false,
+                    width: width,
+                    height: height,
+                    onclone: function(document) {
+                        const images = document.querySelectorAll('image');
+                        images.forEach(function(img) {
+                            const href = img.getAttribute('href') || img.getAttribute('xlink:href');
+                            if (href && href.startsWith('http')) {
+                                img.setAttribute('crossOrigin', 'anonymous');
+                            }
+                        });
+                    }
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `github-card-${currentUserData.login}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    showStatus(`🖼️ PNG downloaded! (html2canvas)`, 'success');
+                }).catch(err => {
+                    console.warn('html2canvas failed:', err);
+                    downloadPNGMethod2();
+                });
+                return;
+            }
+
+            // Fallback if html2canvas not loaded
             downloadPNGMethod2();
         }
 
         function downloadPNGMethod2() {
             try {
                 showStatus('🔄 Converting to PNG (method 2)...', 'loading');
-                
+
                 const svgElement = cardPreview.querySelector('svg');
                 if (!svgElement) {
                     showStatus('❌ No SVG element found', 'error');
@@ -1363,39 +1420,32 @@
 
                 const width = parseInt(svgElement.getAttribute('width')) || 680;
                 const height = parseInt(svgElement.getAttribute('height')) || 320;
-                
-                // Clone and prepare SVG
+
                 const clonedSvg = svgElement.cloneNode(true);
                 clonedSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
                 clonedSvg.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
                 clonedSvg.setAttribute('width', width);
                 clonedSvg.setAttribute('height', height);
-                
-                // Convert to string
+
                 const serializer = new XMLSerializer();
                 let svgString = serializer.serializeToString(clonedSvg);
-                
-                // Add XML declaration
                 svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
-                
-                // Create canvas with 2x scale
+
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
                 const scale = 2;
                 canvas.width = width * scale;
                 canvas.height = height * scale;
                 ctx.scale(scale, scale);
-                
-                // For light mode, fill white background
+
                 if (currentTheme === 'light') {
                     ctx.fillStyle = '#ffffff';
                     ctx.fillRect(0, 0, width, height);
                 }
-                
-                // Create image from SVG data URI (most compatible)
+
                 const encodedSvg = encodeURIComponent(svgString);
                 const dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodedSvg;
-                
+
                 const img = new Image();
                 img.onload = function() {
                     ctx.drawImage(img, 0, 0, width, height);
@@ -1409,98 +1459,19 @@
                     showStatus('🖼️ PNG downloaded! (method 2)', 'success');
                 };
                 img.onerror = function() {
-                    // Fallback to method 3
-                    downloadPNGMethod3();
+                    showStatus('❌ PNG download failed. Please use SVG format.', 'error');
                 };
                 img.src = dataUrl;
-                
+
             } catch (e) {
                 console.warn('Method 2 failed:', e);
-                downloadPNGMethod3();
-            }
-        }
-
-        function downloadPNGMethod3() {
-            try {
-                showStatus('🔄 Converting to PNG (method 3 - fallback)...', 'loading');
-                
-                // Method 3: Use canvas with SVG blob URL (more reliable for some browsers)
-                const svgElement = cardPreview.querySelector('svg');
-                if (!svgElement) {
-                    showStatus('❌ No SVG element found', 'error');
-                    return;
-                }
-
-                const width = parseInt(svgElement.getAttribute('width')) || 680;
-                const height = parseInt(svgElement.getAttribute('height')) || 320;
-                
-                // Clone SVG
-                const clonedSvg = svgElement.cloneNode(true);
-                clonedSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-                clonedSvg.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
-                
-                // Remove shadows for better compatibility
-                const shadows = clonedSvg.querySelectorAll('filter');
-                shadows.forEach(f => f.remove());
-                
-                const serializer = new XMLSerializer();
-                let svgString = serializer.serializeToString(clonedSvg);
-                svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
-                
-                // Create blob URL
-                const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
-                const url = URL.createObjectURL(svgBlob);
-                
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                const scale = 2;
-                canvas.width = width * scale;
-                canvas.height = height * scale;
-                ctx.scale(scale, scale);
-                
-                if (currentTheme === 'light') {
-                    ctx.fillStyle = '#ffffff';
-                    ctx.fillRect(0, 0, width, height);
-                }
-                
-                const img = new Image();
-                img.onload = function() {
-                    ctx.drawImage(img, 0, 0, width, height);
-                    URL.revokeObjectURL(url);
-                    const pngData = canvas.toDataURL('image/png');
-                    const link = document.createElement('a');
-                    link.download = `github-card-${currentUserData.login}.png`;
-                    link.href = pngData;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    showStatus('🖼️ PNG downloaded! (method 3)', 'success');
-                };
-                img.onerror = function() {
-                    URL.revokeObjectURL(url);
-                    // Final fallback: Use simple screenshot method
-                    try {
-                        const pngData = canvas.toDataURL('image/png');
-                        const link = document.createElement('a');
-                        link.download = `github-card-${currentUserData.login}.png`;
-                        link.href = pngData;
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        showStatus('🖼️ PNG downloaded! (basic fallback)', 'success');
-                    } catch (e) {
-                        showStatus('❌ PNG download failed. Please use SVG format.', 'error');
-                    }
-                };
-                img.src = url;
-                
-            } catch (e) {
-                console.error('All PNG methods failed:', e);
                 showStatus('❌ PNG download failed. Please use SVG format.', 'error');
             }
         }
 
-        // Copy, Download SVG and other event listeners
+        // ============================================================
+        // EVENT LISTENERS
+        // ============================================================
         copyBtn.addEventListener('click', () => {
             if (!currentSVG) {
                 showStatus('⚠️ No card to copy', 'error');
@@ -1572,6 +1543,9 @@
             }
         });
 
+        // ============================================================
+        // INITIALIZATION
+        // ============================================================
         updateCacheUI();
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -1579,6 +1553,14 @@
             generateCard(defaultUser);
         });
 
+        // Check if html2canvas loaded
+        if (typeof html2canvas !== 'undefined') {
+            console.log('✅ html2canvas loaded successfully from local file!');
+        } else {
+            console.warn('⚠️ html2canvas not loaded. PNG download may fail.');
+        }
+
+        // Debug
         window.debug = {
             getCachedUser,
             setCachedUser,
@@ -1592,9 +1574,7 @@
             SPECIAL_NOTE,
             setTheme,
             currentTheme,
-            downloadPNG,
-            downloadPNGMethod2,
-            downloadPNGMethod3
+            downloadPNG
         };
 
         console.log('🚀 GitHub Profile Card Generator ready!');
@@ -1603,7 +1583,7 @@
         console.log(`🎨 Theme: ${currentTheme}`);
         console.log('📌 Type debug.generateCard("username") to test');
         console.log('📦 View cache: debug.getCacheStats()');
-        console.log('🖼️ Download PNG: debug.downloadPNG() - 3 fallback methods');
+        console.log('🖼️ Download PNG: debug.downloadPNG()');
     </script>
 
 </body>
