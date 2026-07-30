@@ -27,6 +27,9 @@
         body.forest-mode {
             background: linear-gradient(135deg, #0d1f0d 0%, #162816 100%);
         }
+        body.lunar-mode {
+            background: linear-gradient(135deg, #0a0e1a 0%, #141c2c 100%);
+        }
         .container {
             background: #1c2333;
             border-radius: 16px;
@@ -48,6 +51,11 @@
             border: 1px solid #2d4a2d;
             box-shadow: 0 8px 40px rgba(0, 30, 0, 0.4);
         }
+        body.lunar-mode .container {
+            background: #141c2c;
+            border: 1px solid #2a1f4a;
+            box-shadow: 0 8px 40px rgba(10, 14, 26, 0.8);
+        }
         h1 {
             color: #f0f6fc;
             font-size: 22px;
@@ -64,6 +72,9 @@
         body.forest-mode h1 {
             color: #c6e6c6;
         }
+        body.lunar-mode h1 {
+            color: #e8eaf6;
+        }
         h1 small {
             font-size: 12px;
             color: #8b949e;
@@ -74,6 +85,9 @@
         }
         body.forest-mode h1 small {
             color: #7aaa7a;
+        }
+        body.lunar-mode h1 small {
+            color: #8899bb;
         }
         .subtitle {
             color: #8b949e;
@@ -86,6 +100,9 @@
         }
         body.forest-mode .subtitle {
             color: #7aaa7a;
+        }
+        body.lunar-mode .subtitle {
+            color: #8899bb;
         }
 
         .theme-selector {
@@ -105,6 +122,9 @@
         }
         body.forest-mode .theme-selector label {
             color: #7aaa7a;
+        }
+        body.lunar-mode .theme-selector label {
+            color: #8899bb;
         }
         .theme-btn {
             padding: 6px 12px;
@@ -128,6 +148,10 @@
             border-color: #2d4a2d;
             color: #7aaa7a;
         }
+        body.lunar-mode .theme-btn {
+            border-color: #2a1f4a;
+            color: #8899bb;
+        }
         .theme-btn:hover {
             border-color: #58a6ff;
             color: #58a6ff;
@@ -147,6 +171,11 @@
             border-color: #2ea043;
             color: #2ea043;
         }
+        body.lunar-mode .theme-btn.active {
+            background: #ffd54f22;
+            border-color: #ffd54f;
+            color: #ffd54f;
+        }
         .theme-btn.special {
             border-color: #f0883e;
             color: #f0883e;
@@ -161,6 +190,11 @@
             background: #f0883e22;
             border-color: #f0883e;
             color: #f0883e;
+        }
+        body.lunar-mode .theme-btn.special.active {
+            background: #ffd54f22;
+            border-color: #ffd54f;
+            color: #ffd54f;
         }
         .theme-btn.light {
             border-color: #f6c23e;
@@ -186,6 +220,16 @@
             border-color: #2ea043;
             background: #2ea04333;
             color: #2ea043;
+        }
+        .theme-btn.lunar {
+            border-color: #ffd54f;
+            color: #ffd54f;
+        }
+        .theme-btn.lunar:hover,
+        .theme-btn.lunar.active {
+            border-color: #ffd54f;
+            background: #ffd54f22;
+            color: #ffd54f;
         }
 
         .input-group {
@@ -217,12 +261,20 @@
             color: #c6e6c6;
             border-color: #2d4a2d;
         }
+        body.lunar-mode .input-group input {
+            background: #0a0e1a;
+            color: #e8eaf6;
+            border-color: #2a1f4a;
+        }
         .input-group input:focus {
             outline: none;
             border-color: #58a6ff;
         }
         body.forest-mode .input-group input:focus {
             border-color: #2ea043;
+        }
+        body.lunar-mode .input-group input:focus {
+            border-color: #ffd54f;
         }
         .input-group input::placeholder {
             color: #484f58;
@@ -232,6 +284,9 @@
         }
         body.forest-mode .input-group input::placeholder {
             color: #4a6a4a;
+        }
+        body.lunar-mode .input-group input::placeholder {
+            color: #8899bb;
         }
 
         .btn {
@@ -255,9 +310,16 @@
             background: linear-gradient(135deg, #238636, #2ea043);
             color: #fff;
         }
+        body.lunar-mode .btn-primary {
+            background: linear-gradient(135deg, #ffd54f, #ffb300);
+            color: #0a0e1a;
+        }
         .btn-primary:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 16px rgba(46, 160, 67, 0.3);
+        }
+        body.lunar-mode .btn-primary:hover {
+            box-shadow: 0 4px 16px rgba(255, 213, 79, 0.4);
         }
         .btn-primary:active {
             transform: scale(0.97);
@@ -279,6 +341,10 @@
             background: #1a3a1a;
             color: #c6e6c6;
         }
+        body.lunar-mode .btn-secondary {
+            background: #2a1f4a;
+            color: #e8eaf6;
+        }
         .btn-secondary:hover {
             background: #484f58;
         }
@@ -287,6 +353,9 @@
         }
         body.forest-mode .btn-secondary:hover {
             background: #2a4a2a;
+        }
+        body.lunar-mode .btn-secondary:hover {
+            background: #3a2f5a;
         }
         .btn-secondary:active {
             transform: scale(0.97);
@@ -309,6 +378,9 @@
             background: #6f42c1;
             color: #fff;
         }
+        body.lunar-mode .btn-purple {
+            background: #7c4dff;
+        }
         .btn-purple:hover {
             background: #8957e5;
         }
@@ -316,9 +388,16 @@
             background: linear-gradient(135deg, #f0883e, #d29922);
             color: #fff;
         }
+        body.lunar-mode .btn-png {
+            background: linear-gradient(135deg, #ffd54f, #ffb300);
+            color: #0a0e1a;
+        }
         .btn-png:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 16px rgba(210, 153, 34, 0.3);
+        }
+        body.lunar-mode .btn-png:hover {
+            box-shadow: 0 4px 16px rgba(255, 213, 79, 0.4);
         }
         .btn-png:active {
             transform: scale(0.97);
@@ -347,6 +426,10 @@
             background: #0d1f0d;
             border-color: #2d4a2d;
         }
+        body.lunar-mode .card-preview {
+            background: #0a0e1a;
+            border-color: #2a1f4a;
+        }
         .card-preview svg {
             max-width: 100%;
             height: auto;
@@ -359,6 +442,9 @@
         body.forest-mode .card-preview svg {
             box-shadow: 0 4px 20px rgba(0,20,0,0.6);
         }
+        body.lunar-mode .card-preview svg {
+            box-shadow: 0 4px 30px rgba(255, 213, 79, 0.1);
+        }
         .card-placeholder {
             color: #484f58;
             font-size: 13px;
@@ -370,6 +456,9 @@
         }
         body.forest-mode .card-placeholder {
             color: #4a6a4a;
+        }
+        body.lunar-mode .card-placeholder {
+            color: #8899bb;
         }
 
         .info-grid {
@@ -391,6 +480,10 @@
             background: #0d1f0d;
             border-color: #2d4a2d;
         }
+        body.lunar-mode .info-grid {
+            background: #0a0e1a;
+            border-color: #2a1f4a;
+        }
         .info-item {
             text-align: center;
             overflow: hidden;
@@ -408,6 +501,9 @@
         body.forest-mode .info-item .label {
             color: #5a8a5a;
         }
+        body.lunar-mode .info-item .label {
+            color: #8899bb;
+        }
         .info-item .value {
             color: #f0f6fc;
             font-size: 17px;
@@ -422,6 +518,9 @@
         }
         body.forest-mode .info-item .value {
             color: #c6e6c6;
+        }
+        body.lunar-mode .info-item .value {
+            color: #e8eaf6;
         }
 
         .action-bar {
@@ -463,6 +562,11 @@
             color: #2ea043;
             border-color: #2ea04355;
         }
+        body.lunar-mode .status.loading {
+            background: #7c4dff22;
+            color: #ffd54f;
+            border-color: #ffd54f55;
+        }
         .status.success {
             background: #23863633;
             color: #3fb950;
@@ -477,6 +581,11 @@
             background: #1a3a1a;
             color: #2ea043;
             border-color: #2ea04355;
+        }
+        body.lunar-mode .status.success {
+            background: #ffd54f22;
+            color: #ffd54f;
+            border-color: #ffd54f55;
         }
         .status.error {
             background: #da363333;
@@ -493,6 +602,11 @@
             color: #f85149;
             border-color: #f8514955;
         }
+        body.lunar-mode .status.error {
+            background: #da363333;
+            color: #f85149;
+            border-color: #da363355;
+        }
         .status.special {
             background: #d2992233;
             color: #f0883e;
@@ -507,6 +621,11 @@
             background: #3a2a1a;
             color: #f0883e;
             border-color: #d2992255;
+        }
+        body.lunar-mode .status.special {
+            background: #ffd54f22;
+            color: #ffd54f;
+            border-color: #ffd54f55;
         }
 
         .cache-info {
@@ -534,6 +653,11 @@
             border-color: #2d4a2d;
             color: #5a8a5a;
         }
+        body.lunar-mode .cache-info {
+            background: #0a0e1a;
+            border-color: #2a1f4a;
+            color: #8899bb;
+        }
         .cache-info code {
             color: #58a6ff;
             background: #161b22;
@@ -548,6 +672,10 @@
         body.forest-mode .cache-info code {
             background: #1a2e1a;
             color: #2ea043;
+        }
+        body.lunar-mode .cache-info code {
+            background: #2a1f4a;
+            color: #ffd54f;
         }
         .cache-badge {
             display: inline-block;
@@ -568,6 +696,10 @@
             background: #1a3a1a;
             color: #2ea043;
         }
+        body.lunar-mode .cache-badge.ram {
+            background: #7c4dff22;
+            color: #7c4dff;
+        }
         .cache-badge.storage {
             background: #23863633;
             color: #3fb950;
@@ -580,6 +712,10 @@
             background: #1a3a1a;
             color: #2ea043;
         }
+        body.lunar-mode .cache-badge.storage {
+            background: #ffd54f22;
+            color: #ffd54f;
+        }
         .cache-badge.none {
             background: #da363333;
             color: #f85149;
@@ -590,6 +726,10 @@
         }
         body.forest-mode .cache-badge.none {
             background: #3a1a1a;
+            color: #f85149;
+        }
+        body.lunar-mode .cache-badge.none {
+            background: #da363333;
             color: #f85149;
         }
 
@@ -610,6 +750,10 @@
             color: #4a6a4a;
             border-color: #2d4a2d;
         }
+        body.lunar-mode .footer {
+            color: #8899bb;
+            border-color: #2a1f4a;
+        }
         .footer a {
             color: #58a6ff;
             text-decoration: none;
@@ -619,6 +763,9 @@
         }
         body.forest-mode .footer a {
             color: #2ea043;
+        }
+        body.lunar-mode .footer a {
+            color: #ffd54f;
         }
         .footer .creator-badge {
             display: inline-block;
@@ -641,6 +788,11 @@
             border-color: #d2992255;
             color: #f0883e;
         }
+        body.lunar-mode .footer .creator-badge {
+            background: linear-gradient(135deg, #ffd54f22, #ffb30022);
+            border-color: #ffd54f55;
+            color: #ffd54f;
+        }
 
         .cooldown-timer {
             color: #8b949e;
@@ -657,6 +809,9 @@
         }
         body.forest-mode .cooldown-timer {
             color: #4a6a4a;
+        }
+        body.lunar-mode .cooldown-timer {
+            color: #8899bb;
         }
 
         @media (max-width: 480px) {
@@ -777,6 +932,7 @@
             <button class="theme-btn special" data-theme="special">Special</button>
             <button class="theme-btn light" data-theme="light" id="lightThemeBtn">Light</button>
             <button class="theme-btn forest" data-theme="forest">🌲 Forest</button>
+            <button class="theme-btn lunar" data-theme="lunar">🌙 Lunar</button>
         </div>
 
         <div class="input-group">
@@ -1012,6 +1168,23 @@
             goldBgLight: '#4a3a2a'
         };
 
+        var LUNAR_COLORS = {
+            bg: '#0a0e1a',
+            cardBg: '#141c2c',
+            border: '#2a1f4a',
+            text: '#e8eaf6',
+            textMuted: '#c8d6e5',
+            accent: '#ffd54f',
+            green: '#00bcd4',
+            orange: '#ffb300',
+            red: '#f85149',
+            purple: '#7c4dff',
+            gold: '#ffd54f',
+            goldLight: '#ffb300',
+            goldBg: '#ffd54f22',
+            goldBgLight: '#ffd54f33'
+        };
+
         var SPECIAL_USER = 'dryfish09';
         var SPECIAL_NOTE = 'Creator of dryfish09.github.io/card-svg-gen/';
 
@@ -1059,12 +1232,14 @@
                 return;
             }
 
-            document.body.classList.remove('light-mode', 'forest-mode');
+            document.body.classList.remove('light-mode', 'forest-mode', 'lunar-mode');
 
             if (theme === 'light') {
                 document.body.classList.add('light-mode');
             } else if (theme === 'forest') {
                 document.body.classList.add('forest-mode');
+            } else if (theme === 'lunar') {
+                document.body.classList.add('lunar-mode');
             }
 
             if (currentUserData) {
@@ -1091,6 +1266,9 @@
             }
             if (currentTheme === 'forest') {
                 return FOREST_COLORS;
+            }
+            if (currentTheme === 'lunar') {
+                return LUNAR_COLORS;
             }
             return COLORS;
         }
@@ -1178,6 +1356,7 @@
             var colors = getColors();
             var isLight = currentTheme === 'light';
             var isForest = currentTheme === 'forest';
+            var isLunar = currentTheme === 'lunar';
             var isSpecialTheme = currentTheme === 'special' || isSpecial;
 
             var maxBioLength = 50;
@@ -1212,6 +1391,7 @@
 
             var cardHeight = 320 + extraHeight;
             if (isSpecialTheme) cardHeight += 40;
+            if (isLunar) cardHeight += 20;
 
             var cardWidth = 680;
             var avatarSize = 96;
@@ -1285,27 +1465,104 @@
             var goldColor = isLight ? colors.goldLight : colors.gold;
             var avatarUrl = avatar_url || 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
 
-            var bgColor1 = isForest ? '#0d1f0d' : (isLight ? '#f6f8fa' : '#1c2333');
-            var bgColor2 = isForest ? '#1a2e1a' : (isLight ? '#ffffff' : '#0d1117');
-            var shadowOpacity = isForest ? '0.4' : (isLight ? '0.1' : '0.6');
+            var bgColor1 = isForest ? '#0d1f0d' : (isLight ? '#f6f8fa' : (isLunar ? '#0a0e1a' : '#1c2333'));
+            var bgColor2 = isForest ? '#1a2e1a' : (isLight ? '#ffffff' : (isLunar ? '#141c2c' : '#0d1117'));
+            var shadowOpacity = isForest ? '0.4' : (isLight ? '0.1' : (isLunar ? '0.5' : '0.6'));
 
             var svg = '<?xml version="1.0" encoding="UTF-8"?>\n';
             svg += '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="' + cardWidth + '" height="' + cardHeight + '" viewBox="0 0 ' + cardWidth + ' ' + cardHeight + '">\n';
+            
+            if (isLunar) {
+                var starPositions = [
+                    [45, 35, 1.5, 0.6, 2.5],
+                    [120, 20, 1, 0.4, 3.0],
+                    [200, 50, 1.2, 0.5, 2.0],
+                    [310, 15, 1.8, 0.7, 3.5],
+                    [400, 45, 1, 0.3, 2.8],
+                    [520, 25, 1.5, 0.6, 2.2],
+                    [580, 55, 1.2, 0.5, 3.2],
+                    [650, 30, 1, 0.4, 2.6],
+                    [50, 60, 1.3, 0.5, 3.0],
+                    [150, 10, 1, 0.3, 2.4],
+                    [480, 60, 1.4, 0.6, 2.8],
+                    [620, 10, 1, 0.4, 3.4]
+                ];
+                for (var si2 = 0; si2 < starPositions.length; si2++) {
+                    var star = starPositions[si2];
+                    svg += '    <circle cx="' + star[0] + '" cy="' + star[1] + '" r="' + star[2] + '" fill="white" opacity="' + star[3] + '">\n';
+                    svg += '        <animate attributeName="opacity" values="' + star[3] + ';0.1;' + star[3] + '" dur="' + star[4] + 's" repeatCount="indefinite"/>\n';
+                    svg += '    </circle>\n';
+                }
+
+                svg += '    <line x1="580" y1="10" x2="620" y2="30" stroke="#ffd54f" stroke-width="1.5" opacity="0">\n';
+                svg += '        <animate attributeName="opacity" values="0;1;0" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '        <animate attributeName="x1" values="580;100" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '        <animate attributeName="y1" values="10;200" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '        <animate attributeName="x2" values="620;140" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '        <animate attributeName="y2" values="30;220" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '    </line>\n';
+
+                svg += '    <line x1="400" y1="5" x2="430" y2="20" stroke="#ffb300" stroke-width="1" opacity="0">\n';
+                svg += '        <animate attributeName="opacity" values="0;0.8;0" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
+                svg += '        <animate attributeName="x1" values="400;50" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
+                svg += '        <animate attributeName="y1" values="5;150" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
+                svg += '        <animate attributeName="x2" values="430;80" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
+                svg += '        <animate attributeName="y2" values="20;170" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
+                svg += '    </line>\n';
+
+                svg += '    <rect x="28" y="' + (cardHeight - 55) + '" width="624" height="44" rx="10" ry="10" fill="#ffd54f" opacity="0">\n';
+                svg += '        <animate attributeName="opacity" values="0;0.08;0" dur="3s" repeatCount="indefinite"/>\n';
+                svg += '    </rect>\n';
+
+                svg += '    <g transform="translate(85, ' + (cardHeight - 35) + ')">\n';
+                svg += '        <animateTransform attributeName="transform" type="rotate" values="0 80 305;10 80 305;0 80 305" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '        <text x="0" y="0" font-size="24">🌙</text>\n';
+                svg += '    </g>\n';
+
+                svg += '    <g transform="translate(560, ' + (cardHeight - 35) + ')">\n';
+                svg += '        <animateTransform attributeName="transform" type="translate" values="0 0;5 -5;0 0" dur="3s" repeatCount="indefinite"/>\n';
+                svg += '        <text x="0" y="0" font-size="20">🚀</text>\n';
+                svg += '    </g>\n';
+
+                svg += '    <ellipse cx="340" cy="180" rx="200" ry="100" fill="#7c4dff" opacity="0.03">\n';
+                svg += '        <animate attributeName="opacity" values="0.03;0.06;0.03" dur="5s" repeatCount="indefinite"/>\n';
+                svg += '    </ellipse>\n';
+                svg += '    <ellipse cx="340" cy="180" rx="150" ry="70" fill="#ffd54f" opacity="0.02">\n';
+                svg += '        <animate attributeName="opacity" values="0.02;0.05;0.02" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '    </ellipse>\n';
+            }
+            
             svg += '    <defs>\n';
-            svg += '        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
-            svg += '            <stop offset="0%" style="stop-color:' + bgColor1 + ';stop-opacity:1" />\n';
-            svg += '            <stop offset="100%" style="stop-color:' + bgColor2 + ';stop-opacity:1" />\n';
-            svg += '        </linearGradient>\n';
+            if (isLunar) {
+                svg += '        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
+                svg += '            <stop offset="0%" style="stop-color:' + bgColor1 + ';stop-opacity:1" />\n';
+                svg += '            <stop offset="50%" style="stop-color:#1a1040;stop-opacity:0.3" />\n';
+                svg += '            <stop offset="100%" style="stop-color:' + bgColor2 + ';stop-opacity:1" />\n';
+                svg += '        </linearGradient>\n';
+            } else {
+                svg += '        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
+                svg += '            <stop offset="0%" style="stop-color:' + bgColor1 + ';stop-opacity:1" />\n';
+                svg += '            <stop offset="100%" style="stop-color:' + bgColor2 + ';stop-opacity:1" />\n';
+                svg += '        </linearGradient>\n';
+            }
             svg += '        <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
             svg += '            <stop offset="0%" style="stop-color:' + (isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:1" />\n';
-            svg += '            <stop offset="50%" style="stop-color:' + (isSpecialTheme ? '#d29922' : nameColor) + ';stop-opacity:1" />\n';
+            svg += '            <stop offset="50%" style="stop-color:' + (isSpecialTheme ? (isLunar ? '#ffb300' : '#d29922') : nameColor) + ';stop-opacity:1" />\n';
             svg += '            <stop offset="100%" style="stop-color:' + (isSpecialTheme ? '#f0883e' : nameColor) + ';stop-opacity:1" />\n';
             svg += '        </linearGradient>\n';
-            svg += '        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
-            svg += '            <stop offset="0%" style="stop-color:#f0883e;stop-opacity:1" />\n';
-            svg += '            <stop offset="50%" style="stop-color:#d29922;stop-opacity:1" />\n';
-            svg += '            <stop offset="100%" style="stop-color:#f0883e;stop-opacity:1" />\n';
-            svg += '        </linearGradient>\n';
+            if (isLunar) {
+                svg += '        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
+                svg += '            <stop offset="0%" style="stop-color:#ffd54f;stop-opacity:1" />\n';
+                svg += '            <stop offset="50%" style="stop-color:#ffb300;stop-opacity:1" />\n';
+                svg += '            <stop offset="100%" style="stop-color:#ffd54f;stop-opacity:1" />\n';
+                svg += '        </linearGradient>\n';
+            } else {
+                svg += '        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
+                svg += '            <stop offset="0%" style="stop-color:#f0883e;stop-opacity:1" />\n';
+                svg += '            <stop offset="50%" style="stop-color:#d29922;stop-opacity:1" />\n';
+                svg += '            <stop offset="100%" style="stop-color:#f0883e;stop-opacity:1" />\n';
+                svg += '        </linearGradient>\n';
+            }
             svg += '        <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
             svg += '            <stop offset="0%" style="stop-color:' + (isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:' + (isLight ? '0.05' : '0.1') + '" />\n';
             svg += '            <stop offset="100%" style="stop-color:#6f42c1;stop-opacity:' + (isLight ? '0.02' : '0.05') + '" />\n';
@@ -1428,6 +1685,7 @@
                 var isSpecial = userData.login.toLowerCase() === SPECIAL_USER;
                 var isLight = currentTheme === 'light';
                 var isForest = currentTheme === 'forest';
+                var isLunar = currentTheme === 'lunar';
                 var isSpecialTheme = currentTheme === 'special' || isSpecial;
 
                 var goldColor, goldBg;
@@ -1437,6 +1695,9 @@
                 } else if (isForest) {
                     goldColor = '#f0883e';
                     goldBg = '#3a2a1a';
+                } else if (isLunar) {
+                    goldColor = '#ffd54f';
+                    goldBg = '#ffd54f22';
                 } else {
                     goldColor = '#f0883e';
                     goldBg = '#d2992233';
@@ -1512,6 +1773,8 @@
                 showStatus('👑 Welcome, Creator! Generating special card for @' + username + '...', 'special');
             } else if (currentTheme === 'special') {
                 showStatus('✨ Generating special theme card for @' + username + '...', 'special');
+            } else if (currentTheme === 'lunar') {
+                showStatus('🌙 Generating lunar theme card for @' + username + '...', 'special');
             } else {
                 showStatus('🔄 Fetching data for @' + username + '...', 'loading');
             }
@@ -1530,6 +1793,8 @@
                         showStatus('👑 Special creator card for @' + username + '! (cache: ' + modeText + ')', 'special');
                     } else if (currentTheme === 'special') {
                         showStatus('✨ Special theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
+                    } else if (currentTheme === 'lunar') {
+                        showStatus('🌙 Lunar theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
                     } else {
                         showStatus('📦 Using cached data (' + modeText + ')', 'success');
                     }
@@ -1553,6 +1818,8 @@
                     showStatus('👑 Generated special creator card for @' + username + '! (cache: ' + modeText + ')', 'special');
                 } else if (currentTheme === 'special') {
                     showStatus('✨ Generated special theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
+                } else if (currentTheme === 'lunar') {
+                    showStatus('🌙 Generated lunar theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
                 } else {
                     showStatus('🎉 Generated new card for @' + username + '! (cache: ' + modeText + ')', 'success');
                 }
@@ -1568,13 +1835,17 @@
             }
         }
 
+        // ============================================================
+        // 🖼️ PNG DOWNLOAD - Fixed avatar loading
+        // ============================================================
+
         function downloadPNG() {
             if (!currentSVG || !currentUserData) {
                 showStatus('⚠️ No card to download as PNG', 'error');
                 return;
             }
 
-            showStatus('🔄 Converting to PNG...', 'loading');
+            showStatus('🔄 Loading avatar image...', 'loading');
 
             var svgElement = cardPreview.querySelector('svg');
             if (!svgElement) {
@@ -1582,101 +1853,167 @@
                 return;
             }
 
+            var avatarImage = svgElement.querySelector('image');
+            var avatarUrl = avatarImage ? (avatarImage.getAttribute('href') || avatarImage.getAttribute('xlink:href')) : null;
+
+            if (!avatarUrl) {
+                showStatus('❌ No avatar found in SVG', 'error');
+                return;
+            }
+
             var width = parseInt(svgElement.getAttribute('width')) || 680;
             var height = parseInt(svgElement.getAttribute('height')) || 320;
 
             var clonedSvg = svgElement.cloneNode(true);
-            clonedSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-            clonedSvg.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
-            clonedSvg.setAttribute('width', width);
-            clonedSvg.setAttribute('height', height);
-
-            var serializer = new XMLSerializer();
-            var svgString = serializer.serializeToString(clonedSvg);
-            svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
-
-            var canvas = document.createElement('canvas');
-            var ctx = canvas.getContext('2d');
-            var scale = 2;
-            canvas.width = width * scale;
-            canvas.height = height * scale;
-            ctx.scale(scale, scale);
-
-            var isLight = currentTheme === 'light';
-            var isForest = currentTheme === 'forest';
-
-            if (isLight) {
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(0, 0, width, height);
-            } else if (isForest) {
-                ctx.fillStyle = '#0d1f0d';
-                ctx.fillRect(0, 0, width, height);
-            }
 
             var img = new Image();
-            var svgBlob = new Blob([svgString], {
-                type: 'image/svg+xml;charset=utf-8'
-            });
-            var url = URL.createObjectURL(svgBlob);
+            img.crossOrigin = 'anonymous';
+            img.referrerPolicy = 'no-referrer';
 
             img.onload = function() {
-                ctx.drawImage(img, 0, 0, width, height);
-                URL.revokeObjectURL(url);
+                showStatus('🔄 Converting to PNG...', 'loading');
+                
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                var scale = 2;
+                canvas.width = width * scale;
+                canvas.height = height * scale;
+                ctx.scale(scale, scale);
 
-                var pngDataUrl = canvas.toDataURL('image/png');
-                var link = document.createElement('a');
-                link.download = 'github-card-' + currentUserData.login + '.png';
-                link.href = pngDataUrl;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                var isLight = currentTheme === 'light';
+                var isForest = currentTheme === 'forest';
+                var isLunar = currentTheme === 'lunar';
 
-                showStatus('🖼️ PNG downloaded! (' + width + 'x' + height + 'px, 2x retina)', 'success');
+                if (isLight) {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, width, height);
+                } else if (isForest) {
+                    ctx.fillStyle = '#0d1f0d';
+                    ctx.fillRect(0, 0, width, height);
+                } else if (isLunar) {
+                    ctx.fillStyle = '#0a0e1a';
+                    ctx.fillRect(0, 0, width, height);
+                }
+
+                var avatarImg = clonedSvg.querySelector('image');
+                if (avatarImg) {
+                    var x = parseInt(avatarImg.getAttribute('x')) || 32;
+                    var y = parseInt(avatarImg.getAttribute('y')) || 32;
+                    var imgWidth = parseInt(avatarImg.getAttribute('width')) || 96;
+                    var imgHeight = parseInt(avatarImg.getAttribute('height')) || 96;
+                    var clipPath = avatarImg.getAttribute('clip-path');
+
+                    var tempCanvas = document.createElement('canvas');
+                    tempCanvas.width = imgWidth;
+                    tempCanvas.height = imgHeight;
+                    var tempCtx = tempCanvas.getContext('2d');
+                    
+                    if (clipPath) {
+                        tempCtx.beginPath();
+                        tempCtx.arc(imgWidth/2, imgHeight/2, imgWidth/2, 0, Math.PI * 2);
+                        tempCtx.clip();
+                    }
+                    tempCtx.drawImage(img, 0, 0, imgWidth, imgHeight);
+                    
+                    var dataUrl = tempCanvas.toDataURL('image/png');
+                    avatarImg.setAttribute('href', dataUrl);
+                    avatarImg.setAttribute('xlink:href', dataUrl);
+                }
+
+                var serializer = new XMLSerializer();
+                var svgString = serializer.serializeToString(clonedSvg);
+                svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
+
+                var svgImg = new Image();
+                var svgBlob = new Blob([svgString], {
+                    type: 'image/svg+xml;charset=utf-8'
+                });
+                var url = URL.createObjectURL(svgBlob);
+
+                svgImg.onload = function() {
+                    ctx.drawImage(svgImg, 0, 0, width, height);
+                    URL.revokeObjectURL(url);
+
+                    var pngDataUrl = canvas.toDataURL('image/png');
+                    var link = document.createElement('a');
+                    link.download = 'github-card-' + currentUserData.login + '.png';
+                    link.href = pngDataUrl;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                    showStatus('🖼️ PNG downloaded! (' + width + 'x' + height + 'px, 2x retina)', 'success');
+                };
+
+                svgImg.onerror = function() {
+                    URL.revokeObjectURL(url);
+                    showStatus('❌ Failed to convert to PNG. Please use SVG format.', 'error');
+                };
+
+                svgImg.src = url;
             };
 
             img.onerror = function() {
-                URL.revokeObjectURL(url);
+                showStatus('🔄 Avatar load failed, trying fallback...', 'loading');
+                
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                var scale = 2;
+                canvas.width = width * scale;
+                canvas.height = height * scale;
+                ctx.scale(scale, scale);
+
+                var isLight = currentTheme === 'light';
+                var isForest = currentTheme === 'forest';
+                var isLunar = currentTheme === 'lunar';
+
+                if (isLight) {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, width, height);
+                } else if (isForest) {
+                    ctx.fillStyle = '#0d1f0d';
+                    ctx.fillRect(0, 0, width, height);
+                } else if (isLunar) {
+                    ctx.fillStyle = '#0a0e1a';
+                    ctx.fillRect(0, 0, width, height);
+                }
+
                 try {
-                    var fallbackCanvas = document.createElement('canvas');
-                    var fallbackCtx = fallbackCanvas.getContext('2d');
-                    fallbackCanvas.width = width * scale;
-                    fallbackCanvas.height = height * scale;
-                    fallbackCtx.scale(scale, scale);
-
-                    if (isLight) {
-                        fallbackCtx.fillStyle = '#ffffff';
-                        fallbackCtx.fillRect(0, 0, width, height);
-                    } else if (isForest) {
-                        fallbackCtx.fillStyle = '#0d1f0d';
-                        fallbackCtx.fillRect(0, 0, width, height);
-                    }
-
-                    var encodedSvg = encodeURIComponent(svgString);
-                    var dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodedSvg;
-
+                    var serializer = new XMLSerializer();
+                    var svgString = serializer.serializeToString(clonedSvg);
+                    svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
+                    
+                    var svgDataUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgString);
                     var fallbackImg = new Image();
+                    
                     fallbackImg.onload = function() {
-                        fallbackCtx.drawImage(fallbackImg, 0, 0, width, height);
-                        var pngData = fallbackCanvas.toDataURL('image/png');
+                        ctx.drawImage(fallbackImg, 0, 0, width, height);
+                        var pngData = canvas.toDataURL('image/png');
                         var link = document.createElement('a');
                         link.download = 'github-card-' + currentUserData.login + '.png';
                         link.href = pngData;
                         document.body.appendChild(link);
                         link.click();
                         document.body.removeChild(link);
-                        showStatus('🖼️ PNG downloaded! (fallback method)', 'success');
+                        showStatus('🖼️ PNG downloaded! (fallback)', 'success');
                     };
+                    
                     fallbackImg.onerror = function() {
                         showStatus('❌ Failed to convert to PNG. Please use SVG format.', 'error');
                     };
-                    fallbackImg.src = dataUrl;
+                    
+                    fallbackImg.src = svgDataUrl;
                 } catch (e) {
                     showStatus('❌ Failed to convert to PNG. Please use SVG format.', 'error');
                 }
             };
 
-            img.src = url;
+            img.src = avatarUrl;
         }
+
+        // ============================================================
+        // EVENT LISTENERS
+        // ============================================================
 
         copyBtn.addEventListener('click', function() {
             if (!currentSVG) {
@@ -1750,7 +2087,7 @@
         });
 
         // ============================================================
-        // 📌 URL PARAMETER SUPPORT - ?username=name
+        // 📌 URL PARAMETER SUPPORT
         // ============================================================
 
         function getUrlParameter(name) {
@@ -1768,7 +2105,7 @@
             console.log('📌 Username from URL:', urlUsername);
         }
 
-        if (urlTheme && ['default', 'special', 'light', 'forest'].includes(urlTheme)) {
+        if (urlTheme && ['default', 'special', 'light', 'forest', 'lunar'].includes(urlTheme)) {
             setTimeout(function() {
                 setTheme(urlTheme);
                 console.log('🎨 Theme from URL:', urlTheme);
@@ -1824,9 +2161,9 @@
         console.log('🎨 Theme: ' + currentTheme);
         console.log('📌 Type debug.generateCard("username") to test');
         console.log('📦 View cache: debug.getCacheStats()');
-        console.log('🎨 Change theme: debug.setTheme("default" | "special" | "light" | "forest")');
+        console.log('🎨 Change theme: debug.setTheme("default" | "special" | "light" | "forest" | "lunar")');
         console.log('🖼️ Download PNG: debug.downloadPNG()');
-        console.log('🔗 URL support: ?username=name&theme=theme');
+        console.log('🌙 Lunar theme added with twinkling stars, shooting stars, glow effects, and animated icons!');
         // ]]>
     </script>
 
