@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>GitHub Profile Card Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 12px;
+            transition: background 0.4s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body.light-mode {
+            background: linear-gradient(135deg, #f0f6fc 0%, #d0d7de 100%);
+        }
+        body.forest-mode {
+            background: linear-gradient(135deg, #0d1f0d 0%, #162816 100%);
+        }
+        body.lunar-mode {
+            background: linear-gradient(135deg, #0a0e1a 0%, #141c2c 100%);
+        }
+        .container {
+            background: #1c2333;
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 100%;
+            width: 100%;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+            border: 1px solid #30363d;
+            transition: all 0.4s ease;
+            margin-top: 4px;
+        }
+        body.light-mode .container {
+            background: #ffffff;
+            border: 1px solid #d0d7de;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+        }
+        body.forest-mode .container {
+            background: #1a2e1a;
+            border: 1px solid #2d4a2d;
+            box-shadow: 0 8px 40px rgba(0, 30, 0, 0.4);
+        }
+        body.lunar-mode .container {
+            background: #141c2c;
+            border: 1px solid #2a1f4a;
+            box-shadow: 0 8px 40px rgba(10, 14, 26, 0.8);
+        }
+        h1 {
+            color: #f0f6fc;
+            font-size: 22px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            transition: color 0.4s ease;
+        }
+        body.light-mode h1 {
+            color: #1f2328;
+        }
+        body.forest-mode h1 {
+            color: #c6e6c6;
+        }
+        body.lunar-mode h1 {
+            color: #e8eaf6;
+        }
+        h1 small {
+            font-size: 12px;
+            color: #8b949e;
+            font-weight: normal;
+        }
+        body.light-mode h1 small {
+            color: #57606a;
+        }
+        body.forest-mode h1 small {
+            color: #7aaa7a;
+        }
+        body.lunar-mode h1 small {
+            color: #8899bb;
+        }
+        .subtitle {
+            color: #8b949e;
+            margin-bottom: 16px;
+            font-size: 13px;
+            transition: color 0.4s ease;
+        }
+        body.light-mode .subtitle {
+            color: #57606a;
+        }
+        body.forest-mode .subtitle {
+            color: #7aaa7a;
+        }
+        body.lunar-mode .subtitle {
+            color: #8899bb;
+        }
+
+        .theme-selector {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .theme-selector label {
+            color: #8b949e;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        body.light-mode .theme-selector label {
+            color: #57606a;
+        }
+        body.forest-mode .theme-selector label {
+            color: #7aaa7a;
+        }
+        body.lunar-mode .theme-selector label {
+            color: #8899bb;
+        }
+        .theme-btn {
+            padding: 6px 12px;
+            border: 2px solid #30363d;
+            border-radius: 16px;
+            background: transparent;
+            color: #8b949e;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.3s;
+            touch-action: manipulation;
+            -webkit-touch-callout: none;
+            user-select: none;
+        }
+        body.light-mode .theme-btn {
+            border-color: #d0d7de;
+            color: #57606a;
+        }
+        body.forest-mode .theme-btn {
+            border-color: #2d4a2d;
+            color: #7aaa7a;
+        }
+        body.lunar-mode .theme-btn {
+            border-color: #2a1f4a;
+            color: #8899bb;
+        }
+        .theme-btn:hover {
+            border-color: #58a6ff;
+            color: #58a6ff;
+        }
+        .theme-btn.active {
+            border-color: #58a6ff;
+            background: #58a6ff22;
+            color: #58a6ff;
+        }
+        body.light-mode .theme-btn.active {
+            background: #58a6ff11;
+            border-color: #0969da;
+            color: #0969da;
+        }
+        body.forest-mode .theme-btn.active {
+            background: #2ea04333;
+            border-color: #2ea043;
+            color: #2ea043;
+        }
+        body.lunar-mode .theme-btn.active {
+            background: #ffd54f22;
+            border-color: #ffd54f;
+            color: #ffd54f;
+        }
+        .theme-btn.special {
+            border-color: #f0883e;
+            color: #f0883e;
+        }
+        .theme-btn.special:hover,
+        .theme-btn.special.active {
+            border-color: #f0883e;
+            background: #f0883e22;
+            color: #f0883e;
+        }
+        body.forest-mode .theme-btn.special.active {
+            background: #f0883e22;
+            border-color: #f0883e;
+            color: #f0883e;
+        }
+        body.lunar-mode .theme-btn.special.active {
+            background: #ffd54f22;
+            border-color: #ffd54f;
+            color: #ffd54f;
+        }
+        .theme-btn.light {
+            border-color: #f6c23e;
+            color: #f6c23e;
+        }
+        .theme-btn.light:hover,
+        .theme-btn.light.active {
+            border-color: #f6c23e;
+            background: #f6c23e22;
+            color: #f6c23e;
+        }
+        .theme-btn.light.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .theme-btn.forest {
+            border-color: #2ea043;
+            color: #2ea043;
+        }
+        .theme-btn.forest:hover,
+        .theme-btn.forest.active {
+            border-color: #2ea043;
+            background: #2ea04333;
+            color: #2ea043;
+        }
+        .theme-btn.lunar {
+            border-color: #ffd54f;
+            color: #ffd54f;
+        }
+        .theme-btn.lunar:hover,
+        .theme-btn.lunar.active {
+            border-color: #ffd54f;
+            background: #ffd54f22;
+            color: #ffd54f;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+        .input-group input {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 2px solid #30363d;
+            background: #0d1117;
+            color: #f0f6fc;
+            font-size: 15px;
+            transition: border-color 0.3s, background 0.4s, color 0.4s;
+            min-width: 150px;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        body.light-mode .input-group input {
+            background: #ffffff;
+            color: #1f2328;
+            border-color: #d0d7de;
+        }
+        body.forest-mode .input-group input {
+            background: #0d1f0d;
+            color: #c6e6c6;
+            border-color: #2d4a2d;
+        }
+        body.lunar-mode .input-group input {
+            background: #0a0e1a;
+            color: #e8eaf6;
+            border-color: #2a1f4a;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #58a6ff;
+        }
+        body.forest-mode .input-group input:focus {
+            border-color: #2ea043;
+        }
+        body.lunar-mode .input-group input:focus {
+            border-color: #ffd54f;
+        }
+        .input-group input::placeholder {
+            color: #484f58;
+        }
+        body.light-mode .input-group input::placeholder {
+            color: #8b949e;
+        }
+        body.forest-mode .input-group input::placeholder {
+            color: #4a6a4a;
+        }
+        body.lunar-mode .input-group input::placeholder {
+            color: #8899bb;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            touch-action: manipulation;
+            -webkit-touch-callout: none;
+            user-select: none;
+            min-height: 48px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #238636, #2ea043);
+            color: #fff;
+        }
+        body.lunar-mode .btn-primary {
+            background: linear-gradient(135deg, #ffd54f, #ffb300);
+            color: #0a0e1a;
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(46, 160, 67, 0.3);
+        }
+        body.lunar-mode .btn-primary:hover {
+            box-shadow: 0 4px 16px rgba(255, 213, 79, 0.4);
+        }
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-secondary {
+            background: #30363d;
+            color: #f0f6fc;
+        }
+        body.light-mode .btn-secondary {
+            background: #e1e4e8;
+            color: #1f2328;
+        }
+        body.forest-mode .btn-secondary {
+            background: #1a3a1a;
+            color: #c6e6c6;
+        }
+        body.lunar-mode .btn-secondary {
+            background: #2a1f4a;
+            color: #e8eaf6;
+        }
+        .btn-secondary:hover {
+            background: #484f58;
+        }
+        body.light-mode .btn-secondary:hover {
+            background: #d0d7de;
+        }
+        body.forest-mode .btn-secondary:hover {
+            background: #2a4a2a;
+        }
+        body.lunar-mode .btn-secondary:hover {
+            background: #3a2f5a;
+        }
+        .btn-secondary:active {
+            transform: scale(0.97);
+        }
+        .btn-danger {
+            background: #da3633;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #f85149;
+        }
+        .btn-success {
+            background: #1f6feb;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #388bfd;
+        }
+        .btn-purple {
+            background: #6f42c1;
+            color: #fff;
+        }
+        body.lunar-mode .btn-purple {
+            background: #7c4dff;
+        }
+        .btn-purple:hover {
+            background: #8957e5;
+        }
+        .btn-png {
+            background: linear-gradient(135deg, #f0883e, #d29922);
+            color: #fff;
+        }
+        body.lunar-mode .btn-png {
+            background: linear-gradient(135deg, #ffd54f, #ffb300);
+            color: #0a0e1a;
+        }
+        .btn-png:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(210, 153, 34, 0.3);
+        }
+        body.lunar-mode .btn-png:hover {
+            box-shadow: 0 4px 16px rgba(255, 213, 79, 0.4);
+        }
+        .btn-png:active {
+            transform: scale(0.97);
+        }
+
+        .card-preview {
+            background: #0d1117;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 14px 0;
+            border: 2px dashed #30363d;
+            min-height: 160px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+            overflow-x: auto;
+            transition: background 0.4s, border-color 0.4s;
+        }
+        body.light-mode .card-preview {
+            background: #f6f8fa;
+            border-color: #d0d7de;
+        }
+        body.forest-mode .card-preview {
+            background: #0d1f0d;
+            border-color: #2d4a2d;
+        }
+        body.lunar-mode .card-preview {
+            background: #0a0e1a;
+            border-color: #2a1f4a;
+        }
+        .card-preview svg {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        body.light-mode .card-preview svg {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        body.forest-mode .card-preview svg {
+            box-shadow: 0 4px 20px rgba(0,20,0,0.6);
+        }
+        body.lunar-mode .card-preview svg {
+            box-shadow: 0 4px 30px rgba(255, 213, 79, 0.1);
+        }
+        .card-placeholder {
+            color: #484f58;
+            font-size: 13px;
+            text-align: center;
+            padding: 20px 10px;
+        }
+        body.light-mode .card-placeholder {
+            color: #8b949e;
+        }
+        body.forest-mode .card-placeholder {
+            color: #4a6a4a;
+        }
+        body.lunar-mode .card-placeholder {
+            color: #8899bb;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 8px;
+            margin: 14px 0;
+            padding: 14px;
+            background: #0d1117;
+            border-radius: 10px;
+            border: 1px solid #30363d;
+            transition: background 0.4s, border-color 0.4s;
+        }
+        body.light-mode .info-grid {
+            background: #f6f8fa;
+            border-color: #d0d7de;
+        }
+        body.forest-mode .info-grid {
+            background: #0d1f0d;
+            border-color: #2d4a2d;
+        }
+        body.lunar-mode .info-grid {
+            background: #0a0e1a;
+            border-color: #2a1f4a;
+        }
+        .info-item {
+            text-align: center;
+            overflow: hidden;
+            word-break: break-word;
+        }
+        .info-item .label {
+            color: #8b949e;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        body.light-mode .info-item .label {
+            color: #57606a;
+        }
+        body.forest-mode .info-item .label {
+            color: #5a8a5a;
+        }
+        body.lunar-mode .info-item .label {
+            color: #8899bb;
+        }
+        .info-item .value {
+            color: #f0f6fc;
+            font-size: 17px;
+            font-weight: 700;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        body.light-mode .info-item .value {
+            color: #1f2328;
+        }
+        body.forest-mode .info-item .value {
+            color: #c6e6c6;
+        }
+        body.lunar-mode .info-item .value {
+            color: #e8eaf6;
+        }
+
+        .action-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .action-bar .btn {
+            width: 100%;
+            justify-content: center;
+            font-size: 12px;
+            padding: 10px 8px;
+            min-height: 40px;
+        }
+
+        .status {
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin: 8px 0;
+            display: none;
+        }
+        .status.show {
+            display: block;
+        }
+        .status.loading {
+            background: #1f6feb33;
+            color: #58a6ff;
+            border: 1px solid #1f6feb55;
+        }
+        body.light-mode .status.loading {
+            background: #ddf4ff;
+            color: #0969da;
+            border-color: #80ccff;
+        }
+        body.forest-mode .status.loading {
+            background: #1a3a1a;
+            color: #2ea043;
+            border-color: #2ea04355;
+        }
+        body.lunar-mode .status.loading {
+            background: #7c4dff22;
+            color: #ffd54f;
+            border-color: #ffd54f55;
+        }
+        .status.success {
+            background: #23863633;
+            color: #3fb950;
+            border: 1px solid #23863655;
+        }
+        body.light-mode .status.success {
+            background: #dafbe1;
+            color: #1a7f37;
+            border-color: #7ee39f;
+        }
+        body.forest-mode .status.success {
+            background: #1a3a1a;
+            color: #2ea043;
+            border-color: #2ea04355;
+        }
+        body.lunar-mode .status.success {
+            background: #ffd54f22;
+            color: #ffd54f;
+            border-color: #ffd54f55;
+        }
+        .status.error {
+            background: #da363333;
+            color: #f85149;
+            border: 1px solid #da363355;
+        }
+        body.light-mode .status.error {
+            background: #ffebe9;
+            color: #cf222e;
+            border-color: #ff8189;
+        }
+        body.forest-mode .status.error {
+            background: #3a1a1a;
+            color: #f85149;
+            border-color: #f8514955;
+        }
+        body.lunar-mode .status.error {
+            background: #da363333;
+            color: #f85149;
+            border-color: #da363355;
+        }
+        .status.special {
+            background: #d2992233;
+            color: #f0883e;
+            border: 1px solid #d2992255;
+        }
+        body.light-mode .status.special {
+            background: #ffd8b5;
+            color: #bd5612;
+            border-color: #f6b37b;
+        }
+        body.forest-mode .status.special {
+            background: #3a2a1a;
+            color: #f0883e;
+            border-color: #d2992255;
+        }
+        body.lunar-mode .status.special {
+            background: #ffd54f22;
+            color: #ffd54f;
+            border-color: #ffd54f55;
+        }
+
+        .cache-info {
+            color: #8b949e;
+            font-size: 11px;
+            margin-top: 10px;
+            padding: 10px 14px;
+            background: #0d1117;
+            border-radius: 8px;
+            border: 1px solid #21262d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            transition: background 0.4s, border-color 0.4s, color 0.4s;
+        }
+        body.light-mode .cache-info {
+            background: #f6f8fa;
+            border-color: #d0d7de;
+            color: #57606a;
+        }
+        body.forest-mode .cache-info {
+            background: #0d1f0d;
+            border-color: #2d4a2d;
+            color: #5a8a5a;
+        }
+        body.lunar-mode .cache-info {
+            background: #0a0e1a;
+            border-color: #2a1f4a;
+            color: #8899bb;
+        }
+        .cache-info code {
+            color: #58a6ff;
+            background: #161b22;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        body.light-mode .cache-info code {
+            background: #e1e4e8;
+            color: #0969da;
+        }
+        body.forest-mode .cache-info code {
+            background: #1a2e1a;
+            color: #2ea043;
+        }
+        body.lunar-mode .cache-info code {
+            background: #2a1f4a;
+            color: #ffd54f;
+        }
+        .cache-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .cache-badge.ram {
+            background: #1f6feb33;
+            color: #58a6ff;
+        }
+        body.light-mode .cache-badge.ram {
+            background: #ddf4ff;
+            color: #0969da;
+        }
+        body.forest-mode .cache-badge.ram {
+            background: #1a3a1a;
+            color: #2ea043;
+        }
+        body.lunar-mode .cache-badge.ram {
+            background: #7c4dff22;
+            color: #7c4dff;
+        }
+        .cache-badge.storage {
+            background: #23863633;
+            color: #3fb950;
+        }
+        body.light-mode .cache-badge.storage {
+            background: #dafbe1;
+            color: #1a7f37;
+        }
+        body.forest-mode .cache-badge.storage {
+            background: #1a3a1a;
+            color: #2ea043;
+        }
+        body.lunar-mode .cache-badge.storage {
+            background: #ffd54f22;
+            color: #ffd54f;
+        }
+        .cache-badge.none {
+            background: #da363333;
+            color: #f85149;
+        }
+        body.light-mode .cache-badge.none {
+            background: #ffebe9;
+            color: #cf222e;
+        }
+        body.forest-mode .cache-badge.none {
+            background: #3a1a1a;
+            color: #f85149;
+        }
+        body.lunar-mode .cache-badge.none {
+            background: #da363333;
+            color: #f85149;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #484f58;
+            font-size: 11px;
+            border-top: 1px solid #21262d;
+            padding-top: 16px;
+            transition: color 0.4s, border-color 0.4s;
+        }
+        body.light-mode .footer {
+            color: #57606a;
+            border-color: #d0d7de;
+        }
+        body.forest-mode .footer {
+            color: #4a6a4a;
+            border-color: #2d4a2d;
+        }
+        body.lunar-mode .footer {
+            color: #8899bb;
+            border-color: #2a1f4a;
+        }
+        .footer a {
+            color: #58a6ff;
+            text-decoration: none;
+        }
+        body.light-mode .footer a {
+            color: #0969da;
+        }
+        body.forest-mode .footer a {
+            color: #2ea043;
+        }
+        body.lunar-mode .footer a {
+            color: #ffd54f;
+        }
+        .footer .creator-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f0883e33, #d2992233);
+            color: #f0883e;
+            padding: 3px 12px;
+            border-radius: 16px;
+            font-size: 10px;
+            font-weight: 600;
+            border: 1px solid #d2992255;
+            margin-top: 6px;
+        }
+        body.light-mode .footer .creator-badge {
+            background: linear-gradient(135deg, #ffd8b5, #f6b37b);
+            border-color: #f0883e;
+            color: #bd5612;
+        }
+        body.forest-mode .footer .creator-badge {
+            background: linear-gradient(135deg, #f0883e22, #d2992222);
+            border-color: #d2992255;
+            color: #f0883e;
+        }
+        body.lunar-mode .footer .creator-badge {
+            background: linear-gradient(135deg, #ffd54f22, #ffb30022);
+            border-color: #ffd54f55;
+            color: #ffd54f;
+        }
+
+        .cooldown-timer {
+            color: #8b949e;
+            font-size: 12px;
+            margin-top: 6px;
+            text-align: center;
+            display: none;
+        }
+        .cooldown-timer.show {
+            display: block;
+        }
+        body.light-mode .cooldown-timer {
+            color: #57606a;
+        }
+        body.forest-mode .cooldown-timer {
+            color: #4a6a4a;
+        }
+        body.lunar-mode .cooldown-timer {
+            color: #8899bb;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 14px;
+            }
+            h1 {
+                font-size: 18px;
+            }
+            h1 small {
+                font-size: 10px;
+            }
+            .subtitle {
+                font-size: 12px;
+            }
+            .input-group input {
+                font-size: 14px;
+                padding: 10px 14px;
+                min-width: 120px;
+            }
+            .btn {
+                font-size: 13px;
+                padding: 10px 14px;
+                min-height: 42px;
+            }
+            .card-preview {
+                padding: 10px;
+                min-height: 120px;
+            }
+            .info-grid {
+                grid-template-columns: repeat(3, 1fr);
+                padding: 10px;
+                gap: 6px;
+            }
+            .info-item .value {
+                font-size: 15px;
+            }
+            .action-bar {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 5px;
+            }
+            .action-bar .btn {
+                font-size: 11px;
+                padding: 8px 6px;
+                min-height: 36px;
+            }
+            .theme-selector {
+                gap: 4px;
+            }
+            .theme-btn {
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+            .cache-info {
+                font-size: 10px;
+                padding: 8px 10px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .container {
+                padding: 10px;
+            }
+            .input-group {
+                flex-direction: column;
+                gap: 6px;
+            }
+            .input-group input {
+                width: 100%;
+                min-width: unset;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .action-bar {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 30px;
+                align-items: center;
+            }
+            .container {
+                max-width: 820px;
+                padding: 40px;
+            }
+            .action-bar {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+            .action-bar .btn {
+                font-size: 14px;
+                padding: 12px 20px;
+            }
+            .info-grid {
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>
+            🃏 GitHub Profile Card
+            <small>modern wide card</small>
+        </h1>
+        <p class="subtitle">
+            Enter GitHub username to generate a rich profile card SVG.
+            <span id="cacheTypeLabel" style="color:#58a6ff;">💾 Cache: RAM</span>
+        </p>
+
+        <div class="theme-selector">
+            <label>🎨 Theme:</label>
+            <button class="theme-btn active" data-theme="default">Default</button>
+            <button class="theme-btn special" data-theme="special">Special</button>
+            <button class="theme-btn light" data-theme="light" id="lightThemeBtn">Light</button>
+            <button class="theme-btn forest" data-theme="forest">🌲 Forest</button>
+            <button class="theme-btn lunar" data-theme="lunar">🌙 Lunar</button>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="usernameInput" placeholder="Enter username, e.g. torvalds" value="torvalds" />
+            <button class="btn btn-primary" id="generateBtn">✨ Generate</button>
+        </div>
+
+        <div id="status" class="status"></div>
+        <div id="cooldownTimer" class="cooldown-timer">⏳ Please wait <span id="cooldownCount">3</span>s</div>
+
+        <div class="card-preview" id="cardPreview">
+            <div class="card-placeholder" id="placeholder">
+                ⬆️ Enter username and click "Generate"
+            </div>
+        </div>
+
+        <div id="userInfo" class="info-grid" style="display:none;"></div>
+
+        <div class="action-bar">
+            <button class="btn btn-secondary" id="copyBtn">📋 Copy</button>
+            <button class="btn btn-secondary" id="downloadBtn">💾 SVG</button>
+            <button class="btn btn-png" id="downloadPngBtn">🖼️ PNG</button>
+            <button class="btn btn-danger" id="clearCacheBtn">🗑️ Cache</button>
+            <button class="btn btn-purple" id="viewCacheBtn">📦 View</button>
+        </div>
+
+        <div class="cache-info">
+            <span>💾 Cache: <span id="cacheStatus">No data</span></span>
+            <span>
+                <span id="cacheCount">0</span> user(s)
+                <span id="cacheModeBadge" class="cache-badge ram">RAM</span>
+            </span>
+        </div>
+
+        <div class="footer">
+            Made with ❤️ · Data from <a href="https://api.github.com" target="_blank">GitHub API</a>
+            · <span id="storageInfo">Cache stored in RAM</span>
+            <br>
+            <span class="creator-badge">Creator: dryfish09 · dryfish09.github.io/card-svg-gen/</span>
+        </div>
+    </div>
+
+    <script>
+        // <![CDATA[
+        var CacheEngine = (function() {
+            var _memory = {};
+            var _storage = null;
+            var _mode = 'memory';
+            var _initialized = false;
+
+            function init() {
+                if (_initialized) return;
+                try {
+                    if (typeof localStorage !== 'undefined') {
+                        var testKey = '_test_cache_';
+                        localStorage.setItem(testKey, 'test');
+                        localStorage.removeItem(testKey);
+                        _storage = localStorage;
+                        _mode = 'storage';
+                        console.log('✅ Using localStorage (persistent)');
+                    }
+                } catch (e) {
+                    console.warn('⚠️ localStorage not available, using RAM:', e.message);
+                }
+                _initialized = true;
+                console.log('💾 Using RAM cache (lost on reload)');
+            }
+
+            function get(key) {
+                if (_mode === 'storage' && _storage) {
+                    try {
+                        var raw = _storage.getItem(key);
+                        if (!raw) return null;
+                        var data = JSON.parse(raw);
+                        if (data.timestamp && (Date.now() - data.timestamp) > data.ttl * 1000) {
+                            _storage.removeItem(key);
+                            return null;
+                        }
+                        return data.value;
+                    } catch {
+                        return null;
+                    }
+                }
+                var entry = _memory[key];
+                if (!entry) return null;
+                if (entry.timestamp && (Date.now() - entry.timestamp) > entry.ttl * 1000) {
+                    delete _memory[key];
+                    return null;
+                }
+                return entry.value;
+            }
+
+            function set(key, value, ttl) {
+                ttl = ttl || 600;
+                var data = {
+                    value: value,
+                    timestamp: Date.now(),
+                    ttl: ttl
+                };
+                if (_mode === 'storage' && _storage) {
+                    try {
+                        _storage.setItem(key, JSON.stringify(data));
+                        return;
+                    } catch (e) {
+                        if (e.name === 'QuotaExceededError' || e.code === 22) {
+                            console.warn('⚠️ localStorage quota exceeded, falling back to RAM');
+                            _memory[key] = data;
+                            return;
+                        }
+                    }
+                }
+                _memory[key] = data;
+            }
+
+            function remove(key) {
+                if (_mode === 'storage' && _storage) {
+                    try {
+                        _storage.removeItem(key);
+                    } catch {}
+                }
+                delete _memory[key];
+            }
+
+            function clear() {
+                if (_mode === 'storage' && _storage) {
+                    try {
+                        var keys = Object.keys(_storage);
+                        keys.forEach(function(k) {
+                            if (k.startsWith('github_card_')) {
+                                _storage.removeItem(k);
+                            }
+                        });
+                    } catch {}
+                }
+                Object.keys(_memory).forEach(function(k) {
+                    if (k.startsWith('github_card_')) {
+                        delete _memory[k];
+                    }
+                });
+            }
+
+            function getAllKeys() {
+                var keys = [];
+                if (_mode === 'storage' && _storage) {
+                    try {
+                        var allKeys = Object.keys(_storage);
+                        keys = allKeys.filter(function(k) { return k.startsWith('github_card_'); });
+                    } catch {}
+                }
+                var memoryKeys = Object.keys(_memory).filter(function(k) { return k.startsWith('github_card_'); });
+                return Array.from(new Set(keys.concat(memoryKeys)));
+            }
+
+            function getStats() {
+                var keys = getAllKeys();
+                return {
+                    count: keys.length,
+                    keys: keys,
+                    mode: _mode
+                };
+            }
+
+            function getMode() {
+                return _mode;
+            }
+
+            init();
+
+            return {
+                get: get,
+                set: set,
+                remove: remove,
+                clear: clear,
+                getAllKeys: getAllKeys,
+                getStats: getStats,
+                getMode: getMode,
+                init: init
+            };
+        })();
+
+        var CACHE_PREFIX = 'github_card_';
+        var CACHE_TTL = 600;
+        var COOLDOWN_SECONDS = 3;
+
+        var COLORS = {
+            bg: '#0d1117',
+            cardBg: '#161b22',
+            border: '#30363d',
+            text: '#f0f6fc',
+            textMuted: '#8b949e',
+            accent: '#58a6ff',
+            green: '#2ea043',
+            orange: '#d29922',
+            red: '#f85149',
+            purple: '#6f42c1',
+            gold: '#f0883e',
+            goldLight: '#bd5612',
+            goldBg: '#d2992233',
+            goldBgLight: '#ffd8b5'
+        };
+
+        var LIGHT_COLORS = {
+            bg: '#ffffff',
+            cardBg: '#f6f8fa',
+            border: '#d0d7de',
+            text: '#1f2328',
+            textMuted: '#57606a',
+            accent: '#0969da',
+            green: '#1a7f37',
+            orange: '#bd5612',
+            red: '#cf222e',
+            purple: '#8250df',
+            gold: '#bd5612',
+            goldLight: '#bd5612',
+            goldBg: '#ffd8b5',
+            goldBgLight: '#ffd8b5'
+        };
+
+        var FOREST_COLORS = {
+            bg: '#0d1f0d',
+            cardBg: '#1a2e1a',
+            border: '#2d4a2d',
+            text: '#c6e6c6',
+            textMuted: '#5a8a5a',
+            accent: '#2ea043',
+            green: '#3db85a',
+            orange: '#d29922',
+            red: '#f85149',
+            purple: '#6f42c1',
+            gold: '#f0883e',
+            goldLight: '#d29922',
+            goldBg: '#3a2a1a',
+            goldBgLight: '#4a3a2a'
+        };
+
+        var LUNAR_COLORS = {
+            bg: '#0a0e1a',
+            cardBg: '#141c2c',
+            border: '#2a1f4a',
+            text: '#e8eaf6',
+            textMuted: '#c8d6e5',
+            accent: '#ffd54f',
+            green: '#00bcd4',
+            orange: '#ffb300',
+            red: '#f85149',
+            purple: '#7c4dff',
+            gold: '#ffd54f',
+            goldLight: '#ffb300',
+            goldBg: '#ffd54f22',
+            goldBgLight: '#ffd54f33'
+        };
+
+        var SPECIAL_USER = 'dryfish09';
+        var SPECIAL_NOTE = 'Creator of dryfish09.github.io/card-svg-gen/';
+
+        var currentTheme = 'default';
+        var isCooldown = false;
+        var cooldownTimer = null;
+        var isSpecialUser = false;
+
+        var usernameInput = document.getElementById('usernameInput');
+        var generateBtn = document.getElementById('generateBtn');
+        var cardPreview = document.getElementById('cardPreview');
+        var placeholder = document.getElementById('placeholder');
+        var userInfo = document.getElementById('userInfo');
+        var status = document.getElementById('status');
+        var copyBtn = document.getElementById('copyBtn');
+        var downloadBtn = document.getElementById('downloadBtn');
+        var downloadPngBtn = document.getElementById('downloadPngBtn');
+        var clearCacheBtn = document.getElementById('clearCacheBtn');
+        var viewCacheBtn = document.getElementById('viewCacheBtn');
+        var cacheStatus = document.getElementById('cacheStatus');
+        var cacheCount = document.getElementById('cacheCount');
+        var cacheModeBadge = document.getElementById('cacheModeBadge');
+        var cacheTypeLabel = document.getElementById('cacheTypeLabel');
+        var storageInfo = document.getElementById('storageInfo');
+        var cooldownTimerEl = document.getElementById('cooldownTimer');
+        var cooldownCount = document.getElementById('cooldownCount');
+        var themeBtns = document.querySelectorAll('.theme-btn');
+        var lightThemeBtn = document.getElementById('lightThemeBtn');
+
+        var currentUserData = null;
+        var currentSVG = '';
+        var currentThemeCache = 'default';
+
+        function setTheme(theme) {
+            currentTheme = theme;
+            themeBtns.forEach(function(btn) {
+                btn.classList.remove('active');
+                if (btn.dataset.theme === theme) {
+                    btn.classList.add('active');
+                }
+            });
+
+            if (isSpecialUser && theme === 'light') {
+                showStatus('⚠️ Light mode is not available for the creator badge', 'error');
+                return;
+            }
+
+            document.body.classList.remove('light-mode', 'forest-mode', 'lunar-mode');
+
+            if (theme === 'light') {
+                document.body.classList.add('light-mode');
+            } else if (theme === 'forest') {
+                document.body.classList.add('forest-mode');
+            } else if (theme === 'lunar') {
+                document.body.classList.add('lunar-mode');
+            }
+
+            if (currentUserData) {
+                var svg = generateProfileCardSVG(currentUserData.login, currentUserData);
+                renderCard(svg, currentUserData);
+                currentThemeCache = theme;
+            }
+        }
+
+        themeBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var theme = btn.dataset.theme;
+                if (isSpecialUser && theme === 'light') {
+                    showStatus('⚠️ Light mode is not available for the creator badge', 'error');
+                    return;
+                }
+                setTheme(theme);
+            });
+        });
+
+        function getColors() {
+            if (currentTheme === 'light') {
+                return LIGHT_COLORS;
+            }
+            if (currentTheme === 'forest') {
+                return FOREST_COLORS;
+            }
+            if (currentTheme === 'lunar') {
+                return LUNAR_COLORS;
+            }
+            return COLORS;
+        }
+
+        function getCacheKey(username) {
+            return CACHE_PREFIX + username.toLowerCase();
+        }
+
+        function getCachedUser(username) {
+            var key = getCacheKey(username);
+            return CacheEngine.get(key);
+        }
+
+        function setCachedUser(username, data) {
+            var key = getCacheKey(username);
+            CacheEngine.set(key, data, CACHE_TTL);
+        }
+
+        function clearAllCache() {
+            CacheEngine.clear();
+            updateCacheUI();
+            showStatus('🗑️ Cache cleared', 'success');
+        }
+
+        function getCacheStats() {
+            return CacheEngine.getStats();
+        }
+
+        function updateCacheUI() {
+            var stats = getCacheStats();
+            var mode = CacheEngine.getMode();
+            var modeLabels = {
+                'storage': { text: '💾 Persistent', cls: 'storage' },
+                'memory': { text: '🧠 RAM', cls: 'ram' },
+                'none': { text: '❌ Off', cls: 'none' }
+            };
+            var info = modeLabels[mode] || modeLabels.none;
+            cacheModeBadge.textContent = info.text;
+            cacheModeBadge.className = 'cache-badge ' + info.cls;
+            var modeText = {
+                'storage': '💾 Cache: Persistent (localStorage)',
+                'memory': '🧠 Cache: RAM (lost on reload)',
+                'none': '❌ Cache: Off'
+            };
+            cacheTypeLabel.textContent = modeText[mode] || modeText.none;
+            storageInfo.textContent = mode === 'storage' ?
+                '✅ Data stored in localStorage (survives reload)' :
+                '⚠️ Data stored in RAM (will be lost on reload)';
+            cacheCount.textContent = stats.count;
+            if (stats.count === 0) {
+                cacheStatus.textContent = 'No cached data';
+            } else {
+                cacheStatus.textContent = stats.count + ' user(s) cached';
+            }
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            }
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num.toString();
+        }
+
+        function generateProfileCardSVG(username, data) {
+            var name = data.name;
+            var login = data.login;
+            var public_repos = data.public_repos;
+            var followers = data.followers;
+            var following = data.following;
+            var created_at = data.created_at;
+            var bio = data.bio;
+            var location = data.location;
+            var avatar_url = data.avatar_url;
+
+            var joinDate = new Date(created_at).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+
+            var isSpecial = login.toLowerCase() === SPECIAL_USER;
+            var colors = getColors();
+            var isLight = currentTheme === 'light';
+            var isForest = currentTheme === 'forest';
+            var isLunar = currentTheme === 'lunar';
+            var isSpecialTheme = currentTheme === 'special' || isSpecial;
+
+            var maxBioLength = 50;
+            var rawBio = bio || 'No bio available';
+            var bioLines = [];
+            var remaining = rawBio;
+
+            if (remaining.length > maxBioLength) {
+                var words = remaining.split(' ');
+                var currentLine = '';
+                for (var i = 0; i < words.length; i++) {
+                    var word = words[i];
+                    if ((currentLine + word).length <= maxBioLength) {
+                        currentLine += (currentLine ? ' ' : '') + word;
+                    } else {
+                        if (currentLine) bioLines.push(currentLine);
+                        currentLine = word;
+                    }
+                }
+                if (currentLine) bioLines.push(currentLine);
+            } else {
+                bioLines.push(remaining);
+            }
+
+            while (bioLines.length > 2) {
+                var last = bioLines.pop();
+                bioLines[bioLines.length - 1] += '...';
+            }
+
+            var bioLineCount = bioLines.length;
+            var extraHeight = Math.max(0, (bioLineCount - 1) * 18);
+
+            var cardHeight = 320 + extraHeight;
+            if (isSpecialTheme) cardHeight += 40;
+            if (isLunar) cardHeight += 20;
+
+            var cardWidth = 680;
+            var avatarSize = 96;
+            var padding = 28;
+
+            var nameColor = colors.accent;
+            if (isSpecialTheme) {
+                nameColor = colors.gold;
+            } else if (followers > 1000) nameColor = colors.green;
+            else if (followers > 500) nameColor = '#f0883e';
+            else if (followers > 100) nameColor = colors.orange;
+
+            var locationText = location || 'Location not set';
+            var wrappedLocation = locationText.length > 28 ?
+                locationText.substring(0, 25) + '...' :
+                locationText;
+
+            var nameY = 28;
+            var usernameY = 52;
+            var bioStartY = 78;
+            var locationY = bioStartY + (bioLineCount * 18) + 4;
+            var joinedY = locationY + 18;
+            var minStatsY = 208;
+            var finalStatsY = Math.max(minStatsY, joinedY + 30);
+
+            if (finalStatsY > cardHeight - 80) {
+                cardHeight = finalStatsY + 80;
+            }
+
+            var statItems = [
+                { icon: '⭐', label: 'Followers', value: followers },
+                { icon: '📦', label: 'Repositories', value: public_repos },
+                { icon: '👥', label: 'Following', value: following }
+            ];
+
+            var statsHTML = '';
+            var startX = 160;
+            var spacing = 155;
+            for (var si = 0; si < statItems.length; si++) {
+                var item = statItems[si];
+                var x = startX + si * spacing;
+                var formattedValue = formatNumber(item.value);
+                statsHTML += '\n                    <g>\n                        <text x="' + x + '" y="' + finalStatsY + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="26" font-weight="700" fill="' + colors.text + '" text-anchor="middle">' + formattedValue + '</text>\n                        <text x="' + x + '" y="' + (finalStatsY + 24) + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="12" fill="' + colors.textMuted + '" text-anchor="middle" letter-spacing="0.5">' + item.icon + ' ' + item.label + '</text>\n                    </g>\n                ';
+            }
+
+            var specialBadgeHTML = '';
+            if (isSpecialTheme) {
+                var specialBadgeY = cardHeight - 52;
+                var noteText = isSpecial ? SPECIAL_NOTE : '✨ Special Theme Edition';
+                var goldColor = isLight ? colors.goldLight : colors.gold;
+                var goldBg = isLight ? colors.goldBgLight : colors.goldBg;
+
+                specialBadgeHTML = '\n                    <rect x="' + padding + '" y="' + specialBadgeY + '" width="' + (cardWidth - padding * 2) + '" height="32" rx="8" ry="8" fill="' + goldBg + '" opacity="' + (isLight ? '1' : '0.15') + '"/>\n                    <rect x="' + padding + '" y="' + specialBadgeY + '" width="' + (cardWidth - padding * 2) + '" height="32" rx="8" ry="8" stroke="' + goldColor + '" stroke-width="' + (isLight ? '2' : '1') + '" opacity="' + (isLight ? '0.6' : '0.3') + '"/>\n                    <text x="' + (cardWidth / 2) + '" y="' + (specialBadgeY + 20) + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="13" fill="' + goldColor + '" text-anchor="middle" font-weight="600">' + noteText + '</text>\n                ';
+            }
+
+            var maxNameLength = 24;
+            var displayName = name || login;
+            var truncatedName = displayName.length > maxNameLength ?
+                displayName.substring(0, maxNameLength - 3) + '...' :
+                displayName;
+
+            var nameFontSize = truncatedName.length > 20 ? 20 :
+                truncatedName.length > 15 ? 22 : 24;
+
+            var bioHTML = '';
+            for (var bi = 0; bi < bioLines.length; bi++) {
+                var line = bioLines[bi];
+                bioHTML += '\n                    <text x="0" y="' + (bioStartY + (bi * 18)) + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="13" fill="' + colors.text + '" opacity="0.85">' + line + '</text>\n                ';
+            }
+
+            var goldColor = isLight ? colors.goldLight : colors.gold;
+            var avatarUrl = avatar_url || 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
+
+            var bgColor1 = isForest ? '#0d1f0d' : (isLight ? '#f6f8fa' : (isLunar ? '#0a0e1a' : '#1c2333'));
+            var bgColor2 = isForest ? '#1a2e1a' : (isLight ? '#ffffff' : (isLunar ? '#141c2c' : '#0d1117'));
+            var shadowOpacity = isForest ? '0.4' : (isLight ? '0.1' : (isLunar ? '0.5' : '0.6'));
+
+            var svg = '<?xml version="1.0" encoding="UTF-8"?>\n';
+            svg += '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="' + cardWidth + '" height="' + cardHeight + '" viewBox="0 0 ' + cardWidth + ' ' + cardHeight + '">\n';
+            
+            if (isLunar) {
+                var starPositions = [
+                    [45, 35, 1.5, 0.6, 2.5],
+                    [120, 20, 1, 0.4, 3.0],
+                    [200, 50, 1.2, 0.5, 2.0],
+                    [310, 15, 1.8, 0.7, 3.5],
+                    [400, 45, 1, 0.3, 2.8],
+                    [520, 25, 1.5, 0.6, 2.2],
+                    [580, 55, 1.2, 0.5, 3.2],
+                    [650, 30, 1, 0.4, 2.6],
+                    [50, 60, 1.3, 0.5, 3.0],
+                    [150, 10, 1, 0.3, 2.4],
+                    [480, 60, 1.4, 0.6, 2.8],
+                    [620, 10, 1, 0.4, 3.4]
+                ];
+                for (var si2 = 0; si2 < starPositions.length; si2++) {
+                    var star = starPositions[si2];
+                    svg += '    <circle cx="' + star[0] + '" cy="' + star[1] + '" r="' + star[2] + '" fill="white" opacity="' + star[3] + '">\n';
+                    svg += '        <animate attributeName="opacity" values="' + star[3] + ';0.1;' + star[3] + '" dur="' + star[4] + 's" repeatCount="indefinite"/>\n';
+                    svg += '    </circle>\n';
+                }
+
+                svg += '    <line x1="580" y1="10" x2="620" y2="30" stroke="#ffd54f" stroke-width="1.5" opacity="0">\n';
+                svg += '        <animate attributeName="opacity" values="0;1;0" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '        <animate attributeName="x1" values="580;100" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '        <animate attributeName="y1" values="10;200" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '        <animate attributeName="x2" values="620;140" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '        <animate attributeName="y2" values="30;220" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '    </line>\n';
+
+                svg += '    <line x1="400" y1="5" x2="430" y2="20" stroke="#ffb300" stroke-width="1" opacity="0">\n';
+                svg += '        <animate attributeName="opacity" values="0;0.8;0" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
+                svg += '        <animate attributeName="x1" values="400;50" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
+                svg += '        <animate attributeName="y1" values="5;150" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
+                svg += '        <animate attributeName="x2" values="430;80" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
+                svg += '        <animate attributeName="y2" values="20;170" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
+                svg += '    </line>\n';
+
+                svg += '    <rect x="28" y="' + (cardHeight - 55) + '" width="624" height="44" rx="10" ry="10" fill="#ffd54f" opacity="0">\n';
+                svg += '        <animate attributeName="opacity" values="0;0.08;0" dur="3s" repeatCount="indefinite"/>\n';
+                svg += '    </rect>\n';
+
+                svg += '    <g transform="translate(85, ' + (cardHeight - 35) + ')">\n';
+                svg += '        <animateTransform attributeName="transform" type="rotate" values="0 80 305;10 80 305;0 80 305" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '        <text x="0" y="0" font-size="24">🌙</text>\n';
+                svg += '    </g>\n';
+
+                svg += '    <g transform="translate(560, ' + (cardHeight - 35) + ')">\n';
+                svg += '        <animateTransform attributeName="transform" type="translate" values="0 0;5 -5;0 0" dur="3s" repeatCount="indefinite"/>\n';
+                svg += '        <text x="0" y="0" font-size="20">🚀</text>\n';
+                svg += '    </g>\n';
+
+                svg += '    <ellipse cx="340" cy="180" rx="200" ry="100" fill="#7c4dff" opacity="0.03">\n';
+                svg += '        <animate attributeName="opacity" values="0.03;0.06;0.03" dur="5s" repeatCount="indefinite"/>\n';
+                svg += '    </ellipse>\n';
+                svg += '    <ellipse cx="340" cy="180" rx="150" ry="70" fill="#ffd54f" opacity="0.02">\n';
+                svg += '        <animate attributeName="opacity" values="0.02;0.05;0.02" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '    </ellipse>\n';
+            }
+            
+            svg += '    <defs>\n';
+            if (isLunar) {
+                svg += '        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
+                svg += '            <stop offset="0%" style="stop-color:' + bgColor1 + ';stop-opacity:1" />\n';
+                svg += '            <stop offset="50%" style="stop-color:#1a1040;stop-opacity:0.3" />\n';
+                svg += '            <stop offset="100%" style="stop-color:' + bgColor2 + ';stop-opacity:1" />\n';
+                svg += '        </linearGradient>\n';
+            } else {
+                svg += '        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
+                svg += '            <stop offset="0%" style="stop-color:' + bgColor1 + ';stop-opacity:1" />\n';
+                svg += '            <stop offset="100%" style="stop-color:' + bgColor2 + ';stop-opacity:1" />\n';
+                svg += '        </linearGradient>\n';
+            }
+            svg += '        <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
+            svg += '            <stop offset="0%" style="stop-color:' + (isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:1" />\n';
+            svg += '            <stop offset="50%" style="stop-color:' + (isSpecialTheme ? (isLunar ? '#ffb300' : '#d29922') : nameColor) + ';stop-opacity:1" />\n';
+            svg += '            <stop offset="100%" style="stop-color:' + (isSpecialTheme ? '#f0883e' : nameColor) + ';stop-opacity:1" />\n';
+            svg += '        </linearGradient>\n';
+            if (isLunar) {
+                svg += '        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
+                svg += '            <stop offset="0%" style="stop-color:#ffd54f;stop-opacity:1" />\n';
+                svg += '            <stop offset="50%" style="stop-color:#ffb300;stop-opacity:1" />\n';
+                svg += '            <stop offset="100%" style="stop-color:#ffd54f;stop-opacity:1" />\n';
+                svg += '        </linearGradient>\n';
+            } else {
+                svg += '        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
+                svg += '            <stop offset="0%" style="stop-color:#f0883e;stop-opacity:1" />\n';
+                svg += '            <stop offset="50%" style="stop-color:#d29922;stop-opacity:1" />\n';
+                svg += '            <stop offset="100%" style="stop-color:#f0883e;stop-opacity:1" />\n';
+                svg += '        </linearGradient>\n';
+            }
+            svg += '        <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
+            svg += '            <stop offset="0%" style="stop-color:' + (isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:' + (isLight ? '0.05' : '0.1') + '" />\n';
+            svg += '            <stop offset="100%" style="stop-color:#6f42c1;stop-opacity:' + (isLight ? '0.02' : '0.05') + '" />\n';
+            svg += '        </linearGradient>\n';
+            svg += '        <filter id="shadow">\n';
+            svg += '            <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000" flood-opacity="' + shadowOpacity + '"/>\n';
+            svg += '        </filter>\n';
+            svg += '        <clipPath id="avatarClip">\n';
+            svg += '            <circle cx="' + (padding + avatarSize / 2 + 4) + '" cy="' + (padding + avatarSize / 2 + 4) + '" r="' + (avatarSize / 2) + '"/>\n';
+            svg += '        </clipPath>\n';
+            svg += '        <radialGradient id="avatarGlow" cx="50%" cy="50%" r="50%">\n';
+            svg += '            <stop offset="0%" style="stop-color:' + (isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:' + (isLight ? '0.2' : '0.3') + '"/>\n';
+            svg += '            <stop offset="100%" style="stop-color:' + (isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:0"/>\n';
+            svg += '        </radialGradient>\n';
+            if (isSpecialTheme) {
+                svg += '        <radialGradient id="specialGlow" cx="50%" cy="50%" r="50%">\n';
+                svg += '            <stop offset="0%" style="stop-color:#f0883e;stop-opacity:' + (isLight ? '0.05' : '0.08') + '"/>\n';
+                svg += '            <stop offset="100%" style="stop-color:#f0883e;stop-opacity:0"/>\n';
+                svg += '        </radialGradient>\n';
+            }
+            svg += '    </defs>\n\n';
+            svg += '    <rect x="0" y="0" width="' + cardWidth + '" height="' + cardHeight + '" rx="20" ry="20" fill="url(#bgGrad)" filter="url(#shadow)"/>\n';
+            svg += '    <rect x="0" y="0" width="' + cardWidth + '" height="' + cardHeight + '" rx="20" ry="20" fill="url(#glowGrad)"/>\n';
+            if (isSpecialTheme) {
+                svg += '    <rect x="0" y="0" width="' + cardWidth + '" height="' + cardHeight + '" rx="20" ry="20" fill="url(#specialGlow)"/>\n';
+            }
+            svg += '    <rect x="0" y="0" width="' + cardWidth + '" height="4" rx="2" ry="2" fill="url(#accentGrad)"/>\n\n';
+            svg += '    <circle cx="' + (padding + avatarSize / 2 + 4) + '" cy="' + (padding + avatarSize / 2 + 4) + '" r="' + (avatarSize / 2 + 8) + '" fill="url(#avatarGlow)"/>\n';
+            svg += '    <circle cx="' + (padding + avatarSize / 2 + 4) + '" cy="' + (padding + avatarSize / 2 + 4) + '" r="' + (avatarSize / 2 + 2) + '" fill="url(#accentGrad)" opacity="' + (isLight ? '0.15' : '0.2') + '"/>\n';
+            svg += '    <circle cx="' + (padding + avatarSize / 2 + 4) + '" cy="' + (padding + avatarSize / 2 + 4) + '" r="' + (avatarSize / 2) + '" fill="' + colors.bg + '"/>\n';
+            svg += '    <image x="' + (padding + 4) + '" y="' + (padding + 4) + '" width="' + avatarSize + '" height="' + avatarSize + '" clip-path="url(#avatarClip)" href="' + avatarUrl + '" xlink:href="' + avatarUrl + '" preserveAspectRatio="xMidYMid slice"/>\n\n';
+            svg += '    <g transform="translate(' + (padding + avatarSize + 20) + ', ' + (padding + 8) + ')">\n';
+            svg += '        <text x="0" y="' + nameY + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="' + nameFontSize + '" font-weight="700" fill="' + nameColor + '" letter-spacing="0.3">' + truncatedName + '</text>\n';
+            svg += '        <text x="0" y="' + usernameY + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="14" fill="' + colors.textMuted + '">@' + login + '</text>\n';
+            svg += bioHTML;
+            svg += '        <g transform="translate(0, ' + locationY + ')">\n';
+            svg += '            <text x="0" y="0" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="12" fill="' + colors.textMuted + '">📍 ' + wrappedLocation + '</text>\n';
+            svg += '        </g>\n';
+            svg += '        <g transform="translate(0, ' + joinedY + ')">\n';
+            svg += '            <text x="0" y="0" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="12" fill="' + colors.textMuted + '">📅 Joined ' + joinDate + '</text>\n';
+            svg += '        </g>\n';
+            svg += '    </g>\n\n';
+            svg += '    <line x1="' + padding + '" y1="' + Math.min(padding + avatarSize + 24, finalStatsY - 20) + '" x2="' + (cardWidth - padding) + '" y2="' + Math.min(padding + avatarSize + 24, finalStatsY - 20) + '" stroke="' + colors.border + '" stroke-width="1" stroke-dasharray="6,6" opacity="0.5"/>\n\n';
+            svg += statsHTML;
+            svg += specialBadgeHTML;
+            svg += '\n    <g transform="translate(' + (cardWidth - 20) + ', ' + (cardHeight - 14) + ')">\n';
+            svg += '        <text x="0" y="0" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="10" fill="' + colors.textMuted + '" text-anchor="end" opacity="0.6">✨ GitHub Profile Card</text>\n';
+            svg += '    </g>\n';
+            svg += '</svg>';
+
+            return svg;
+        }
+
+        async function fetchGitHubUser(username) {
+            var url = 'https://api.github.com/users/' + username;
+            var response = await fetch(url, {
+                headers: {
+                    'Accept': 'application/json',
+                    'User-Agent': 'GitHub-Profile-Card-Generator'
+                }
+            });
+
+            if (!response.ok) {
+                if (response.status === 404) {
+                    throw new Error('User "' + username + '" not found');
+                }
+                if (response.status === 403) {
+                    throw new Error('API rate limit exceeded (60 req/hour). Please try again later.');
+                }
+                throw new Error('Error ' + response.status + ': ' + response.statusText);
+            }
+
+            var data = await response.json();
+            return {
+                name: data.name || username,
+                login: data.login,
+                public_repos: data.public_repos || 0,
+                followers: data.followers || 0,
+                following: data.following || 0,
+                created_at: data.created_at,
+                avatar_url: data.avatar_url || 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
+                bio: data.bio || '',
+                location: data.location || '',
+                company: data.company || '',
+                blog: data.blog || '',
+                twitter: data.twitter_username || '',
+                email: data.email || ''
+            };
+        }
+
+        function showStatus(message, type) {
+            type = type || 'loading';
+            status.textContent = message;
+            status.className = 'status show ' + type;
+            if (type === 'success' || type === 'error' || type === 'special') {
+                setTimeout(function() {
+                    if (status.textContent === message) {
+                        status.className = 'status';
+                    }
+                }, 6000);
+            }
+        }
+
+        function renderCard(svg, userData) {
+            currentSVG = svg;
+            currentUserData = userData;
+
+            placeholder.style.display = 'none';
+
+            var wrapper = document.createElement('div');
+            wrapper.innerHTML = svg;
+            var svgElement = wrapper.firstElementChild;
+
+            var oldSvg = cardPreview.querySelector('svg');
+            if (oldSvg) oldSvg.remove();
+            cardPreview.appendChild(svgElement);
+
+            if (userData) {
+                userInfo.style.display = 'grid';
+                var isSpecial = userData.login.toLowerCase() === SPECIAL_USER;
+                var isLight = currentTheme === 'light';
+                var isForest = currentTheme === 'forest';
+                var isLunar = currentTheme === 'lunar';
+                var isSpecialTheme = currentTheme === 'special' || isSpecial;
+
+                var goldColor, goldBg;
+                if (isLight) {
+                    goldColor = '#bd5612';
+                    goldBg = '#ffd8b5';
+                } else if (isForest) {
+                    goldColor = '#f0883e';
+                    goldBg = '#3a2a1a';
+                } else if (isLunar) {
+                    goldColor = '#ffd54f';
+                    goldBg = '#ffd54f22';
+                } else {
+                    goldColor = '#f0883e';
+                    goldBg = '#d2992233';
+                }
+
+                var nameColor = isSpecialTheme ? goldColor : '';
+
+                userInfo.innerHTML = '\n                    <div class="info-item">\n                        <div class="label">👤 Username</div>\n                        <div class="value" style="' + (nameColor ? 'color:' + nameColor + ';' : '') + '">' + userData.login + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">⭐ Followers</div>\n                        <div class="value">' + formatNumber(userData.followers) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📦 Repos</div>\n                        <div class="value">' + formatNumber(userData.public_repos) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">👥 Following</div>\n                        <div class="value">' + formatNumber(userData.following) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📍 Location</div>\n                        <div class="value" style="font-size:14px;">' + (userData.location || 'N/A') + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📅 Joined</div>\n                        <div class="value" style="font-size:14px;">' + new Date(userData.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) + '</div>\n                    </div>\n                    ' + (isSpecialTheme ? '\n                    <div class="info-item" style="grid-column: 1 / -1; background: ' + goldBg + '; border-radius: 8px; padding: 8px; border: 1px solid ' + goldColor + '33;">\n                        <div class="label" style="color:' + goldColor + ';">' + (isSpecial ? '👑 Creator Badge' : '✨ Special Theme') + '</div>\n                        <div class="value" style="font-size:14px; color:' + goldColor + ';">' + (isSpecial ? SPECIAL_NOTE : '✨ Special Theme Edition') + '</div>\n                    </div>\n                    ' : '') + '\n                ';
+            }
+
+            updateCacheUI();
+        }
+
+        function showPlaceholder(text) {
+            placeholder.style.display = 'block';
+            placeholder.textContent = text;
+            var oldSvg = cardPreview.querySelector('svg');
+            if (oldSvg) oldSvg.remove();
+            userInfo.style.display = 'none';
+            currentSVG = '';
+            currentUserData = null;
+        }
+
+        function startCooldown() {
+            isCooldown = true;
+            generateBtn.disabled = true;
+            cooldownTimerEl.classList.add('show');
+            var remaining = COOLDOWN_SECONDS;
+            cooldownCount.textContent = remaining;
+
+            if (cooldownTimer) {
+                clearInterval(cooldownTimer);
+            }
+
+            cooldownTimer = setInterval(function() {
+                remaining--;
+                if (remaining <= 0) {
+                    clearInterval(cooldownTimer);
+                    cooldownTimer = null;
+                    cooldownTimerEl.classList.remove('show');
+                    generateBtn.disabled = false;
+                    isCooldown = false;
+                } else {
+                    cooldownCount.textContent = remaining;
+                }
+            }, 1000);
+        }
+
+        async function generateCard(username) {
+            if (isCooldown) {
+                showStatus('⏳ Please wait for cooldown before generating again', 'error');
+                return;
+            }
+
+            if (!username || username.trim() === '') {
+                showStatus('⚠️ Please enter a username', 'error');
+                return;
+            }
+
+            username = username.trim();
+
+            isSpecialUser = username.toLowerCase() === SPECIAL_USER;
+
+            if (isSpecialUser && currentTheme === 'light') {
+                setTheme('default');
+                lightThemeBtn.classList.remove('active');
+                lightThemeBtn.classList.add('disabled');
+            } else if (!isSpecialUser) {
+                lightThemeBtn.classList.remove('disabled');
+            }
+
+            if (isSpecialUser) {
+                showStatus('👑 Welcome, Creator! Generating special card for @' + username + '...', 'special');
+            } else if (currentTheme === 'special') {
+                showStatus('✨ Generating special theme card for @' + username + '...', 'special');
+            } else if (currentTheme === 'lunar') {
+                showStatus('🌙 Generating lunar theme card for @' + username + '...', 'special');
+            } else {
+                showStatus('🔄 Fetching data for @' + username + '...', 'loading');
+            }
+
+            generateBtn.disabled = true;
+
+            try {
+                var cached = getCachedUser(username);
+                if (cached) {
+                    console.log('✅ Using cache for', username);
+                    var svg = generateProfileCardSVG(username, cached);
+                    renderCard(svg, cached);
+                    var mode = CacheEngine.getMode();
+                    var modeText = mode === 'storage' ? '💾 persistent' : '🧠 RAM';
+                    if (isSpecialUser) {
+                        showStatus('👑 Special creator card for @' + username + '! (cache: ' + modeText + ')', 'special');
+                    } else if (currentTheme === 'special') {
+                        showStatus('✨ Special theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
+                    } else if (currentTheme === 'lunar') {
+                        showStatus('🌙 Lunar theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
+                    } else {
+                        showStatus('📦 Using cached data (' + modeText + ')', 'success');
+                    }
+                    generateBtn.disabled = false;
+                    startCooldown();
+                    return;
+                }
+
+                console.log('🔄 Cache miss, calling API for', username);
+                var userData = await fetchGitHubUser(username);
+
+                setCachedUser(username, userData);
+                console.log('💾 Cached data for', username);
+
+                var svg = generateProfileCardSVG(username, userData);
+                renderCard(svg, userData);
+                var mode = CacheEngine.getMode();
+                var modeText = mode === 'storage' ? '💾 persistent' : '🧠 RAM';
+
+                if (isSpecialUser) {
+                    showStatus('👑 Generated special creator card for @' + username + '! (cache: ' + modeText + ')', 'special');
+                } else if (currentTheme === 'special') {
+                    showStatus('✨ Generated special theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
+                } else if (currentTheme === 'lunar') {
+                    showStatus('🌙 Generated lunar theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
+                } else {
+                    showStatus('🎉 Generated new card for @' + username + '! (cache: ' + modeText + ')', 'success');
+                }
+
+            } catch (error) {
+                console.error('❌ Error:', error);
+                showStatus('❌ ' + error.message, 'error');
+                showPlaceholder('❌ ' + error.message);
+            } finally {
+                generateBtn.disabled = false;
+                updateCacheUI();
+                startCooldown();
+            }
+        }
+
+        // ============================================================
+        // 🖼️ PNG DOWNLOAD - Fixed avatar loading
+        // ============================================================
+
+        function downloadPNG() {
+            if (!currentSVG || !currentUserData) {
+                showStatus('⚠️ No card to download as PNG', 'error');
+                return;
+            }
+
+            showStatus('🔄 Loading avatar image...', 'loading');
+
+            var svgElement = cardPreview.querySelector('svg');
+            if (!svgElement) {
+                showStatus('❌ No SVG element found', 'error');
+                return;
+            }
+
+            var avatarImage = svgElement.querySelector('image');
+            var avatarUrl = avatarImage ? (avatarImage.getAttribute('href') || avatarImage.getAttribute('xlink:href')) : null;
+
+            if (!avatarUrl) {
+                showStatus('❌ No avatar found in SVG', 'error');
+                return;
+            }
+
+            var width = parseInt(svgElement.getAttribute('width')) || 680;
+            var height = parseInt(svgElement.getAttribute('height')) || 320;
+
+            var clonedSvg = svgElement.cloneNode(true);
+
+            var img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.referrerPolicy = 'no-referrer';
+
+            img.onload = function() {
+                showStatus('🔄 Converting to PNG...', 'loading');
+                
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                var scale = 2;
+                canvas.width = width * scale;
+                canvas.height = height * scale;
+                ctx.scale(scale, scale);
+
+                var isLight = currentTheme === 'light';
+                var isForest = currentTheme === 'forest';
+                var isLunar = currentTheme === 'lunar';
+
+                if (isLight) {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, width, height);
+                } else if (isForest) {
+                    ctx.fillStyle = '#0d1f0d';
+                    ctx.fillRect(0, 0, width, height);
+                } else if (isLunar) {
+                    ctx.fillStyle = '#0a0e1a';
+                    ctx.fillRect(0, 0, width, height);
+                }
+
+                var avatarImg = clonedSvg.querySelector('image');
+                if (avatarImg) {
+                    var x = parseInt(avatarImg.getAttribute('x')) || 32;
+                    var y = parseInt(avatarImg.getAttribute('y')) || 32;
+                    var imgWidth = parseInt(avatarImg.getAttribute('width')) || 96;
+                    var imgHeight = parseInt(avatarImg.getAttribute('height')) || 96;
+                    var clipPath = avatarImg.getAttribute('clip-path');
+
+                    var tempCanvas = document.createElement('canvas');
+                    tempCanvas.width = imgWidth;
+                    tempCanvas.height = imgHeight;
+                    var tempCtx = tempCanvas.getContext('2d');
+                    
+                    if (clipPath) {
+                        tempCtx.beginPath();
+                        tempCtx.arc(imgWidth/2, imgHeight/2, imgWidth/2, 0, Math.PI * 2);
+                        tempCtx.clip();
+                    }
+                    tempCtx.drawImage(img, 0, 0, imgWidth, imgHeight);
+                    
+                    var dataUrl = tempCanvas.toDataURL('image/png');
+                    avatarImg.setAttribute('href', dataUrl);
+                    avatarImg.setAttribute('xlink:href', dataUrl);
+                }
+
+                var serializer = new XMLSerializer();
+                var svgString = serializer.serializeToString(clonedSvg);
+                svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
+
+                var svgImg = new Image();
+                var svgBlob = new Blob([svgString], {
+                    type: 'image/svg+xml;charset=utf-8'
+                });
+                var url = URL.createObjectURL(svgBlob);
+
+                svgImg.onload = function() {
+                    ctx.drawImage(svgImg, 0, 0, width, height);
+                    URL.revokeObjectURL(url);
+
+                    var pngDataUrl = canvas.toDataURL('image/png');
+                    var link = document.createElement('a');
+                    link.download = 'github-card-' + currentUserData.login + '.png';
+                    link.href = pngDataUrl;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                    showStatus('🖼️ PNG downloaded! (' + width + 'x' + height + 'px, 2x retina)', 'success');
+                };
+
+                svgImg.onerror = function() {
+                    URL.revokeObjectURL(url);
+                    showStatus('❌ Failed to convert to PNG. Please use SVG format.', 'error');
+                };
+
+                svgImg.src = url;
+            };
+
+            img.onerror = function() {
+                showStatus('🔄 Avatar load failed, trying fallback...', 'loading');
+                
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                var scale = 2;
+                canvas.width = width * scale;
+                canvas.height = height * scale;
+                ctx.scale(scale, scale);
+
+                var isLight = currentTheme === 'light';
+                var isForest = currentTheme === 'forest';
+                var isLunar = currentTheme === 'lunar';
+
+                if (isLight) {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, width, height);
+                } else if (isForest) {
+                    ctx.fillStyle = '#0d1f0d';
+                    ctx.fillRect(0, 0, width, height);
+                } else if (isLunar) {
+                    ctx.fillStyle = '#0a0e1a';
+                    ctx.fillRect(0, 0, width, height);
+                }
+
+                try {
+                    var serializer = new XMLSerializer();
+                    var svgString = serializer.serializeToString(clonedSvg);
+                    svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
+                    
+                    var svgDataUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgString);
+                    var fallbackImg = new Image();
+                    
+                    fallbackImg.onload = function() {
+                        ctx.drawImage(fallbackImg, 0, 0, width, height);
+                        var pngData = canvas.toDataURL('image/png');
+                        var link = document.createElement('a');
+                        link.download = 'github-card-' + currentUserData.login + '.png';
+                        link.href = pngData;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        showStatus('🖼️ PNG downloaded! (fallback)', 'success');
+                    };
+                    
+                    fallbackImg.onerror = function() {
+                        showStatus('❌ Failed to convert to PNG. Please use SVG format.', 'error');
+                    };
+                    
+                    fallbackImg.src = svgDataUrl;
+                } catch (e) {
+                    showStatus('❌ Failed to convert to PNG. Please use SVG format.', 'error');
+                }
+            };
+
+            img.src = avatarUrl;
+        }
+
+        // ============================================================
+        // EVENT LISTENERS
+        // ============================================================
+
+        copyBtn.addEventListener('click', function() {
+            if (!currentSVG) {
+                showStatus('⚠️ No card to copy', 'error');
+                return;
+            }
+            navigator.clipboard.writeText(currentSVG).then(function() {
+                showStatus('📋 SVG copied to clipboard!', 'success');
+            }).catch(function() {
+                var textarea = document.createElement('textarea');
+                textarea.value = currentSVG;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showStatus('📋 SVG copied!', 'success');
+            });
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            if (!currentSVG || !currentUserData) {
+                showStatus('⚠️ No card to download', 'error');
+                return;
+            }
+            var blob = new Blob([currentSVG], { type: 'image/svg+xml' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'github-card-' + currentUserData.login + '.svg';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showStatus('💾 SVG downloaded!', 'success');
+        });
+
+        downloadPngBtn.addEventListener('click', downloadPNG);
+
+        clearCacheBtn.addEventListener('click', function() {
+            if (confirm('Clear all cached data?')) {
+                clearAllCache();
+                if (currentUserData) {
+                    generateCard(currentUserData.login);
+                } else {
+                    showPlaceholder('⬆️ Cache cleared. Enter username to generate.');
+                }
+            }
+        });
+
+        viewCacheBtn.addEventListener('click', function() {
+            var stats = getCacheStats();
+            if (stats.count === 0) {
+                showStatus('📦 Cache is empty!', 'error');
+                return;
+            }
+            var mode = CacheEngine.getMode();
+            var modeText = mode === 'storage' ? 'persistent' : 'RAM (lost on reload)';
+            var msg = '📦 Cache (' + modeText + ') has ' + stats.count + ' user(s):\n' + stats.keys.join('\n');
+            alert(msg);
+            showStatus('📦 Showing ' + stats.count + ' user(s) in cache', 'success');
+        });
+
+        generateBtn.addEventListener('click', function() {
+            generateCard(usernameInput.value);
+        });
+
+        usernameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                generateCard(usernameInput.value);
+            }
+        });
+
+        // ============================================================
+        // 📌 URL PARAMETER SUPPORT
+        // ============================================================
+
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        var urlUsername = getUrlParameter('username');
+        var urlTheme = getUrlParameter('theme');
+
+        if (urlUsername) {
+            usernameInput.value = urlUsername;
+            console.log('📌 Username from URL:', urlUsername);
+        }
+
+        if (urlTheme && ['default', 'special', 'light', 'forest', 'lunar'].includes(urlTheme)) {
+            setTimeout(function() {
+                setTheme(urlTheme);
+                console.log('🎨 Theme from URL:', urlTheme);
+            }, 50);
+        }
+
+        // ============================================================
+        // 🚀 INITIALIZATION
+        // ============================================================
+
+        var isGenerated = false;
+
+        function initialize() {
+            if (isGenerated) return;
+            isGenerated = true;
+
+            var username = urlUsername || usernameInput.value || 'torvalds';
+            usernameInput.value = username;
+
+            if (username.toLowerCase() === SPECIAL_USER && currentTheme === 'light') {
+                setTheme('default');
+                lightThemeBtn.classList.add('disabled');
+            }
+
+            generateCard(username);
+        }
+
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            initialize();
+        } else {
+            window.addEventListener('DOMContentLoaded', initialize);
+        }
+
+        window.debug = {
+            getCachedUser: getCachedUser,
+            setCachedUser: setCachedUser,
+            clearAllCache: clearAllCache,
+            generateCard: generateCard,
+            fetchGitHubUser: fetchGitHubUser,
+            getCacheStats: getCacheStats,
+            CacheEngine: CacheEngine,
+            formatNumber: formatNumber,
+            SPECIAL_USER: SPECIAL_USER,
+            SPECIAL_NOTE: SPECIAL_NOTE,
+            setTheme: setTheme,
+            currentTheme: currentTheme,
+            downloadPNG: downloadPNG
+        };
+
+        console.log('🚀 GitHub Profile Card Generator ready!');
+        console.log('📌 Cache mode: ' + CacheEngine.getMode());
+        console.log('👑 Special user: ' + SPECIAL_USER);
+        console.log('🎨 Theme: ' + currentTheme);
+        console.log('📌 Type debug.generateCard("username") to test');
+        console.log('📦 View cache: debug.getCacheStats()');
+        console.log('🎨 Change theme: debug.setTheme("default" | "special" | "light" | "forest" | "lunar")');
+        console.log('🖼️ Download PNG: debug.downloadPNG()');
+        console.log('🌙 Lunar theme added with twinkling stars, shooting stars, glow effects, and animated icons!');
+        // ]]>
+    </script>
+
+</body>
+</html>
