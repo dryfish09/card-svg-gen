@@ -273,26 +273,6 @@
             background: #ffd70033;
             color: #ffd700;
         }
-        body.forest-mode .theme-btn.special.active {
-            background: #ffd70033;
-            border-color: #ffd700;
-            color: #ffd700;
-        }
-        body.lunar-mode .theme-btn.special.active {
-            background: #ffd70033;
-            border-color: #ffd700;
-            color: #ffd700;
-        }
-        body.ocean-mode .theme-btn.special.active {
-            background: #ffd70033;
-            border-color: #ffd700;
-            color: #ffd700;
-        }
-        body.sunset-mode .theme-btn.special.active {
-            background: #ffd70033;
-            border-color: #ffd700;
-            color: #ffd700;
-        }
         .theme-btn.light {
             border-color: #f6c23e;
             color: #f6c23e;
@@ -1422,8 +1402,6 @@
     </div>
 
     <script>
-        // <![CDATA[
-        // Cache Engine
         var CacheEngine = (function() {
             var _memory = {};
             var _storage = null;
@@ -1666,7 +1644,6 @@
             goldBgLight: '#ffd54f33'
         };
 
-        // Special theme - Yellow/Gold theme
         var SPECIAL_COLORS = {
             bg: '#1a1a00',
             cardBg: '#2d2d00',
@@ -1749,7 +1726,6 @@
                 document.body.classList.add('special-mode');
             }
 
-            // Cache Reuse: Use cached data if available
             if (cachedUserData && cachedUsername) {
                 var svg = generateProfileCardSVG(cachedUsername, cachedUserData);
                 renderCard(svg, cachedUserData);
@@ -1972,7 +1948,6 @@
                 statsHTML += '\n                    <g>\n                        <text x="' + x + '" y="' + finalStatsY + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="26" font-weight="700" fill="' + colors.text + '" text-anchor="middle">' + formattedValue + '</text>\n                        <text x="' + x + '" y="' + (finalStatsY + 24) + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="12" fill="' + colors.textMuted + '" text-anchor="middle" letter-spacing="0.5">' + item.icon + ' ' + item.label + '</text>\n                    </g>\n                ';
             }
 
-            // Only show special badge for dryfish09 user
             var specialBadgeHTML = '';
             if (isSpecial) {
                 var specialBadgeY = cardHeight - 52;
@@ -2007,166 +1982,7 @@
             var svg = '<?xml version="1.0" encoding="UTF-8"?>\n';
             svg += '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="' + cardWidth + '" height="' + cardHeight + '" viewBox="0 0 ' + cardWidth + ' ' + cardHeight + '">\n';
 
-            // Special theme effects - Gold/Yellow particles
-            if (isSpecialTheme) {
-                var particlePositions = [
-                    [50, 30, 2, 0.3],
-                    [120, 50, 1.5, 0.2],
-                    [200, 20, 2.5, 0.4],
-                    [300, 60, 1.8, 0.25],
-                    [400, 25, 2, 0.35],
-                    [500, 55, 1.5, 0.2],
-                    [600, 35, 2.2, 0.3],
-                    [650, 50, 1.8, 0.25]
-                ];
-                for (var pi = 0; pi < particlePositions.length; pi++) {
-                    var p = particlePositions[pi];
-                    svg += '    <circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + p[2] + '" fill="#ffd700" opacity="' + p[3] + '">\n';
-                    svg += '        <animate attributeName="opacity" values="' + p[3] + ';0.05;' + p[3] + '" dur="' + (2 + pi % 2) + 's" repeatCount="indefinite"/>\n';
-                    svg += '        <animate attributeName="cy" values="' + p[1] + ';' + (p[1] - 10) + ';' + p[1] + '" dur="' + (3 + pi % 2) + 's" repeatCount="indefinite"/>\n';
-                    svg += '    </circle>\n';
-                }
-
-                svg += '    <ellipse cx="340" cy="180" rx="250" ry="120" fill="none" stroke="#ffd700" stroke-width="0.5" opacity="0.05">\n';
-                svg += '        <animate attributeName="opacity" values="0.05;0.1;0.05" dur="4s" repeatCount="indefinite"/>\n';
-                svg += '    </ellipse>\n';
-                svg += '    <ellipse cx="340" cy="180" rx="200" ry="90" fill="none" stroke="#f0c000" stroke-width="0.5" opacity="0.03">\n';
-                svg += '        <animate attributeName="opacity" values="0.03;0.07;0.03" dur="3s" repeatCount="indefinite"/>\n';
-                svg += '    </ellipse>\n';
-
-                svg += '    <g transform="translate(85, ' + (cardHeight - 35) + ')">\n';
-                svg += '        <animateTransform attributeName="transform" type="translate" values="85 ' + (cardHeight - 35) + ';85 ' + (cardHeight - 38) + ';85 ' + (cardHeight - 35) + '" dur="2s" repeatCount="indefinite"/>\n';
-                svg += '        <text x="0" y="0" font-size="24">⭐</text>\n';
-                svg += '    </g>\n';
-
-                svg += '    <g transform="translate(560, ' + (cardHeight - 35) + ')">\n';
-                svg += '        <animateTransform attributeName="transform" type="rotate" values="0 560 ' + (cardHeight - 35) + ';-5 560 ' + (cardHeight - 35) + ';5 560 ' + (cardHeight - 35) + ';0 560 ' + (cardHeight - 35) + '" dur="3s" repeatCount="indefinite"/>\n';
-                svg += '        <text x="0" y="0" font-size="20">🌟</text>\n';
-                svg += '    </g>\n';
-            }
-
-            // Lunar theme effects
-            if (isLunar) {
-                var starPositions = [
-                    [45, 35, 1.5, 0.6, 2.5],
-                    [120, 20, 1, 0.4, 3.0],
-                    [200, 50, 1.2, 0.5, 2.0],
-                    [310, 15, 1.8, 0.7, 3.5],
-                    [400, 45, 1, 0.3, 2.8],
-                    [520, 25, 1.5, 0.6, 2.2],
-                    [580, 55, 1.2, 0.5, 3.2],
-                    [650, 30, 1, 0.4, 2.6],
-                    [50, 60, 1.3, 0.5, 3.0],
-                    [150, 10, 1, 0.3, 2.4],
-                    [480, 60, 1.4, 0.6, 2.8],
-                    [620, 10, 1, 0.4, 3.4]
-                ];
-                for (var si2 = 0; si2 < starPositions.length; si2++) {
-                    var star = starPositions[si2];
-                    svg += '    <circle cx="' + star[0] + '" cy="' + star[1] + '" r="' + star[2] + '" fill="white" opacity="' + star[3] + '">\n';
-                    svg += '        <animate attributeName="opacity" values="' + star[3] + ';0.1;' + star[3] + '" dur="' + star[4] + 's" repeatCount="indefinite"/>\n';
-                    svg += '    </circle>\n';
-                }
-
-                svg += '    <line x1="580" y1="10" x2="620" y2="30" stroke="#ffd54f" stroke-width="1.5" opacity="0">\n';
-                svg += '        <animate attributeName="opacity" values="0;1;0" dur="4s" repeatCount="indefinite"/>\n';
-                svg += '        <animate attributeName="x1" values="580;100" dur="4s" repeatCount="indefinite"/>\n';
-                svg += '        <animate attributeName="y1" values="10;200" dur="4s" repeatCount="indefinite"/>\n';
-                svg += '        <animate attributeName="x2" values="620;140" dur="4s" repeatCount="indefinite"/>\n';
-                svg += '        <animate attributeName="y2" values="30;220" dur="4s" repeatCount="indefinite"/>\n';
-                svg += '    </line>\n';
-
-                svg += '    <line x1="400" y1="5" x2="430" y2="20" stroke="#ffb300" stroke-width="1" opacity="0">\n';
-                svg += '        <animate attributeName="opacity" values="0;0.8;0" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
-                svg += '        <animate attributeName="x1" values="400;50" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
-                svg += '        <animate attributeName="y1" values="5;150" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
-                svg += '        <animate attributeName="x2" values="430;80" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
-                svg += '        <animate attributeName="y2" values="20;170" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
-                svg += '    </line>\n';
-
-                svg += '    <rect x="28" y="' + (cardHeight - 55) + '" width="624" height="44" rx="10" ry="10" fill="#ffd54f" opacity="0">\n';
-                svg += '        <animate attributeName="opacity" values="0;0.08;0" dur="3s" repeatCount="indefinite"/>\n';
-                svg += '    </rect>\n';
-
-                svg += '    <g transform="translate(85, ' + (cardHeight - 35) + ')">\n';
-                svg += '        <animateTransform attributeName="transform" type="rotate" values="0 80 305;10 80 305;0 80 305" dur="4s" repeatCount="indefinite"/>\n';
-                svg += '        <text x="0" y="0" font-size="24">🌙</text>\n';
-                svg += '    </g>\n';
-
-                svg += '    <g transform="translate(560, ' + (cardHeight - 35) + ')">\n';
-                svg += '        <animateTransform attributeName="transform" type="translate" values="0 0;5 -5;0 0" dur="3s" repeatCount="indefinite"/>\n';
-                svg += '        <text x="0" y="0" font-size="20">🚀</text>\n';
-                svg += '    </g>\n';
-
-                svg += '    <ellipse cx="340" cy="180" rx="200" ry="100" fill="#7c4dff" opacity="0.03">\n';
-                svg += '        <animate attributeName="opacity" values="0.03;0.06;0.03" dur="5s" repeatCount="indefinite"/>\n';
-                svg += '    </ellipse>\n';
-                svg += '    <ellipse cx="340" cy="180" rx="150" ry="70" fill="#ffd54f" opacity="0.02">\n';
-                svg += '        <animate attributeName="opacity" values="0.02;0.05;0.02" dur="4s" repeatCount="indefinite"/>\n';
-                svg += '    </ellipse>\n';
-            }
-
-            // Ocean theme effects
-            if (isOcean) {
-                var bubblePositions = [
-                    [50, 50, 3, 5],
-                    [120, 80, 2, 7],
-                    [200, 30, 4, 4],
-                    [350, 60, 2, 6],
-                    [450, 40, 3, 5],
-                    [550, 70, 2, 8],
-                    [620, 25, 3, 4]
-                ];
-                for (var bi2 = 0; bi2 < bubblePositions.length; bi2++) {
-                    var bubble = bubblePositions[bi2];
-                    svg += '    <circle cx="' + bubble[0] + '" cy="' + bubble[1] + '" r="' + bubble[2] + '" fill="#00bcd4" opacity="0.2">\n';
-                    svg += '        <animate attributeName="cy" values="' + bubble[1] + ';' + (bubble[1] - bubble[3]) + ';' + bubble[1] + '" dur="' + (bubble[3] + 2) + 's" repeatCount="indefinite"/>\n';
-                    svg += '        <animate attributeName="opacity" values="0.2;0.1;0.2" dur="' + (bubble[3] + 2) + 's" repeatCount="indefinite"/>\n';
-                    svg += '    </circle>\n';
-                }
-
-                svg += '    <path d="M0,' + (cardHeight - 10) + ' Q85,' + (cardHeight - 20) + ' 170,' + (cardHeight - 10) + ' T340,' + (cardHeight - 10) + ' T510,' + (cardHeight - 10) + ' T680,' + (cardHeight - 10) + '" stroke="#00bcd4" stroke-width="1" fill="none" opacity="0.15">\n';
-                svg += '        <animate attributeName="d" values="M0,' + (cardHeight - 10) + ' Q85,' + (cardHeight - 20) + ' 170,' + (cardHeight - 10) + ' T340,' + (cardHeight - 10) + ' T510,' + (cardHeight - 10) + ' T680,' + (cardHeight - 10) + ';M0,' + (cardHeight - 10) + ' Q85,' + (cardHeight - 30) + ' 170,' + (cardHeight - 10) + ' T340,' + (cardHeight - 10) + ' T510,' + (cardHeight - 10) + ' T680,' + (cardHeight - 10) + ';M0,' + (cardHeight - 10) + ' Q85,' + (cardHeight - 20) + ' 170,' + (cardHeight - 10) + ' T340,' + (cardHeight - 10) + ' T510,' + (cardHeight - 10) + ' T680,' + (cardHeight - 10) + '" dur="4s" repeatCount="indefinite"/>\n';
-                svg += '    </path>\n';
-
-                svg += '    <g transform="translate(85, ' + (cardHeight - 35) + ')">\n';
-                svg += '        <text x="0" y="0" font-size="24">🐠</text>\n';
-                svg += '    </g>\n';
-
-                svg += '    <g transform="translate(560, ' + (cardHeight - 35) + ')">\n';
-                svg += '        <animateTransform attributeName="transform" type="translate" values="0 0;3 -3;0 0" dur="2s" repeatCount="indefinite"/>\n';
-                svg += '        <text x="0" y="0" font-size="20">🐚</text>\n';
-                svg += '    </g>\n';
-            }
-
-            // Sunset theme effects
-            if (isSunset) {
-                svg += '    <circle cx="340" cy="40" r="80" fill="#ff6f00" opacity="0.05">\n';
-                svg += '        <animate attributeName="opacity" values="0.05;0.08;0.05" dur="3s" repeatCount="indefinite"/>\n';
-                svg += '        <animate attributeName="r" values="80;85;80" dur="3s" repeatCount="indefinite"/>\n';
-                svg += '    </circle>\n';
-
-                svg += '    <circle cx="340" cy="40" r="40" fill="#ffab00" opacity="0.08">\n';
-                svg += '        <animate attributeName="opacity" values="0.08;0.12;0.08" dur="3s" repeatCount="indefinite"/>\n';
-                svg += '    </circle>\n';
-
-                svg += '    <ellipse cx="100" cy="30" rx="60" ry="10" fill="#ff6f00" opacity="0.08">\n';
-                svg += '        <animate attributeName="cx" values="100;110;100" dur="6s" repeatCount="indefinite"/>\n';
-                svg += '    </ellipse>\n';
-                svg += '    <ellipse cx="550" cy="20" rx="70" ry="8" fill="#ff8f00" opacity="0.06">\n';
-                svg += '        <animate attributeName="cx" values="550;540;550" dur="5s" repeatCount="indefinite"/>\n';
-                svg += '    </ellipse>\n';
-
-                svg += '    <g transform="translate(85, ' + (cardHeight - 35) + ')">\n';
-                svg += '        <animateTransform attributeName="transform" type="translate" values="85 ' + (cardHeight - 35) + ';90 ' + (cardHeight - 37) + ';85 ' + (cardHeight - 35) + '" dur="3s" repeatCount="indefinite"/>\n';
-                svg += '        <text x="0" y="0" font-size="24">🌅</text>\n';
-                svg += '    </g>\n';
-
-                svg += '    <g transform="translate(560, ' + (cardHeight - 35) + ')">\n';
-                svg += '        <animateTransform attributeName="transform" type="rotate" values="0 580 ' + (cardHeight - 35) + ';10 580 ' + (cardHeight - 35) + ';0 580 ' + (cardHeight - 35) + '" dur="4s" repeatCount="indefinite"/>\n';
-                svg += '        <text x="0" y="0" font-size="20">🌴</text>\n';
-                svg += '    </g>\n';
-            }
+            // NO decorative emojis at all - only stats emojis
 
             svg += '    <defs>\n';
             if (isLunar) {
@@ -2725,7 +2541,6 @@
             img.src = avatarUrl;
         }
 
-        // Event Listeners
         copyBtn.addEventListener('click', function() {
             if (!currentSVG) {
                 showStatus('⚠️ No card to copy', 'error');
@@ -2797,7 +2612,6 @@
             }
         });
 
-        // URL Parameter Support
         function getUrlParameter(name) {
             name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
             var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -2820,7 +2634,6 @@
             }, 50);
         }
 
-        // Initialization
         var isGenerated = false;
 
         function initialize() {
@@ -2868,8 +2681,6 @@
         console.log('📦 View cache: debug.getCacheStats()');
         console.log('🎨 Change theme: debug.setTheme("default" | "special" | "light" | "forest" | "lunar" | "ocean" | "sunset")');
         console.log('🖼️ Download PNG: debug.downloadPNG()');
-        console.log('✨ Special theme is now Yellow/Gold!');
-        // ]]>
     </script>
 
 </body>
