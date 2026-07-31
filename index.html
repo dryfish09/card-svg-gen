@@ -30,6 +30,12 @@
         body.lunar-mode {
             background: linear-gradient(135deg, #0a0e1a 0%, #141c2c 100%);
         }
+        body.ocean-mode {
+            background: linear-gradient(135deg, #0a1628 0%, #0d2847 100%);
+        }
+        body.sunset-mode {
+            background: linear-gradient(135deg, #1a0a0a 0%, #2d1515 100%);
+        }
         .container {
             background: #1c2333;
             border-radius: 16px;
@@ -56,6 +62,16 @@
             border: 1px solid #2a1f4a;
             box-shadow: 0 8px 40px rgba(10, 14, 26, 0.8);
         }
+        body.ocean-mode .container {
+            background: #0d2847;
+            border: 1px solid #1a4a7a;
+            box-shadow: 0 8px 40px rgba(0, 20, 40, 0.8);
+        }
+        body.sunset-mode .container {
+            background: #2d1515;
+            border: 1px solid #4a2a1a;
+            box-shadow: 0 8px 40px rgba(30, 10, 10, 0.8);
+        }
         h1 {
             color: #f0f6fc;
             font-size: 22px;
@@ -75,6 +91,12 @@
         body.lunar-mode h1 {
             color: #e8eaf6;
         }
+        body.ocean-mode h1 {
+            color: #b0d4f1;
+        }
+        body.sunset-mode h1 {
+            color: #f4d4b0;
+        }
         h1 small {
             font-size: 12px;
             color: #8b949e;
@@ -88,6 +110,12 @@
         }
         body.lunar-mode h1 small {
             color: #8899bb;
+        }
+        body.ocean-mode h1 small {
+            color: #6a9ac0;
+        }
+        body.sunset-mode h1 small {
+            color: #c08a6a;
         }
         .subtitle {
             color: #8b949e;
@@ -103,6 +131,12 @@
         }
         body.lunar-mode .subtitle {
             color: #8899bb;
+        }
+        body.ocean-mode .subtitle {
+            color: #6a9ac0;
+        }
+        body.sunset-mode .subtitle {
+            color: #c08a6a;
         }
 
         .theme-selector {
@@ -125,6 +159,12 @@
         }
         body.lunar-mode .theme-selector label {
             color: #8899bb;
+        }
+        body.ocean-mode .theme-selector label {
+            color: #6a9ac0;
+        }
+        body.sunset-mode .theme-selector label {
+            color: #c08a6a;
         }
         .theme-btn {
             padding: 6px 12px;
@@ -152,6 +192,14 @@
             border-color: #2a1f4a;
             color: #8899bb;
         }
+        body.ocean-mode .theme-btn {
+            border-color: #1a4a7a;
+            color: #6a9ac0;
+        }
+        body.sunset-mode .theme-btn {
+            border-color: #4a2a1a;
+            color: #c08a6a;
+        }
         .theme-btn:hover {
             border-color: #58a6ff;
             color: #58a6ff;
@@ -176,6 +224,16 @@
             border-color: #ffd54f;
             color: #ffd54f;
         }
+        body.ocean-mode .theme-btn.active {
+            background: #00bcd422;
+            border-color: #00bcd4;
+            color: #00bcd4;
+        }
+        body.sunset-mode .theme-btn.active {
+            background: #ff6f0033;
+            border-color: #ff6f00;
+            color: #ff6f00;
+        }
         .theme-btn.special {
             border-color: #f0883e;
             color: #f0883e;
@@ -195,6 +253,16 @@
             background: #ffd54f22;
             border-color: #ffd54f;
             color: #ffd54f;
+        }
+        body.ocean-mode .theme-btn.special.active {
+            background: #f0883e22;
+            border-color: #f0883e;
+            color: #f0883e;
+        }
+        body.sunset-mode .theme-btn.special.active {
+            background: #f0883e22;
+            border-color: #f0883e;
+            color: #f0883e;
         }
         .theme-btn.light {
             border-color: #f6c23e;
@@ -231,6 +299,26 @@
             background: #ffd54f22;
             color: #ffd54f;
         }
+        .theme-btn.ocean {
+            border-color: #00bcd4;
+            color: #00bcd4;
+        }
+        .theme-btn.ocean:hover,
+        .theme-btn.ocean.active {
+            border-color: #00bcd4;
+            background: #00bcd422;
+            color: #00bcd4;
+        }
+        .theme-btn.sunset {
+            border-color: #ff6f00;
+            color: #ff6f00;
+        }
+        .theme-btn.sunset:hover,
+        .theme-btn.sunset.active {
+            border-color: #ff6f00;
+            background: #ff6f0033;
+            color: #ff6f00;
+        }
 
         .input-group {
             display: flex;
@@ -266,6 +354,16 @@
             color: #e8eaf6;
             border-color: #2a1f4a;
         }
+        body.ocean-mode .input-group input {
+            background: #0a1628;
+            color: #b0d4f1;
+            border-color: #1a4a7a;
+        }
+        body.sunset-mode .input-group input {
+            background: #1a0a0a;
+            color: #f4d4b0;
+            border-color: #4a2a1a;
+        }
         .input-group input:focus {
             outline: none;
             border-color: #58a6ff;
@@ -275,6 +373,12 @@
         }
         body.lunar-mode .input-group input:focus {
             border-color: #ffd54f;
+        }
+        body.ocean-mode .input-group input:focus {
+            border-color: #00bcd4;
+        }
+        body.sunset-mode .input-group input:focus {
+            border-color: #ff6f00;
         }
         .input-group input::placeholder {
             color: #484f58;
@@ -287,6 +391,12 @@
         }
         body.lunar-mode .input-group input::placeholder {
             color: #8899bb;
+        }
+        body.ocean-mode .input-group input::placeholder {
+            color: #4a7a9a;
+        }
+        body.sunset-mode .input-group input::placeholder {
+            color: #9a7a5a;
         }
 
         .btn {
@@ -314,12 +424,26 @@
             background: linear-gradient(135deg, #ffd54f, #ffb300);
             color: #0a0e1a;
         }
+        body.ocean-mode .btn-primary {
+            background: linear-gradient(135deg, #00bcd4, #00838f);
+            color: #fff;
+        }
+        body.sunset-mode .btn-primary {
+            background: linear-gradient(135deg, #ff6f00, #e65100);
+            color: #fff;
+        }
         .btn-primary:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 16px rgba(46, 160, 67, 0.3);
         }
         body.lunar-mode .btn-primary:hover {
             box-shadow: 0 4px 16px rgba(255, 213, 79, 0.4);
+        }
+        body.ocean-mode .btn-primary:hover {
+            box-shadow: 0 4px 16px rgba(0, 188, 212, 0.4);
+        }
+        body.sunset-mode .btn-primary:hover {
+            box-shadow: 0 4px 16px rgba(255, 111, 0, 0.4);
         }
         .btn-primary:active {
             transform: scale(0.97);
@@ -345,6 +469,14 @@
             background: #2a1f4a;
             color: #e8eaf6;
         }
+        body.ocean-mode .btn-secondary {
+            background: #1a3a5a;
+            color: #b0d4f1;
+        }
+        body.sunset-mode .btn-secondary {
+            background: #3a1a1a;
+            color: #f4d4b0;
+        }
         .btn-secondary:hover {
             background: #484f58;
         }
@@ -356,6 +488,12 @@
         }
         body.lunar-mode .btn-secondary:hover {
             background: #3a2f5a;
+        }
+        body.ocean-mode .btn-secondary:hover {
+            background: #2a4a6a;
+        }
+        body.sunset-mode .btn-secondary:hover {
+            background: #4a2a2a;
         }
         .btn-secondary:active {
             transform: scale(0.97);
@@ -381,6 +519,12 @@
         body.lunar-mode .btn-purple {
             background: #7c4dff;
         }
+        body.ocean-mode .btn-purple {
+            background: #6f42c1;
+        }
+        body.sunset-mode .btn-purple {
+            background: #6f42c1;
+        }
         .btn-purple:hover {
             background: #8957e5;
         }
@@ -392,12 +536,26 @@
             background: linear-gradient(135deg, #ffd54f, #ffb300);
             color: #0a0e1a;
         }
+        body.ocean-mode .btn-png {
+            background: linear-gradient(135deg, #00bcd4, #00838f);
+            color: #fff;
+        }
+        body.sunset-mode .btn-png {
+            background: linear-gradient(135deg, #ff6f00, #e65100);
+            color: #fff;
+        }
         .btn-png:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 16px rgba(210, 153, 34, 0.3);
         }
         body.lunar-mode .btn-png:hover {
             box-shadow: 0 4px 16px rgba(255, 213, 79, 0.4);
+        }
+        body.ocean-mode .btn-png:hover {
+            box-shadow: 0 4px 16px rgba(0, 188, 212, 0.4);
+        }
+        body.sunset-mode .btn-png:hover {
+            box-shadow: 0 4px 16px rgba(255, 111, 0, 0.4);
         }
         .btn-png:active {
             transform: scale(0.97);
@@ -430,6 +588,14 @@
             background: #0a0e1a;
             border-color: #2a1f4a;
         }
+        body.ocean-mode .card-preview {
+            background: #0a1628;
+            border-color: #1a4a7a;
+        }
+        body.sunset-mode .card-preview {
+            background: #1a0a0a;
+            border-color: #4a2a1a;
+        }
         .card-preview svg {
             max-width: 100%;
             height: auto;
@@ -445,6 +611,12 @@
         body.lunar-mode .card-preview svg {
             box-shadow: 0 4px 30px rgba(255, 213, 79, 0.1);
         }
+        body.ocean-mode .card-preview svg {
+            box-shadow: 0 4px 30px rgba(0, 188, 212, 0.1);
+        }
+        body.sunset-mode .card-preview svg {
+            box-shadow: 0 4px 30px rgba(255, 111, 0, 0.1);
+        }
         .card-placeholder {
             color: #484f58;
             font-size: 13px;
@@ -459,6 +631,12 @@
         }
         body.lunar-mode .card-placeholder {
             color: #8899bb;
+        }
+        body.ocean-mode .card-placeholder {
+            color: #4a7a9a;
+        }
+        body.sunset-mode .card-placeholder {
+            color: #9a7a5a;
         }
 
         .info-grid {
@@ -484,6 +662,14 @@
             background: #0a0e1a;
             border-color: #2a1f4a;
         }
+        body.ocean-mode .info-grid {
+            background: #0a1628;
+            border-color: #1a4a7a;
+        }
+        body.sunset-mode .info-grid {
+            background: #1a0a0a;
+            border-color: #4a2a1a;
+        }
         .info-item {
             text-align: center;
             overflow: hidden;
@@ -504,6 +690,12 @@
         body.lunar-mode .info-item .label {
             color: #8899bb;
         }
+        body.ocean-mode .info-item .label {
+            color: #6a9ac0;
+        }
+        body.sunset-mode .info-item .label {
+            color: #c08a6a;
+        }
         .info-item .value {
             color: #f0f6fc;
             font-size: 17px;
@@ -521,6 +713,12 @@
         }
         body.lunar-mode .info-item .value {
             color: #e8eaf6;
+        }
+        body.ocean-mode .info-item .value {
+            color: #b0d4f1;
+        }
+        body.sunset-mode .info-item .value {
+            color: #f4d4b0;
         }
 
         .action-bar {
@@ -567,6 +765,16 @@
             color: #ffd54f;
             border-color: #ffd54f55;
         }
+        body.ocean-mode .status.loading {
+            background: #00bcd422;
+            color: #00bcd4;
+            border-color: #00bcd455;
+        }
+        body.sunset-mode .status.loading {
+            background: #ff6f0033;
+            color: #ff6f00;
+            border-color: #ff6f0055;
+        }
         .status.success {
             background: #23863633;
             color: #3fb950;
@@ -587,6 +795,16 @@
             color: #ffd54f;
             border-color: #ffd54f55;
         }
+        body.ocean-mode .status.success {
+            background: #00bcd422;
+            color: #00bcd4;
+            border-color: #00bcd455;
+        }
+        body.sunset-mode .status.success {
+            background: #ff6f0033;
+            color: #ff6f00;
+            border-color: #ff6f0055;
+        }
         .status.error {
             background: #da363333;
             color: #f85149;
@@ -603,6 +821,16 @@
             border-color: #f8514955;
         }
         body.lunar-mode .status.error {
+            background: #da363333;
+            color: #f85149;
+            border-color: #da363355;
+        }
+        body.ocean-mode .status.error {
+            background: #da363333;
+            color: #f85149;
+            border-color: #da363355;
+        }
+        body.sunset-mode .status.error {
             background: #da363333;
             color: #f85149;
             border-color: #da363355;
@@ -626,6 +854,16 @@
             background: #ffd54f22;
             color: #ffd54f;
             border-color: #ffd54f55;
+        }
+        body.ocean-mode .status.special {
+            background: #f0883e22;
+            color: #f0883e;
+            border-color: #f0883e55;
+        }
+        body.sunset-mode .status.special {
+            background: #f0883e22;
+            color: #f0883e;
+            border-color: #f0883e55;
         }
 
         .cache-info {
@@ -658,6 +896,16 @@
             border-color: #2a1f4a;
             color: #8899bb;
         }
+        body.ocean-mode .cache-info {
+            background: #0a1628;
+            border-color: #1a4a7a;
+            color: #6a9ac0;
+        }
+        body.sunset-mode .cache-info {
+            background: #1a0a0a;
+            border-color: #4a2a1a;
+            color: #c08a6a;
+        }
         .cache-info code {
             color: #58a6ff;
             background: #161b22;
@@ -676,6 +924,14 @@
         body.lunar-mode .cache-info code {
             background: #2a1f4a;
             color: #ffd54f;
+        }
+        body.ocean-mode .cache-info code {
+            background: #1a3a5a;
+            color: #00bcd4;
+        }
+        body.sunset-mode .cache-info code {
+            background: #3a1a1a;
+            color: #ff6f00;
         }
         .cache-badge {
             display: inline-block;
@@ -700,6 +956,14 @@
             background: #7c4dff22;
             color: #7c4dff;
         }
+        body.ocean-mode .cache-badge.ram {
+            background: #00bcd422;
+            color: #00bcd4;
+        }
+        body.sunset-mode .cache-badge.ram {
+            background: #ff6f0033;
+            color: #ff6f00;
+        }
         .cache-badge.storage {
             background: #23863633;
             color: #3fb950;
@@ -716,6 +980,14 @@
             background: #ffd54f22;
             color: #ffd54f;
         }
+        body.ocean-mode .cache-badge.storage {
+            background: #00bcd422;
+            color: #00bcd4;
+        }
+        body.sunset-mode .cache-badge.storage {
+            background: #ff6f0033;
+            color: #ff6f00;
+        }
         .cache-badge.none {
             background: #da363333;
             color: #f85149;
@@ -729,6 +1001,14 @@
             color: #f85149;
         }
         body.lunar-mode .cache-badge.none {
+            background: #da363333;
+            color: #f85149;
+        }
+        body.ocean-mode .cache-badge.none {
+            background: #da363333;
+            color: #f85149;
+        }
+        body.sunset-mode .cache-badge.none {
             background: #da363333;
             color: #f85149;
         }
@@ -754,6 +1034,14 @@
             color: #8899bb;
             border-color: #2a1f4a;
         }
+        body.ocean-mode .footer {
+            color: #6a9ac0;
+            border-color: #1a4a7a;
+        }
+        body.sunset-mode .footer {
+            color: #c08a6a;
+            border-color: #4a2a1a;
+        }
         .footer a {
             color: #58a6ff;
             text-decoration: none;
@@ -766,6 +1054,12 @@
         }
         body.lunar-mode .footer a {
             color: #ffd54f;
+        }
+        body.ocean-mode .footer a {
+            color: #00bcd4;
+        }
+        body.sunset-mode .footer a {
+            color: #ff6f00;
         }
         .footer .creator-badge {
             display: inline-block;
@@ -793,6 +1087,16 @@
             border-color: #ffd54f55;
             color: #ffd54f;
         }
+        body.ocean-mode .footer .creator-badge {
+            background: linear-gradient(135deg, #00bcd422, #00838f22);
+            border-color: #00bcd455;
+            color: #00bcd4;
+        }
+        body.sunset-mode .footer .creator-badge {
+            background: linear-gradient(135deg, #ff6f0033, #e6510033);
+            border-color: #ff6f0055;
+            color: #ff6f00;
+        }
 
         .cooldown-timer {
             color: #8b949e;
@@ -812,6 +1116,12 @@
         }
         body.lunar-mode .cooldown-timer {
             color: #8899bb;
+        }
+        body.ocean-mode .cooldown-timer {
+            color: #6a9ac0;
+        }
+        body.sunset-mode .cooldown-timer {
+            color: #c08a6a;
         }
 
         @media (max-width: 480px) {
@@ -929,10 +1239,12 @@
         <div class="theme-selector">
             <label>🎨 Theme:</label>
             <button class="theme-btn active" data-theme="default">Default</button>
-            <button class="theme-btn special" data-theme="special">Special</button>
-            <button class="theme-btn light" data-theme="light" id="lightThemeBtn">Light</button>
+            <button class="theme-btn special" data-theme="special">✨ Special</button>
+            <button class="theme-btn light" data-theme="light" id="lightThemeBtn">☀️ Light</button>
             <button class="theme-btn forest" data-theme="forest">🌲 Forest</button>
             <button class="theme-btn lunar" data-theme="lunar">🌙 Lunar</button>
+            <button class="theme-btn ocean" data-theme="ocean">🌊 Ocean</button>
+            <button class="theme-btn sunset" data-theme="sunset">🌅 Sunset</button>
         </div>
 
         <div class="input-group">
@@ -1185,6 +1497,40 @@
             goldBgLight: '#ffd54f33'
         };
 
+        var OCEAN_COLORS = {
+            bg: '#0a1628',
+            cardBg: '#0d2847',
+            border: '#1a4a7a',
+            text: '#b0d4f1',
+            textMuted: '#6a9ac0',
+            accent: '#00bcd4',
+            green: '#00e676',
+            orange: '#ffab40',
+            red: '#ff5252',
+            purple: '#7c4dff',
+            gold: '#f0883e',
+            goldLight: '#d29922',
+            goldBg: '#f0883e22',
+            goldBgLight: '#f0883e33'
+        };
+
+        var SUNSET_COLORS = {
+            bg: '#1a0a0a',
+            cardBg: '#2d1515',
+            border: '#4a2a1a',
+            text: '#f4d4b0',
+            textMuted: '#c08a6a',
+            accent: '#ff6f00',
+            green: '#ffab40',
+            orange: '#ff9100',
+            red: '#ff5252',
+            purple: '#7c4dff',
+            gold: '#ff6f00',
+            goldLight: '#e65100',
+            goldBg: '#ff6f0033',
+            goldBgLight: '#ff6f0044'
+        };
+
         var SPECIAL_USER = 'dryfish09';
         var SPECIAL_NOTE = 'Creator of dryfish09.github.io/card-svg-gen/';
 
@@ -1232,7 +1578,7 @@
                 return;
             }
 
-            document.body.classList.remove('light-mode', 'forest-mode', 'lunar-mode');
+            document.body.classList.remove('light-mode', 'forest-mode', 'lunar-mode', 'ocean-mode', 'sunset-mode');
 
             if (theme === 'light') {
                 document.body.classList.add('light-mode');
@@ -1240,6 +1586,10 @@
                 document.body.classList.add('forest-mode');
             } else if (theme === 'lunar') {
                 document.body.classList.add('lunar-mode');
+            } else if (theme === 'ocean') {
+                document.body.classList.add('ocean-mode');
+            } else if (theme === 'sunset') {
+                document.body.classList.add('sunset-mode');
             }
 
             if (currentUserData) {
@@ -1269,6 +1619,12 @@
             }
             if (currentTheme === 'lunar') {
                 return LUNAR_COLORS;
+            }
+            if (currentTheme === 'ocean') {
+                return OCEAN_COLORS;
+            }
+            if (currentTheme === 'sunset') {
+                return SUNSET_COLORS;
             }
             return COLORS;
         }
@@ -1357,6 +1713,8 @@
             var isLight = currentTheme === 'light';
             var isForest = currentTheme === 'forest';
             var isLunar = currentTheme === 'lunar';
+            var isOcean = currentTheme === 'ocean';
+            var isSunset = currentTheme === 'sunset';
             var isSpecialTheme = currentTheme === 'special' || isSpecial;
 
             var maxBioLength = 50;
@@ -1390,16 +1748,17 @@
             var extraHeight = Math.max(0, (bioLineCount - 1) * 18);
 
             var cardHeight = 320 + extraHeight;
-            if (isSpecialTheme) cardHeight += 40;
-            if (isLunar) cardHeight += 20;
+            if (isSpecialTheme && isSpecial) cardHeight += 40;
 
             var cardWidth = 680;
             var avatarSize = 96;
             var padding = 28;
 
             var nameColor = colors.accent;
-            if (isSpecialTheme) {
+            if (isSpecialTheme && isSpecial) {
                 nameColor = colors.gold;
+            } else if (isSpecialTheme && !isSpecial) {
+                nameColor = colors.accent;
             } else if (followers > 1000) nameColor = colors.green;
             else if (followers > 500) nameColor = '#f0883e';
             else if (followers > 100) nameColor = colors.orange;
@@ -1438,9 +1797,9 @@
             }
 
             var specialBadgeHTML = '';
-            if (isSpecialTheme) {
+            if (isSpecialTheme && isSpecial) {
                 var specialBadgeY = cardHeight - 52;
-                var noteText = isSpecial ? SPECIAL_NOTE : '✨ Special Theme Edition';
+                var noteText = SPECIAL_NOTE;
                 var goldColor = isLight ? colors.goldLight : colors.gold;
                 var goldBg = isLight ? colors.goldBgLight : colors.goldBg;
 
@@ -1465,13 +1824,14 @@
             var goldColor = isLight ? colors.goldLight : colors.gold;
             var avatarUrl = avatar_url || 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
 
-            var bgColor1 = isForest ? '#0d1f0d' : (isLight ? '#f6f8fa' : (isLunar ? '#0a0e1a' : '#1c2333'));
-            var bgColor2 = isForest ? '#1a2e1a' : (isLight ? '#ffffff' : (isLunar ? '#141c2c' : '#0d1117'));
-            var shadowOpacity = isForest ? '0.4' : (isLight ? '0.1' : (isLunar ? '0.5' : '0.6'));
+            var bgColor1 = isForest ? '#0d1f0d' : (isLight ? '#f6f8fa' : (isLunar ? '#0a0e1a' : (isOcean ? '#0a1628' : (isSunset ? '#1a0a0a' : '#1c2333'))));
+            var bgColor2 = isForest ? '#1a2e1a' : (isLight ? '#ffffff' : (isLunar ? '#141c2c' : (isOcean ? '#0d2847' : (isSunset ? '#2d1515' : '#0d1117'))));
+            var shadowOpacity = isForest ? '0.4' : (isLight ? '0.1' : (isLunar ? '0.5' : (isOcean ? '0.5' : (isSunset ? '0.5' : '0.6'))));
 
             var svg = '<?xml version="1.0" encoding="UTF-8"?>\n';
             svg += '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="' + cardWidth + '" height="' + cardHeight + '" viewBox="0 0 ' + cardWidth + ' ' + cardHeight + '">\n';
             
+            // Special effects for Lunar theme
             if (isLunar) {
                 var starPositions = [
                     [45, 35, 1.5, 0.6, 2.5],
@@ -1502,14 +1862,6 @@
                 svg += '        <animate attributeName="y2" values="30;220" dur="4s" repeatCount="indefinite"/>\n';
                 svg += '    </line>\n';
 
-                svg += '    <line x1="400" y1="5" x2="430" y2="20" stroke="#ffb300" stroke-width="1" opacity="0">\n';
-                svg += '        <animate attributeName="opacity" values="0;0.8;0" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
-                svg += '        <animate attributeName="x1" values="400;50" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
-                svg += '        <animate attributeName="y1" values="5;150" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
-                svg += '        <animate attributeName="x2" values="430;80" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
-                svg += '        <animate attributeName="y2" values="20;170" dur="6s" repeatCount="indefinite" begin="2s"/>\n';
-                svg += '    </line>\n';
-
                 svg += '    <rect x="28" y="' + (cardHeight - 55) + '" width="624" height="44" rx="10" ry="10" fill="#ffd54f" opacity="0">\n';
                 svg += '        <animate attributeName="opacity" values="0;0.08;0" dur="3s" repeatCount="indefinite"/>\n';
                 svg += '    </rect>\n';
@@ -1531,12 +1883,60 @@
                 svg += '        <animate attributeName="opacity" values="0.02;0.05;0.02" dur="4s" repeatCount="indefinite"/>\n';
                 svg += '    </ellipse>\n';
             }
+
+            // Ocean theme effects
+            if (isOcean) {
+                svg += '    <ellipse cx="340" cy="180" rx="250" ry="120" fill="#00bcd4" opacity="0.02">\n';
+                svg += '        <animate attributeName="opacity" values="0.02;0.05;0.02" dur="6s" repeatCount="indefinite"/>\n';
+                svg += '    </ellipse>\n';
+                svg += '    <ellipse cx="340" cy="180" rx="180" ry="80" fill="#00838f" opacity="0.02">\n';
+                svg += '        <animate attributeName="opacity" values="0.02;0.04;0.02" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '    </ellipse>\n';
+                svg += '    <g transform="translate(85, ' + (cardHeight - 35) + ')">\n';
+                svg += '        <animateTransform attributeName="transform" type="translate" values="0 0;3 -3;0 0" dur="3s" repeatCount="indefinite"/>\n';
+                svg += '        <text x="0" y="0" font-size="24">🐋</text>\n';
+                svg += '    </g>\n';
+                svg += '    <g transform="translate(560, ' + (cardHeight - 35) + ')">\n';
+                svg += '        <animateTransform attributeName="transform" type="translate" values="0 0;5 0;0 0" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '        <text x="0" y="0" font-size="20">🌊</text>\n';
+                svg += '    </g>\n';
+            }
+
+            // Sunset theme effects
+            if (isSunset) {
+                svg += '    <ellipse cx="340" cy="180" rx="250" ry="120" fill="#ff6f00" opacity="0.03">\n';
+                svg += '        <animate attributeName="opacity" values="0.03;0.06;0.03" dur="5s" repeatCount="indefinite"/>\n';
+                svg += '    </ellipse>\n';
+                svg += '    <ellipse cx="340" cy="180" rx="180" ry="80" fill="#e65100" opacity="0.03">\n';
+                svg += '        <animate attributeName="opacity" values="0.03;0.06;0.03" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '    </ellipse>\n';
+                svg += '    <g transform="translate(85, ' + (cardHeight - 35) + ')">\n';
+                svg += '        <animateTransform attributeName="transform" type="translate" values="0 0;0 -4;0 0" dur="3s" repeatCount="indefinite"/>\n';
+                svg += '        <text x="0" y="0" font-size="24">🌅</text>\n';
+                svg += '    </g>\n';
+                svg += '    <g transform="translate(560, ' + (cardHeight - 35) + ')">\n';
+                svg += '        <animateTransform attributeName="transform" type="rotate" values="0 580 340;10 580 340;0 580 340" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '        <text x="0" y="0" font-size="20">☀️</text>\n';
+                svg += '    </g>\n';
+            }
             
             svg += '    <defs>\n';
             if (isLunar) {
                 svg += '        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
                 svg += '            <stop offset="0%" style="stop-color:' + bgColor1 + ';stop-opacity:1" />\n';
                 svg += '            <stop offset="50%" style="stop-color:#1a1040;stop-opacity:0.3" />\n';
+                svg += '            <stop offset="100%" style="stop-color:' + bgColor2 + ';stop-opacity:1" />\n';
+                svg += '        </linearGradient>\n';
+            } else if (isOcean) {
+                svg += '        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
+                svg += '            <stop offset="0%" style="stop-color:' + bgColor1 + ';stop-opacity:1" />\n';
+                svg += '            <stop offset="50%" style="stop-color:#0d3a5a;stop-opacity:0.3" />\n';
+                svg += '            <stop offset="100%" style="stop-color:' + bgColor2 + ';stop-opacity:1" />\n';
+                svg += '        </linearGradient>\n';
+            } else if (isSunset) {
+                svg += '        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
+                svg += '            <stop offset="0%" style="stop-color:' + bgColor1 + ';stop-opacity:1" />\n';
+                svg += '            <stop offset="50%" style="stop-color:#4a1a0a;stop-opacity:0.3" />\n';
                 svg += '            <stop offset="100%" style="stop-color:' + bgColor2 + ';stop-opacity:1" />\n';
                 svg += '        </linearGradient>\n';
             } else {
@@ -1546,15 +1946,27 @@
                 svg += '        </linearGradient>\n';
             }
             svg += '        <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
-            svg += '            <stop offset="0%" style="stop-color:' + (isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:1" />\n';
-            svg += '            <stop offset="50%" style="stop-color:' + (isSpecialTheme ? (isLunar ? '#ffb300' : '#d29922') : nameColor) + ';stop-opacity:1" />\n';
-            svg += '            <stop offset="100%" style="stop-color:' + (isSpecialTheme ? '#f0883e' : nameColor) + ';stop-opacity:1" />\n';
+            svg += '            <stop offset="0%" style="stop-color:' + (isSpecialTheme && isSpecial ? goldColor : nameColor) + ';stop-opacity:1" />\n';
+            svg += '            <stop offset="50%" style="stop-color:' + (isSpecialTheme && isSpecial ? (isLunar ? '#ffb300' : (isOcean ? '#f0883e' : (isSunset ? '#ff6f00' : '#d29922'))) : nameColor) + ';stop-opacity:1" />\n';
+            svg += '            <stop offset="100%" style="stop-color:' + (isSpecialTheme && isSpecial ? '#f0883e' : nameColor) + ';stop-opacity:1" />\n';
             svg += '        </linearGradient>\n';
             if (isLunar) {
                 svg += '        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
                 svg += '            <stop offset="0%" style="stop-color:#ffd54f;stop-opacity:1" />\n';
                 svg += '            <stop offset="50%" style="stop-color:#ffb300;stop-opacity:1" />\n';
                 svg += '            <stop offset="100%" style="stop-color:#ffd54f;stop-opacity:1" />\n';
+                svg += '        </linearGradient>\n';
+            } else if (isOcean) {
+                svg += '        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
+                svg += '            <stop offset="0%" style="stop-color:#f0883e;stop-opacity:1" />\n';
+                svg += '            <stop offset="50%" style="stop-color:#d29922;stop-opacity:1" />\n';
+                svg += '            <stop offset="100%" style="stop-color:#f0883e;stop-opacity:1" />\n';
+                svg += '        </linearGradient>\n';
+            } else if (isSunset) {
+                svg += '        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
+                svg += '            <stop offset="0%" style="stop-color:#ff6f00;stop-opacity:1" />\n';
+                svg += '            <stop offset="50%" style="stop-color:#e65100;stop-opacity:1" />\n';
+                svg += '            <stop offset="100%" style="stop-color:#ff6f00;stop-opacity:1" />\n';
                 svg += '        </linearGradient>\n';
             } else {
                 svg += '        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
@@ -1564,7 +1976,7 @@
                 svg += '        </linearGradient>\n';
             }
             svg += '        <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
-            svg += '            <stop offset="0%" style="stop-color:' + (isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:' + (isLight ? '0.05' : '0.1') + '" />\n';
+            svg += '            <stop offset="0%" style="stop-color:' + (isSpecialTheme && isSpecial ? goldColor : nameColor) + ';stop-opacity:' + (isLight ? '0.05' : '0.1') + '" />\n';
             svg += '            <stop offset="100%" style="stop-color:#6f42c1;stop-opacity:' + (isLight ? '0.02' : '0.05') + '" />\n';
             svg += '        </linearGradient>\n';
             svg += '        <filter id="shadow">\n';
@@ -1574,10 +1986,10 @@
             svg += '            <circle cx="' + (padding + avatarSize / 2 + 4) + '" cy="' + (padding + avatarSize / 2 + 4) + '" r="' + (avatarSize / 2) + '"/>\n';
             svg += '        </clipPath>\n';
             svg += '        <radialGradient id="avatarGlow" cx="50%" cy="50%" r="50%">\n';
-            svg += '            <stop offset="0%" style="stop-color:' + (isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:' + (isLight ? '0.2' : '0.3') + '"/>\n';
-            svg += '            <stop offset="100%" style="stop-color:' + (isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:0"/>\n';
+            svg += '            <stop offset="0%" style="stop-color:' + (isSpecialTheme && isSpecial ? goldColor : nameColor) + ';stop-opacity:' + (isLight ? '0.2' : '0.3') + '"/>\n';
+            svg += '            <stop offset="100%" style="stop-color:' + (isSpecialTheme && isSpecial ? goldColor : nameColor) + ';stop-opacity:0"/>\n';
             svg += '        </radialGradient>\n';
-            if (isSpecialTheme) {
+            if (isSpecialTheme && isSpecial) {
                 svg += '        <radialGradient id="specialGlow" cx="50%" cy="50%" r="50%">\n';
                 svg += '            <stop offset="0%" style="stop-color:#f0883e;stop-opacity:' + (isLight ? '0.05' : '0.08') + '"/>\n';
                 svg += '            <stop offset="100%" style="stop-color:#f0883e;stop-opacity:0"/>\n';
@@ -1586,7 +1998,7 @@
             svg += '    </defs>\n\n';
             svg += '    <rect x="0" y="0" width="' + cardWidth + '" height="' + cardHeight + '" rx="20" ry="20" fill="url(#bgGrad)" filter="url(#shadow)"/>\n';
             svg += '    <rect x="0" y="0" width="' + cardWidth + '" height="' + cardHeight + '" rx="20" ry="20" fill="url(#glowGrad)"/>\n';
-            if (isSpecialTheme) {
+            if (isSpecialTheme && isSpecial) {
                 svg += '    <rect x="0" y="0" width="' + cardWidth + '" height="' + cardHeight + '" rx="20" ry="20" fill="url(#specialGlow)"/>\n';
             }
             svg += '    <rect x="0" y="0" width="' + cardWidth + '" height="4" rx="2" ry="2" fill="url(#accentGrad)"/>\n\n';
@@ -1686,6 +2098,8 @@
                 var isLight = currentTheme === 'light';
                 var isForest = currentTheme === 'forest';
                 var isLunar = currentTheme === 'lunar';
+                var isOcean = currentTheme === 'ocean';
+                var isSunset = currentTheme === 'sunset';
                 var isSpecialTheme = currentTheme === 'special' || isSpecial;
 
                 var goldColor, goldBg;
@@ -1698,14 +2112,20 @@
                 } else if (isLunar) {
                     goldColor = '#ffd54f';
                     goldBg = '#ffd54f22';
+                } else if (isOcean) {
+                    goldColor = '#f0883e';
+                    goldBg = '#f0883e22';
+                } else if (isSunset) {
+                    goldColor = '#ff6f00';
+                    goldBg = '#ff6f0033';
                 } else {
                     goldColor = '#f0883e';
                     goldBg = '#d2992233';
                 }
 
-                var nameColor = isSpecialTheme ? goldColor : '';
+                var nameColor = (isSpecialTheme && isSpecial) ? goldColor : '';
 
-                userInfo.innerHTML = '\n                    <div class="info-item">\n                        <div class="label">👤 Username</div>\n                        <div class="value" style="' + (nameColor ? 'color:' + nameColor + ';' : '') + '">' + userData.login + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">⭐ Followers</div>\n                        <div class="value">' + formatNumber(userData.followers) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📦 Repos</div>\n                        <div class="value">' + formatNumber(userData.public_repos) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">👥 Following</div>\n                        <div class="value">' + formatNumber(userData.following) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📍 Location</div>\n                        <div class="value" style="font-size:14px;">' + (userData.location || 'N/A') + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📅 Joined</div>\n                        <div class="value" style="font-size:14px;">' + new Date(userData.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) + '</div>\n                    </div>\n                    ' + (isSpecialTheme ? '\n                    <div class="info-item" style="grid-column: 1 / -1; background: ' + goldBg + '; border-radius: 8px; padding: 8px; border: 1px solid ' + goldColor + '33;">\n                        <div class="label" style="color:' + goldColor + ';">' + (isSpecial ? '👑 Creator Badge' : '✨ Special Theme') + '</div>\n                        <div class="value" style="font-size:14px; color:' + goldColor + ';">' + (isSpecial ? SPECIAL_NOTE : '✨ Special Theme Edition') + '</div>\n                    </div>\n                    ' : '') + '\n                ';
+                userInfo.innerHTML = '\n                    <div class="info-item">\n                        <div class="label">👤 Username</div>\n                        <div class="value" style="' + (nameColor ? 'color:' + nameColor + ';' : '') + '">' + userData.login + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">⭐ Followers</div>\n                        <div class="value">' + formatNumber(userData.followers) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📦 Repos</div>\n                        <div class="value">' + formatNumber(userData.public_repos) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">👥 Following</div>\n                        <div class="value">' + formatNumber(userData.following) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📍 Location</div>\n                        <div class="value" style="font-size:14px;">' + (userData.location || 'N/A') + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📅 Joined</div>\n                        <div class="value" style="font-size:14px;">' + new Date(userData.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) + '</div>\n                    </div>\n                    ' + ((isSpecialTheme && isSpecial) ? '\n                    <div class="info-item" style="grid-column: 1 / -1; background: ' + goldBg + '; border-radius: 8px; padding: 8px; border: 1px solid ' + goldColor + '33;">\n                        <div class="label" style="color:' + goldColor + ';">👑 Creator Badge</div>\n                        <div class="value" style="font-size:14px; color:' + goldColor + ';">' + SPECIAL_NOTE + '</div>\n                    </div>\n                    ' : '') + '\n                ';
             }
 
             updateCacheUI();
@@ -1771,10 +2191,6 @@
 
             if (isSpecialUser) {
                 showStatus('👑 Welcome, Creator! Generating special card for @' + username + '...', 'special');
-            } else if (currentTheme === 'special') {
-                showStatus('✨ Generating special theme card for @' + username + '...', 'special');
-            } else if (currentTheme === 'lunar') {
-                showStatus('🌙 Generating lunar theme card for @' + username + '...', 'special');
             } else {
                 showStatus('🔄 Fetching data for @' + username + '...', 'loading');
             }
@@ -1791,10 +2207,6 @@
                     var modeText = mode === 'storage' ? '💾 persistent' : '🧠 RAM';
                     if (isSpecialUser) {
                         showStatus('👑 Special creator card for @' + username + '! (cache: ' + modeText + ')', 'special');
-                    } else if (currentTheme === 'special') {
-                        showStatus('✨ Special theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
-                    } else if (currentTheme === 'lunar') {
-                        showStatus('🌙 Lunar theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
                     } else {
                         showStatus('📦 Using cached data (' + modeText + ')', 'success');
                     }
@@ -1816,10 +2228,6 @@
 
                 if (isSpecialUser) {
                     showStatus('👑 Generated special creator card for @' + username + '! (cache: ' + modeText + ')', 'special');
-                } else if (currentTheme === 'special') {
-                    showStatus('✨ Generated special theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
-                } else if (currentTheme === 'lunar') {
-                    showStatus('🌙 Generated lunar theme card for @' + username + '! (cache: ' + modeText + ')', 'special');
                 } else {
                     showStatus('🎉 Generated new card for @' + username + '! (cache: ' + modeText + ')', 'success');
                 }
@@ -1834,10 +2242,6 @@
                 startCooldown();
             }
         }
-
-        // ============================================================
-        // 🖼️ PNG DOWNLOAD - Fixed avatar loading
-        // ============================================================
 
         function downloadPNG() {
             if (!currentSVG || !currentUserData) {
@@ -1883,6 +2287,8 @@
                 var isLight = currentTheme === 'light';
                 var isForest = currentTheme === 'forest';
                 var isLunar = currentTheme === 'lunar';
+                var isOcean = currentTheme === 'ocean';
+                var isSunset = currentTheme === 'sunset';
 
                 if (isLight) {
                     ctx.fillStyle = '#ffffff';
@@ -1892,6 +2298,12 @@
                     ctx.fillRect(0, 0, width, height);
                 } else if (isLunar) {
                     ctx.fillStyle = '#0a0e1a';
+                    ctx.fillRect(0, 0, width, height);
+                } else if (isOcean) {
+                    ctx.fillStyle = '#0a1628';
+                    ctx.fillRect(0, 0, width, height);
+                } else if (isSunset) {
+                    ctx.fillStyle = '#1a0a0a';
                     ctx.fillRect(0, 0, width, height);
                 }
 
@@ -1966,6 +2378,8 @@
                 var isLight = currentTheme === 'light';
                 var isForest = currentTheme === 'forest';
                 var isLunar = currentTheme === 'lunar';
+                var isOcean = currentTheme === 'ocean';
+                var isSunset = currentTheme === 'sunset';
 
                 if (isLight) {
                     ctx.fillStyle = '#ffffff';
@@ -1975,6 +2389,12 @@
                     ctx.fillRect(0, 0, width, height);
                 } else if (isLunar) {
                     ctx.fillStyle = '#0a0e1a';
+                    ctx.fillRect(0, 0, width, height);
+                } else if (isOcean) {
+                    ctx.fillStyle = '#0a1628';
+                    ctx.fillRect(0, 0, width, height);
+                } else if (isSunset) {
+                    ctx.fillStyle = '#1a0a0a';
                     ctx.fillRect(0, 0, width, height);
                 }
 
@@ -2010,11 +2430,6 @@
 
             img.src = avatarUrl;
         }
-
-        // ============================================================
-        // EVENT LISTENERS
-        // ============================================================
-
         copyBtn.addEventListener('click', function() {
             if (!currentSVG) {
                 showStatus('⚠️ No card to copy', 'error');
@@ -2086,9 +2501,6 @@
             }
         });
 
-        // ============================================================
-        // 📌 URL PARAMETER SUPPORT
-        // ============================================================
 
         function getUrlParameter(name) {
             name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -2105,7 +2517,7 @@
             console.log('📌 Username from URL:', urlUsername);
         }
 
-        if (urlTheme && ['default', 'special', 'light', 'forest', 'lunar'].includes(urlTheme)) {
+        if (urlTheme && ['default', 'special', 'light', 'forest', 'lunar', 'ocean', 'sunset'].includes(urlTheme)) {
             setTimeout(function() {
                 setTheme(urlTheme);
                 console.log('🎨 Theme from URL:', urlTheme);
@@ -2161,9 +2573,9 @@
         console.log('🎨 Theme: ' + currentTheme);
         console.log('📌 Type debug.generateCard("username") to test');
         console.log('📦 View cache: debug.getCacheStats()');
-        console.log('🎨 Change theme: debug.setTheme("default" | "special" | "light" | "forest" | "lunar")');
+        console.log('🎨 Change theme: debug.setTheme("default" | "special" | "light" | "forest" | "lunar" | "ocean" | "sunset")');
         console.log('🖼️ Download PNG: debug.downloadPNG()');
-        console.log('🌙 Lunar theme added with twinkling stars, shooting stars, glow effects, and animated icons!');
+        console.log('🌊 Ocean theme and 🌅 Sunset theme added!');
         // ]]>
     </script>
 
