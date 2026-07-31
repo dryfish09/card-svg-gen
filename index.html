@@ -36,6 +36,9 @@
         body.sunset-mode {
             background: linear-gradient(135deg, #1a0e0a 0%, #2d1a0e 100%);
         }
+        body.special-mode {
+            background: linear-gradient(135deg, #1a0a0a 0%, #2d1a0a 100%);
+        }
         .container {
             background: #1c2333;
             border-radius: 16px;
@@ -72,6 +75,11 @@
             border: 1px solid #5a3520;
             box-shadow: 0 8px 40px rgba(40, 20, 10, 0.8);
         }
+        body.special-mode .container {
+            background: #1a0a0a;
+            border: 1px solid #5a2a0a;
+            box-shadow: 0 8px 40px rgba(40, 10, 0, 0.8);
+        }
         h1 {
             color: #f0f6fc;
             font-size: 22px;
@@ -97,6 +105,9 @@
         body.sunset-mode h1 {
             color: #f7c948;
         }
+        body.special-mode h1 {
+            color: #f7c948;
+        }
         h1 small {
             font-size: 12px;
             color: #8b949e;
@@ -115,6 +126,9 @@
             color: #5a8aaa;
         }
         body.sunset-mode h1 small {
+            color: #b87a4a;
+        }
+        body.special-mode h1 small {
             color: #b87a4a;
         }
         .subtitle {
@@ -136,6 +150,9 @@
             color: #5a8aaa;
         }
         body.sunset-mode .subtitle {
+            color: #b87a4a;
+        }
+        body.special-mode .subtitle {
             color: #b87a4a;
         }
 
@@ -164,6 +181,9 @@
             color: #5a8aaa;
         }
         body.sunset-mode .theme-selector label {
+            color: #b87a4a;
+        }
+        body.special-mode .theme-selector label {
             color: #b87a4a;
         }
         .theme-btn {
@@ -200,6 +220,10 @@
             border-color: #5a3520;
             color: #b87a4a;
         }
+        body.special-mode .theme-btn {
+            border-color: #5a2a0a;
+            color: #b87a4a;
+        }
         .theme-btn:hover {
             border-color: #58a6ff;
             color: #58a6ff;
@@ -234,6 +258,11 @@
             border-color: #ff6f00;
             color: #ff6f00;
         }
+        body.special-mode .theme-btn.active {
+            background: #f0883e33;
+            border-color: #f0883e;
+            color: #f0883e;
+        }
         .theme-btn.special {
             border-color: #f0883e;
             color: #f0883e;
@@ -241,26 +270,26 @@
         .theme-btn.special:hover,
         .theme-btn.special.active {
             border-color: #f0883e;
-            background: #f0883e22;
+            background: #f0883e33;
             color: #f0883e;
         }
         body.forest-mode .theme-btn.special.active {
-            background: #f0883e22;
+            background: #f0883e33;
             border-color: #f0883e;
             color: #f0883e;
         }
         body.lunar-mode .theme-btn.special.active {
-            background: #ffd54f22;
-            border-color: #ffd54f;
-            color: #ffd54f;
+            background: #f0883e33;
+            border-color: #f0883e;
+            color: #f0883e;
         }
         body.ocean-mode .theme-btn.special.active {
-            background: #f0883e22;
+            background: #f0883e33;
             border-color: #f0883e;
             color: #f0883e;
         }
         body.sunset-mode .theme-btn.special.active {
-            background: #f0883e22;
+            background: #f0883e33;
             border-color: #f0883e;
             color: #f0883e;
         }
@@ -364,6 +393,11 @@
             color: #f7c948;
             border-color: #5a3520;
         }
+        body.special-mode .input-group input {
+            background: #1a0a0a;
+            color: #f7c948;
+            border-color: #5a2a0a;
+        }
         .input-group input:focus {
             outline: none;
             border-color: #58a6ff;
@@ -379,6 +413,9 @@
         }
         body.sunset-mode .input-group input:focus {
             border-color: #ff6f00;
+        }
+        body.special-mode .input-group input:focus {
+            border-color: #f0883e;
         }
         .input-group input::placeholder {
             color: #484f58;
@@ -396,6 +433,9 @@
             color: #5a8aaa;
         }
         body.sunset-mode .input-group input::placeholder {
+            color: #b87a4a;
+        }
+        body.special-mode .input-group input::placeholder {
             color: #b87a4a;
         }
 
@@ -432,6 +472,10 @@
             background: linear-gradient(135deg, #ff6f00, #e65100);
             color: #fff;
         }
+        body.special-mode .btn-primary {
+            background: linear-gradient(135deg, #f0883e, #d29922);
+            color: #1a0a0a;
+        }
         .btn-primary:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 16px rgba(46, 160, 67, 0.3);
@@ -444,6 +488,9 @@
         }
         body.sunset-mode .btn-primary:hover {
             box-shadow: 0 4px 16px rgba(255, 111, 0, 0.4);
+        }
+        body.special-mode .btn-primary:hover {
+            box-shadow: 0 4px 16px rgba(240, 136, 62, 0.4);
         }
         .btn-primary:active {
             transform: scale(0.97);
@@ -477,6 +524,10 @@
             background: #3a2515;
             color: #f7c948;
         }
+        body.special-mode .btn-secondary {
+            background: #3a1a0a;
+            color: #f7c948;
+        }
         .btn-secondary:hover {
             background: #484f58;
         }
@@ -494,6 +545,9 @@
         }
         body.sunset-mode .btn-secondary:hover {
             background: #4a3525;
+        }
+        body.special-mode .btn-secondary:hover {
+            background: #4a2a1a;
         }
         .btn-secondary:active {
             transform: scale(0.97);
@@ -541,6 +595,10 @@
             background: linear-gradient(135deg, #ff6f00, #e65100);
             color: #fff;
         }
+        body.special-mode .btn-png {
+            background: linear-gradient(135deg, #f0883e, #d29922);
+            color: #1a0a0a;
+        }
         .btn-png:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 16px rgba(210, 153, 34, 0.3);
@@ -553,6 +611,9 @@
         }
         body.sunset-mode .btn-png:hover {
             box-shadow: 0 4px 16px rgba(255, 111, 0, 0.4);
+        }
+        body.special-mode .btn-png:hover {
+            box-shadow: 0 4px 16px rgba(240, 136, 62, 0.4);
         }
         .btn-png:active {
             transform: scale(0.97);
@@ -593,6 +654,10 @@
             background: #1a0e0a;
             border-color: #5a3520;
         }
+        body.special-mode .card-preview {
+            background: #1a0a0a;
+            border-color: #5a2a0a;
+        }
         .card-preview svg {
             max-width: 100%;
             height: auto;
@@ -614,6 +679,9 @@
         body.sunset-mode .card-preview svg {
             box-shadow: 0 4px 30px rgba(255, 111, 0, 0.1);
         }
+        body.special-mode .card-preview svg {
+            box-shadow: 0 4px 30px rgba(240, 136, 62, 0.15);
+        }
         .card-placeholder {
             color: #484f58;
             font-size: 13px;
@@ -633,6 +701,9 @@
             color: #5a8aaa;
         }
         body.sunset-mode .card-placeholder {
+            color: #b87a4a;
+        }
+        body.special-mode .card-placeholder {
             color: #b87a4a;
         }
 
@@ -667,6 +738,10 @@
             background: #1a0e0a;
             border-color: #5a3520;
         }
+        body.special-mode .info-grid {
+            background: #1a0a0a;
+            border-color: #5a2a0a;
+        }
         .info-item {
             text-align: center;
             overflow: hidden;
@@ -693,6 +768,9 @@
         body.sunset-mode .info-item .label {
             color: #b87a4a;
         }
+        body.special-mode .info-item .label {
+            color: #b87a4a;
+        }
         .info-item .value {
             color: #f0f6fc;
             font-size: 17px;
@@ -715,6 +793,9 @@
             color: #7ec8e3;
         }
         body.sunset-mode .info-item .value {
+            color: #f7c948;
+        }
+        body.special-mode .info-item .value {
             color: #f7c948;
         }
 
@@ -772,6 +853,11 @@
             color: #ff6f00;
             border-color: #ff6f0055;
         }
+        body.special-mode .status.loading {
+            background: #f0883e33;
+            color: #f0883e;
+            border-color: #f0883e55;
+        }
         .status.success {
             background: #23863633;
             color: #3fb950;
@@ -801,6 +887,11 @@
             background: #ff6f0022;
             color: #ff6f00;
             border-color: #ff6f0055;
+        }
+        body.special-mode .status.success {
+            background: #f0883e33;
+            color: #f0883e;
+            border-color: #f0883e55;
         }
         .status.error {
             background: #da363333;
@@ -832,6 +923,11 @@
             color: #f85149;
             border-color: #da363355;
         }
+        body.special-mode .status.error {
+            background: #da363333;
+            color: #f85149;
+            border-color: #da363355;
+        }
         .status.special {
             background: #d2992233;
             color: #f0883e;
@@ -859,6 +955,11 @@
         }
         body.sunset-mode .status.special {
             background: #f0883e22;
+            color: #f0883e;
+            border-color: #f0883e55;
+        }
+        body.special-mode .status.special {
+            background: #f0883e33;
             color: #f0883e;
             border-color: #f0883e55;
         }
@@ -903,6 +1004,11 @@
             border-color: #5a3520;
             color: #b87a4a;
         }
+        body.special-mode .cache-info {
+            background: #1a0a0a;
+            border-color: #5a2a0a;
+            color: #b87a4a;
+        }
         .cache-info code {
             color: #58a6ff;
             background: #161b22;
@@ -929,6 +1035,10 @@
         body.sunset-mode .cache-info code {
             background: #2a1a0a;
             color: #ff6f00;
+        }
+        body.special-mode .cache-info code {
+            background: #2a1a0a;
+            color: #f0883e;
         }
         .cache-badge {
             display: inline-block;
@@ -961,6 +1071,10 @@
             background: #ff6f0022;
             color: #ff6f00;
         }
+        body.special-mode .cache-badge.ram {
+            background: #f0883e33;
+            color: #f0883e;
+        }
         .cache-badge.storage {
             background: #23863633;
             color: #3fb950;
@@ -985,6 +1099,10 @@
             background: #ff6f0022;
             color: #ff6f00;
         }
+        body.special-mode .cache-badge.storage {
+            background: #f0883e33;
+            color: #f0883e;
+        }
         .cache-badge.none {
             background: #da363333;
             color: #f85149;
@@ -1006,6 +1124,10 @@
             color: #f85149;
         }
         body.sunset-mode .cache-badge.none {
+            background: #da363333;
+            color: #f85149;
+        }
+        body.special-mode .cache-badge.none {
             background: #da363333;
             color: #f85149;
         }
@@ -1039,6 +1161,10 @@
             color: #b87a4a;
             border-color: #5a3520;
         }
+        body.special-mode .footer {
+            color: #b87a4a;
+            border-color: #5a2a0a;
+        }
         .footer a {
             color: #58a6ff;
             text-decoration: none;
@@ -1057,6 +1183,9 @@
         }
         body.sunset-mode .footer a {
             color: #ff6f00;
+        }
+        body.special-mode .footer a {
+            color: #f0883e;
         }
         .footer .creator-badge {
             display: inline-block;
@@ -1094,6 +1223,11 @@
             border-color: #d2992255;
             color: #f0883e;
         }
+        body.special-mode .footer .creator-badge {
+            background: linear-gradient(135deg, #f0883e33, #d2992233);
+            border-color: #d2992255;
+            color: #f0883e;
+        }
 
         .cooldown-timer {
             color: #8b949e;
@@ -1118,6 +1252,9 @@
             color: #5a8aaa;
         }
         body.sunset-mode .cooldown-timer {
+            color: #b87a4a;
+        }
+        body.special-mode .cooldown-timer {
             color: #b87a4a;
         }
 
@@ -1285,7 +1422,7 @@
     </div>
 
     <script>
-        // <![CDATA[
+        // Cache Engine
         var CacheEngine = (function() {
             var _memory = {};
             var _storage = null;
@@ -1528,6 +1665,24 @@
             goldBgLight: '#ffd54f33'
         };
 
+        // Special theme - Premium gold/rose gold theme
+        var SPECIAL_COLORS = {
+            bg: '#1a0a0a',
+            cardBg: '#2d1a0a',
+            border: '#5a2a0a',
+            text: '#f7c948',
+            textMuted: '#b87a4a',
+            accent: '#f0883e',
+            green: '#d4a373',
+            orange: '#f0883e',
+            red: '#f85149',
+            purple: '#7c4dff',
+            gold: '#f7c948',
+            goldLight: '#d4a373',
+            goldBg: '#f0883e33',
+            goldBgLight: '#f0883e44'
+        };
+
         var SPECIAL_USER = 'dryfish09';
         var SPECIAL_NOTE = '👑 Creator of dryfish09.github.io/card-svg-gen/';
 
@@ -1575,7 +1730,7 @@
                 return;
             }
 
-            document.body.classList.remove('light-mode', 'forest-mode', 'lunar-mode', 'ocean-mode', 'sunset-mode');
+            document.body.classList.remove('light-mode', 'forest-mode', 'lunar-mode', 'ocean-mode', 'sunset-mode', 'special-mode');
 
             if (theme === 'light') {
                 document.body.classList.add('light-mode');
@@ -1587,6 +1742,8 @@
                 document.body.classList.add('ocean-mode');
             } else if (theme === 'sunset') {
                 document.body.classList.add('sunset-mode');
+            } else if (theme === 'special') {
+                document.body.classList.add('special-mode');
             }
 
             if (currentUserData) {
@@ -1622,6 +1779,9 @@
             }
             if (currentTheme === 'sunset') {
                 return SUNSET_COLORS;
+            }
+            if (currentTheme === 'special') {
+                return SPECIAL_COLORS;
             }
             return COLORS;
         }
@@ -1712,7 +1872,7 @@
             var isLunar = currentTheme === 'lunar';
             var isOcean = currentTheme === 'ocean';
             var isSunset = currentTheme === 'sunset';
-            var isSpecialTheme = currentTheme === 'special' || isSpecial;
+            var isSpecialTheme = currentTheme === 'special';
 
             var maxBioLength = 50;
             var rawBio = bio || 'No bio available';
@@ -1745,15 +1905,18 @@
             var extraHeight = Math.max(0, (bioLineCount - 1) * 18);
 
             var cardHeight = 320 + extraHeight;
-            // Only add extra height for special badge if isSpecial (dryfish09) NOT special theme
+            // Only show creator badge for dryfish09 user
             if (isSpecial) cardHeight += 40;
 
             var cardWidth = 680;
             var avatarSize = 96;
             var padding = 28;
 
+            // For special theme, use gold accent for everyone
             var nameColor = colors.accent;
-            if (isSpecial) {
+            if (isSpecialTheme) {
+                nameColor = colors.gold;
+            } else if (isSpecial) {
                 nameColor = colors.gold;
             } else if (followers > 1000) nameColor = colors.green;
             else if (followers > 500) nameColor = '#f0883e';
@@ -1792,7 +1955,7 @@
                 statsHTML += '\n                    <g>\n                        <text x="' + x + '" y="' + finalStatsY + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="26" font-weight="700" fill="' + colors.text + '" text-anchor="middle">' + formattedValue + '</text>\n                        <text x="' + x + '" y="' + (finalStatsY + 24) + '" font-family="\'SF Pro Display\', \'Segoe UI\', Arial, sans-serif" font-size="12" fill="' + colors.textMuted + '" text-anchor="middle" letter-spacing="0.5">' + item.icon + ' ' + item.label + '</text>\n                    </g>\n                ';
             }
 
-            // Only show special badge for dryfish09 user, NOT for special theme
+            // Only show special badge for dryfish09 user
             var specialBadgeHTML = '';
             if (isSpecial) {
                 var specialBadgeY = cardHeight - 52;
@@ -1820,13 +1983,54 @@
             var goldColor = isLight ? colors.goldLight : colors.gold;
             var avatarUrl = avatar_url || 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
 
-            var bgColor1 = isForest ? '#0d1f0d' : (isLight ? '#f6f8fa' : (isLunar ? '#0a0e1a' : (isOcean ? '#0a1628' : (isSunset ? '#1a0e0a' : '#1c2333'))));
-            var bgColor2 = isForest ? '#1a2e1a' : (isLight ? '#ffffff' : (isLunar ? '#141c2c' : (isOcean ? '#0d2847' : (isSunset ? '#2d1a0e' : '#0d1117'))));
-            var shadowOpacity = isForest ? '0.4' : (isLight ? '0.1' : (isLunar ? '0.5' : (isOcean ? '0.5' : (isSunset ? '0.5' : '0.6'))));
+            var bgColor1 = isForest ? '#0d1f0d' : (isLight ? '#f6f8fa' : (isLunar ? '#0a0e1a' : (isOcean ? '#0a1628' : (isSunset ? '#1a0e0a' : (isSpecialTheme ? '#1a0a0a' : '#1c2333')))));
+            var bgColor2 = isForest ? '#1a2e1a' : (isLight ? '#ffffff' : (isLunar ? '#141c2c' : (isOcean ? '#0d2847' : (isSunset ? '#2d1a0e' : (isSpecialTheme ? '#2d1a0a' : '#0d1117')))));
+            var shadowOpacity = isForest ? '0.4' : (isLight ? '0.1' : (isLunar ? '0.5' : (isOcean ? '0.5' : (isSunset ? '0.5' : (isSpecialTheme ? '0.6' : '0.6')))));
 
             var svg = '<?xml version="1.0" encoding="UTF-8"?>\n';
             svg += '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="' + cardWidth + '" height="' + cardHeight + '" viewBox="0 0 ' + cardWidth + ' ' + cardHeight + '">\n';
             
+            // Special theme effects - premium gold particles
+            if (isSpecialTheme) {
+                // Gold particle effects
+                var particlePositions = [
+                    [50, 30, 2, 0.3],
+                    [120, 50, 1.5, 0.2],
+                    [200, 20, 2.5, 0.4],
+                    [300, 60, 1.8, 0.25],
+                    [400, 25, 2, 0.35],
+                    [500, 55, 1.5, 0.2],
+                    [600, 35, 2.2, 0.3],
+                    [650, 50, 1.8, 0.25]
+                ];
+                for (var pi = 0; pi < particlePositions.length; pi++) {
+                    var p = particlePositions[pi];
+                    svg += '    <circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + p[2] + '" fill="#f7c948" opacity="' + p[3] + '">\n';
+                    svg += '        <animate attributeName="opacity" values="' + p[3] + ';0.05;' + p[3] + '" dur="' + (2 + pi % 2) + 's" repeatCount="indefinite"/>\n';
+                    svg += '        <animate attributeName="cy" values="' + p[1] + ';' + (p[1] - 10) + ';' + p[1] + '" dur="' + (3 + pi % 2) + 's" repeatCount="indefinite"/>\n';
+                    svg += '    </circle>\n';
+                }
+
+                // Premium glow lines
+                svg += '    <ellipse cx="340" cy="180" rx="250" ry="120" fill="none" stroke="#f7c948" stroke-width="0.5" opacity="0.05">\n';
+                svg += '        <animate attributeName="opacity" values="0.05;0.1;0.05" dur="4s" repeatCount="indefinite"/>\n';
+                svg += '    </ellipse>\n';
+                svg += '    <ellipse cx="340" cy="180" rx="200" ry="90" fill="none" stroke="#f0883e" stroke-width="0.5" opacity="0.03">\n';
+                svg += '        <animate attributeName="opacity" values="0.03;0.07;0.03" dur="3s" repeatCount="indefinite"/>\n';
+                svg += '    </ellipse>\n';
+
+                // Premium crown icon
+                svg += '    <g transform="translate(85, ' + (cardHeight - 35) + ')">\n';
+                svg += '        <animateTransform attributeName="transform" type="translate" values="85 ' + (cardHeight - 35) + ';85 ' + (cardHeight - 38) + ';85 ' + (cardHeight - 35) + '" dur="2s" repeatCount="indefinite"/>\n';
+                svg += '        <text x="0" y="0" font-size="24">👑</text>\n';
+                svg += '    </g>\n';
+
+                svg += '    <g transform="translate(560, ' + (cardHeight - 35) + ')">\n';
+                svg += '        <animateTransform attributeName="transform" type="rotate" values="0 560 ' + (cardHeight - 35) + ';-5 560 ' + (cardHeight - 35) + ';5 560 ' + (cardHeight - 35) + ';0 560 ' + (cardHeight - 35) + '" dur="3s" repeatCount="indefinite"/>\n';
+                svg += '        <text x="0" y="0" font-size="20">✨</text>\n';
+                svg += '    </g>\n';
+            }
+
             // Lunar theme effects
             if (isLunar) {
                 var starPositions = [
@@ -1890,7 +2094,6 @@
 
             // Ocean theme effects
             if (isOcean) {
-                svg += '    <!-- Bubbles -->\n';
                 var bubblePositions = [
                     [50, 50, 3, 5],
                     [120, 80, 2, 7],
@@ -1908,7 +2111,6 @@
                     svg += '    </circle>\n';
                 }
 
-                // Wave animation
                 svg += '    <path d="M0,' + (cardHeight - 10) + ' Q85,' + (cardHeight - 20) + ' 170,' + (cardHeight - 10) + ' T340,' + (cardHeight - 10) + ' T510,' + (cardHeight - 10) + ' T680,' + (cardHeight - 10) + '" stroke="#00bcd4" stroke-width="1" fill="none" opacity="0.15">\n';
                 svg += '        <animate attributeName="d" values="M0,' + (cardHeight - 10) + ' Q85,' + (cardHeight - 20) + ' 170,' + (cardHeight - 10) + ' T340,' + (cardHeight - 10) + ' T510,' + (cardHeight - 10) + ' T680,' + (cardHeight - 10) + ';M0,' + (cardHeight - 10) + ' Q85,' + (cardHeight - 30) + ' 170,' + (cardHeight - 10) + ' T340,' + (cardHeight - 10) + ' T510,' + (cardHeight - 10) + ' T680,' + (cardHeight - 10) + ';M0,' + (cardHeight - 10) + ' Q85,' + (cardHeight - 20) + ' 170,' + (cardHeight - 10) + ' T340,' + (cardHeight - 10) + ' T510,' + (cardHeight - 10) + ' T680,' + (cardHeight - 10) + '" dur="4s" repeatCount="indefinite"/>\n';
                 svg += '    </path>\n';
@@ -1925,7 +2127,6 @@
 
             // Sunset theme effects
             if (isSunset) {
-                // Sun glow
                 svg += '    <circle cx="340" cy="40" r="80" fill="#ff6f00" opacity="0.05">\n';
                 svg += '        <animate attributeName="opacity" values="0.05;0.08;0.05" dur="3s" repeatCount="indefinite"/>\n';
                 svg += '        <animate attributeName="r" values="80;85;80" dur="3s" repeatCount="indefinite"/>\n';
@@ -1935,7 +2136,6 @@
                 svg += '        <animate attributeName="opacity" values="0.08;0.12;0.08" dur="3s" repeatCount="indefinite"/>\n';
                 svg += '    </circle>\n';
 
-                // Clouds
                 svg += '    <ellipse cx="100" cy="30" rx="60" ry="10" fill="#ff6f00" opacity="0.08">\n';
                 svg += '        <animate attributeName="cx" values="100;110;100" dur="6s" repeatCount="indefinite"/>\n';
                 svg += '    </ellipse>\n';
@@ -1973,6 +2173,12 @@
                 svg += '            <stop offset="50%" style="stop-color:#4a2a1a;stop-opacity:0.3" />\n';
                 svg += '            <stop offset="100%" style="stop-color:' + bgColor2 + ';stop-opacity:1" />\n';
                 svg += '        </linearGradient>\n';
+            } else if (isSpecialTheme) {
+                svg += '        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
+                svg += '            <stop offset="0%" style="stop-color:' + bgColor1 + ';stop-opacity:1" />\n';
+                svg += '            <stop offset="50%" style="stop-color:#3a1a0a;stop-opacity:0.3" />\n';
+                svg += '            <stop offset="100%" style="stop-color:' + bgColor2 + ';stop-opacity:1" />\n';
+                svg += '        </linearGradient>\n';
             } else {
                 svg += '        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
                 svg += '            <stop offset="0%" style="stop-color:' + bgColor1 + ';stop-opacity:1" />\n';
@@ -1980,15 +2186,15 @@
                 svg += '        </linearGradient>\n';
             }
             svg += '        <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
-            svg += '            <stop offset="0%" style="stop-color:' + (isSpecial ? goldColor : nameColor) + ';stop-opacity:1" />\n';
-            svg += '            <stop offset="50%" style="stop-color:' + (isSpecial ? (isLunar ? '#ffb300' : '#d29922') : nameColor) + ';stop-opacity:1" />\n';
-            svg += '            <stop offset="100%" style="stop-color:' + (isSpecial ? '#f0883e' : nameColor) + ';stop-opacity:1" />\n';
+            svg += '            <stop offset="0%" style="stop-color:' + (isSpecial || isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:1" />\n';
+            svg += '            <stop offset="50%" style="stop-color:' + (isSpecial || isSpecialTheme ? (isLunar ? '#ffb300' : '#d29922') : nameColor) + ';stop-opacity:1" />\n';
+            svg += '            <stop offset="100%" style="stop-color:' + (isSpecial || isSpecialTheme ? '#f0883e' : nameColor) + ';stop-opacity:1" />\n';
             svg += '        </linearGradient>\n';
-            if (isLunar || isOcean || isSunset) {
+            if (isLunar || isOcean || isSunset || isSpecialTheme) {
                 svg += '        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
-                svg += '            <stop offset="0%" style="stop-color:' + (isLunar ? '#ffd54f' : (isOcean ? '#ffd54f' : '#ffd54f')) + ';stop-opacity:1" />\n';
-                svg += '            <stop offset="50%" style="stop-color:' + (isLunar ? '#ffb300' : (isOcean ? '#ffb300' : '#ffb300')) + ';stop-opacity:1" />\n';
-                svg += '            <stop offset="100%" style="stop-color:' + (isLunar ? '#ffd54f' : (isOcean ? '#ffd54f' : '#ffd54f')) + ';stop-opacity:1" />\n';
+                svg += '            <stop offset="0%" style="stop-color:' + (isLunar ? '#ffd54f' : (isOcean ? '#ffd54f' : (isSunset ? '#ffd54f' : '#f7c948'))) + ';stop-opacity:1" />\n';
+                svg += '            <stop offset="50%" style="stop-color:' + (isLunar ? '#ffb300' : (isOcean ? '#ffb300' : (isSunset ? '#ffb300' : '#f0883e'))) + ';stop-opacity:1" />\n';
+                svg += '            <stop offset="100%" style="stop-color:' + (isLunar ? '#ffd54f' : (isOcean ? '#ffd54f' : (isSunset ? '#ffd54f' : '#f7c948'))) + ';stop-opacity:1" />\n';
                 svg += '        </linearGradient>\n';
             } else {
                 svg += '        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">\n';
@@ -1998,7 +2204,7 @@
                 svg += '        </linearGradient>\n';
             }
             svg += '        <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n';
-            svg += '            <stop offset="0%" style="stop-color:' + (isSpecial ? goldColor : nameColor) + ';stop-opacity:' + (isLight ? '0.05' : '0.1') + '" />\n';
+            svg += '            <stop offset="0%" style="stop-color:' + (isSpecial || isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:' + (isLight ? '0.05' : '0.1') + '" />\n';
             svg += '            <stop offset="100%" style="stop-color:#6f42c1;stop-opacity:' + (isLight ? '0.02' : '0.05') + '" />\n';
             svg += '        </linearGradient>\n';
             svg += '        <filter id="shadow">\n';
@@ -2008,8 +2214,8 @@
             svg += '            <circle cx="' + (padding + avatarSize / 2 + 4) + '" cy="' + (padding + avatarSize / 2 + 4) + '" r="' + (avatarSize / 2) + '"/>\n';
             svg += '        </clipPath>\n';
             svg += '        <radialGradient id="avatarGlow" cx="50%" cy="50%" r="50%">\n';
-            svg += '            <stop offset="0%" style="stop-color:' + (isSpecial ? goldColor : nameColor) + ';stop-opacity:' + (isLight ? '0.2' : '0.3') + '"/>\n';
-            svg += '            <stop offset="100%" style="stop-color:' + (isSpecial ? goldColor : nameColor) + ';stop-opacity:0"/>\n';
+            svg += '            <stop offset="0%" style="stop-color:' + (isSpecial || isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:' + (isLight ? '0.2' : '0.3') + '"/>\n';
+            svg += '            <stop offset="100%" style="stop-color:' + (isSpecial || isSpecialTheme ? goldColor : nameColor) + ';stop-opacity:0"/>\n';
             svg += '        </radialGradient>\n';
             if (isSpecial) {
                 svg += '        <radialGradient id="specialGlow" cx="50%" cy="50%" r="50%">\n';
@@ -2122,6 +2328,7 @@
                 var isLunar = currentTheme === 'lunar';
                 var isOcean = currentTheme === 'ocean';
                 var isSunset = currentTheme === 'sunset';
+                var isSpecialTheme = currentTheme === 'special';
 
                 var goldColor, goldBg;
                 if (isLight) {
@@ -2139,17 +2346,23 @@
                 } else if (isSunset) {
                     goldColor = '#ffd54f';
                     goldBg = '#ffd54f22';
+                } else if (isSpecialTheme) {
+                    goldColor = '#f7c948';
+                    goldBg = '#f0883e33';
                 } else {
                     goldColor = '#f0883e';
                     goldBg = '#d2992233';
                 }
 
-                // Only show creator badge for dryfish09, not for special theme
+                // Only show creator badge for dryfish09
                 var showCreatorBadge = isSpecial;
 
-                var nameColor = isSpecial ? goldColor : '';
+                // Show special theme indicator
+                var showSpecialIndicator = isSpecialTheme;
 
-                userInfo.innerHTML = '\n                    <div class="info-item">\n                        <div class="label">👤 Username</div>\n                        <div class="value" style="' + (nameColor ? 'color:' + nameColor + ';' : '') + '">' + userData.login + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">⭐ Followers</div>\n                        <div class="value">' + formatNumber(userData.followers) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📦 Repos</div>\n                        <div class="value">' + formatNumber(userData.public_repos) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">👥 Following</div>\n                        <div class="value">' + formatNumber(userData.following) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📍 Location</div>\n                        <div class="value" style="font-size:14px;">' + (userData.location || 'N/A') + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📅 Joined</div>\n                        <div class="value" style="font-size:14px;">' + new Date(userData.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) + '</div>\n                    </div>\n                    ' + (showCreatorBadge ? '\n                    <div class="info-item" style="grid-column: 1 / -1; background: ' + goldBg + '; border-radius: 8px; padding: 8px; border: 1px solid ' + goldColor + '33;">\n                        <div class="label" style="color:' + goldColor + ';">👑 Creator Badge</div>\n                        <div class="value" style="font-size:14px; color:' + goldColor + ';">' + SPECIAL_NOTE + '</div>\n                    </div>\n                    ' : '') + '\n                ';
+                var nameColor = (isSpecial || isSpecialTheme) ? goldColor : '';
+
+                userInfo.innerHTML = '\n                    <div class="info-item">\n                        <div class="label">👤 Username</div>\n                        <div class="value" style="' + (nameColor ? 'color:' + nameColor + ';' : '') + '">' + userData.login + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">⭐ Followers</div>\n                        <div class="value">' + formatNumber(userData.followers) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📦 Repos</div>\n                        <div class="value">' + formatNumber(userData.public_repos) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">👥 Following</div>\n                        <div class="value">' + formatNumber(userData.following) + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📍 Location</div>\n                        <div class="value" style="font-size:14px;">' + (userData.location || 'N/A') + '</div>\n                    </div>\n                    <div class="info-item">\n                        <div class="label">📅 Joined</div>\n                        <div class="value" style="font-size:14px;">' + new Date(userData.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) + '</div>\n                    </div>\n                    ' + (showCreatorBadge ? '\n                    <div class="info-item" style="grid-column: 1 / -1; background: ' + goldBg + '; border-radius: 8px; padding: 8px; border: 1px solid ' + goldColor + '33;">\n                        <div class="label" style="color:' + goldColor + ';">👑 Creator Badge</div>\n                        <div class="value" style="font-size:14px; color:' + goldColor + ';">' + SPECIAL_NOTE + '</div>\n                    </div>\n                    ' : '') + '\n                    ' + (showSpecialIndicator && !showCreatorBadge ? '\n                    <div class="info-item" style="grid-column: 1 / -1; background: ' + goldBg + '; border-radius: 8px; padding: 8px; border: 1px solid ' + goldColor + '33;">\n                        <div class="label" style="color:' + goldColor + ';">✨ Special Theme</div>\n                        <div class="value" style="font-size:14px; color:' + goldColor + ';">🌟 Premium Gold Edition</div>\n                    </div>\n                    ' : '') + '\n                ';
             }
 
             updateCacheUI();
@@ -2296,10 +2509,10 @@
                 startCooldown();
             }
         }
-        
+
+        // PNG Download function
         function downloadPNG() {
             if (!currentSVG || !currentUserData) {
-           
                 showStatus('⚠️ No card to download as PNG', 'error');
                 return;
             }
@@ -2344,6 +2557,7 @@
                 var isLunar = currentTheme === 'lunar';
                 var isOcean = currentTheme === 'ocean';
                 var isSunset = currentTheme === 'sunset';
+                var isSpecialTheme = currentTheme === 'special';
 
                 if (isLight) {
                     ctx.fillStyle = '#ffffff';
@@ -2360,12 +2574,13 @@
                 } else if (isSunset) {
                     ctx.fillStyle = '#1a0e0a';
                     ctx.fillRect(0, 0, width, height);
+                } else if (isSpecialTheme) {
+                    ctx.fillStyle = '#1a0a0a';
+                    ctx.fillRect(0, 0, width, height);
                 }
 
                 var avatarImg = clonedSvg.querySelector('image');
                 if (avatarImg) {
-                    var x = parseInt(avatarImg.getAttribute('x')) || 32;
-                    var y = parseInt(avatarImg.getAttribute('y')) || 32;
                     var imgWidth = parseInt(avatarImg.getAttribute('width')) || 96;
                     var imgHeight = parseInt(avatarImg.getAttribute('height')) || 96;
                     var clipPath = avatarImg.getAttribute('clip-path');
@@ -2435,6 +2650,7 @@
                 var isLunar = currentTheme === 'lunar';
                 var isOcean = currentTheme === 'ocean';
                 var isSunset = currentTheme === 'sunset';
+                var isSpecialTheme = currentTheme === 'special';
 
                 if (isLight) {
                     ctx.fillStyle = '#ffffff';
@@ -2450,6 +2666,9 @@
                     ctx.fillRect(0, 0, width, height);
                 } else if (isSunset) {
                     ctx.fillStyle = '#1a0e0a';
+                    ctx.fillRect(0, 0, width, height);
+                } else if (isSpecialTheme) {
+                    ctx.fillStyle = '#1a0a0a';
                     ctx.fillRect(0, 0, width, height);
                 }
 
@@ -2485,9 +2704,8 @@
 
             img.src = avatarUrl;
         }
-    
 
-
+        // Event Listeners
         copyBtn.addEventListener('click', function() {
             if (!currentSVG) {
                 showStatus('⚠️ No card to copy', 'error');
@@ -2559,7 +2777,7 @@
             }
         });
 
-
+        // URL Parameter Support
         function getUrlParameter(name) {
             name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
             var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -2582,6 +2800,7 @@
             }, 50);
         }
 
+        // Initialization
         var isGenerated = false;
 
         function initialize() {
@@ -2630,9 +2849,9 @@
         console.log('🎨 Change theme: debug.setTheme("default" | "special" | "light" | "forest" | "lunar" | "ocean" | "sunset")');
         console.log('🖼️ Download PNG: debug.downloadPNG()');
         console.log('🌊 Ocean and 🌅 Sunset themes added!');
-        console.log('✨ Special theme no longer shows "Special Theme Edition" badge - only dryfish09 gets the creator badge!');
+        console.log('✨ Special theme now has premium gold appearance!');
+        console.log('📌 Special theme badge only shows for dryfish09 user');
         // ]]>
     </script>
-
 </body>
 </html>
